@@ -26,6 +26,12 @@ array.forEach(element => {
   cardTitle.appendChild(cardTitleHeader);
   cardTitleHeader.appendChild(text);
 });
+
+const cart = document.getElementsByClassName(
+  "material-icons mdl-badge mdl-badge--overlap"
+);
+cart[0].setAttribute("data-badge", array.length);
+
 /*
 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title">
