@@ -1,3 +1,19 @@
 #cards {
   margin: 0 auto;
 }
+
+.material-icons.mdl-badge.mdl-badge--overlap {
+  font-size: 200%;
+  color: black;
+  text-decoration: none;
+}
+
+/*Important, otherwise cards overlap*/
+.mdl-cell {
+  display: flex;
+}
+/*Important, otherwise cards overlap*/
+.mdl-card {
+  width: auto;
+  flex: 1;
+}
