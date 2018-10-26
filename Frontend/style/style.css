@@ -8,6 +8,13 @@
   text-decoration: none;
 }
 
+.mdl-layout__header {
+  height: 20%;
+}
+#cards {
+  padding: 3%;
+}
+
 /*Important, otherwise cards overlap*/
 .mdl-cell {
   display: flex;
