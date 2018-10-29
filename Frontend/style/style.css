@@ -1,18 +1,26 @@
-#cards {
+#products {
   margin: 0 auto;
+  padding: 3%;
 }
 
+/*.mdl-dialog {
+  width: 500px !important;
+}*/
+
+.thumbnail {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+#button_add,
+#button_remove {
+  margin-left: 5px !important;
+}
 .material-icons.mdl-badge.mdl-badge--overlap {
   font-size: 200%;
   color: black;
   text-decoration: none;
-}
-
-.mdl-layout__header {
-  height: 20%;
-}
-#cards {
-  padding: 3%;
 }
 
 /*Important, otherwise cards overlap*/

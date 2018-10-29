@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-green.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
@@ -29,21 +29,65 @@
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="material-icons mdl-badge mdl-badge--overlap" data-badge="1" href="www.google.be">shopping_cart</a>
+
+                    <!-- cart button that opens the cart dialog -->
+                    <button id="cart-button" class="material-icons mdl-badge mdl-badge--overlap" data-badge="1">shopping_cart</button>
+                    <dialog class="mdl-dialog">
+                        <h4 class="mdl-dialog__title">Shopping Cart</h4>
+                        <div id="cart-content" class="mdl-dialog__content">
+                            <div class="demo-list-action mdl-list">
+                                <div class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+
+                                        <img class="thumbnail" src="img/cheese.jpg" alt="cheese">
+                                        <span>Bryan Cranston</span>
+                                    </span>
+                                    <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+                                </div>
+                                <div class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+                                        <i class="material-icons mdl-list__item-avatar">person</i>
+                                        <span>Aaron Paul</span>
+                                    </span>
+                                    <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+                                </div>
+                                <div class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+                                        <i class="material-icons mdl-list__item-avatar">person</i>
+                                        <span>Bob Odenkirk</span>
+                                    </span>
+                                    <span class="mdl-list__item-secondary-content">
+                                        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdl-dialog__actions">
+                            <button type="button" class="mdl-button close">Checkout</button>
+                        </div>
+                    </dialog>
                 </nav>
             </div>
         </header>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button>
+        <div id="cart"></div>
+
+        <!--Dynamically add products-->
+        <div id="products"></div>
 
 
-        <div id="cards"></div>
+
+</body>
 
 
 
 
-    </div>
+</div>
 
 
-    <script src="StoreCenter.js"></script>
+<script src="app.js"></script>
 </body>
 
 
