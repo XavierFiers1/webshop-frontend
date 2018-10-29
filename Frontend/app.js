@@ -24,7 +24,7 @@ array.forEach(element => {
   cardTitleHeader.classList.add("mdl-card__title-text");
   const text = document.createTextNode(element);
   const card_content = document.createElement("div");
-  card_content.classList.add("mdl-card__supporting-text");
+  card_content.classList.add("mdl-card__supporting-text", "mdl-card--border");
   const card_content_text = document.createTextNode(
     "test test test test test "
   );
@@ -34,12 +34,17 @@ array.forEach(element => {
   button_add.classList.add(
     "mdl-button",
     "mdl-js-button",
-    "mdl-button--fab",
-    "mdl-button--colored"
+    "mdl-js-ripple-effect"
   );
+  let amount = 0;
   button_add.addEventListener("click", function() {
+    amount++;
     console.log("clicked");
     myCart.push(element);
+    label_input.removeChild(label_input_text);
+    label_input_text = document.createTextNode(amount);
+    label_input.appendChild(label_input_text);
+    console.log(amount);
     console.log(myCart);
   });
   button_add.id = "button_add";
@@ -52,8 +57,7 @@ array.forEach(element => {
   button_remove.classList.add(
     "mdl-button",
     "mdl-js-button",
-    "mdl-button--fab",
-    "mdl-button--colored"
+    "mdl-js-ripple-effect"
   );
   button_remove.addEventListener("click", function() {
     let index = myCart.findIndex(item => item === element);
@@ -66,9 +70,29 @@ array.forEach(element => {
 
   const icon_remove_text = document.createTextNode("remove");
 
+  //form field between buttons:
+  const form_amount = document.createElement("form");
+  form_amount.id = "product_amount";
+  form_amount.action = "#";
+  const textfield_amount = document.createElement("div");
+  textfield_amount.classList.add("mdl-textfield", "mdl-js-textfield");
+  const input_amount = document.createElement("input");
+  input_amount.classList.add("mdl-textfield__input");
+  input_amount.id = "inputerror";
+  input_amount.type = "text";
+  input_amount.pattern = "-?[0-9]*(.[0-9]+)?";
+  let label_input = document.createElement("label");
+  label_input.classList.add("mdl-textfield__label");
+  label_input.id = "input_amount";
+  label_input.setAttribute("for", "inputerror");
+  let label_input_text = document.createTextNode("");
+  const span_input = document.createElement("span");
+  span_input.classList.add("mdl-textfield__error");
+  const input_errorText = document.createTextNode("Input is not a number!");
+
   //card footer:
   const card_footer = document.createElement("div");
-  card_footer.classList.add("mdl-card__actions", "mdl-card--border");
+  card_footer.classList.add("mdl-card__supporting-text");
 
   //card DOM buildup:
   colElement.appendChild(card);
@@ -79,15 +103,21 @@ array.forEach(element => {
   card_content.appendChild(card_content_text);
   card.appendChild(card_footer);
 
-  //add buttons
-  const buttons_div = document.createElement("div");
-  buttons_div.id = "buttons_div";
-  card_footer.appendChild(buttons_div);
-  buttons_div.appendChild(button_add);
-  buttons_div.appendChild(button_remove);
+  //add button and input
+
+  card_footer.appendChild(button_add);
+  card_footer.appendChild(form_amount);
+  card_footer.appendChild(button_remove);
 
   button_add.appendChild(icon_add);
   icon_add.appendChild(icon_add_text);
+
+  form_amount.appendChild(textfield_amount);
+  textfield_amount.appendChild(input_amount);
+  textfield_amount.appendChild(label_input);
+  label_input.appendChild(label_input_text);
+  textfield_amount.appendChild(span_input);
+  span_input.appendChild(input_errorText);
 
   button_remove.appendChild(icon_remove);
   icon_remove.appendChild(icon_remove_text);

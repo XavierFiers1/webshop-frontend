@@ -13,10 +13,28 @@
   margin-right: 16px;
 }
 
+#buttons_div {
+  display: inline;
+}
+
 #button_add,
 #button_remove {
   margin-left: 5px !important;
+  margin-right: 5px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  border: 2px solid black;
 }
+#button_add:hover,
+#button_remove:hover {
+  background-color: black;
+  color: white;
+}
+form {
+  width: 25px;
+  display: inline-block;
+}
+
 .material-icons.mdl-badge.mdl-badge--overlap {
   font-size: 200%;
   color: black;
