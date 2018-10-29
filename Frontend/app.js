@@ -23,6 +23,11 @@ array.forEach(element => {
   const cardTitleHeader = document.createElement("h2");
   cardTitleHeader.classList.add("mdl-card__title-text");
   const text = document.createTextNode(element);
+  const card_content = document.createElement("div");
+  card_content.classList.add("mdl-card__supporting-text");
+  const card_content_text = document.createTextNode(
+    "test test test test test "
+  );
 
   //button add
   const button_add = document.createElement("button");
@@ -65,10 +70,13 @@ array.forEach(element => {
   const card_footer = document.createElement("div");
   card_footer.classList.add("mdl-card__actions", "mdl-card--border");
 
+  //card DOM buildup:
   colElement.appendChild(card);
   card.appendChild(cardTitle);
   cardTitle.appendChild(cardTitleHeader);
   cardTitleHeader.appendChild(text);
+  card.appendChild(card_content);
+  card_content.appendChild(card_content_text);
   card.appendChild(card_footer);
 
   //add buttons
