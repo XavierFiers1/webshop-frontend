@@ -2,7 +2,7 @@
 
 let array = ["cow", "milk", "cheese"];
 
-let myCart = [];
+let myCart = [{}];
 
 const products = document.getElementById("products");
 const gridElement = document.createElement("div");
@@ -37,10 +37,17 @@ array.forEach(element => {
     "mdl-js-ripple-effect"
   );
   let amount = 0;
+
+  //button Add clickEvent
   button_add.addEventListener("click", function() {
     amount++;
-    console.log("clicked");
-    myCart.push(element);
+
+    var index = myCart.findIndex(item => item.product === element);
+    console.log(index);
+    if (index === -1) {
+      myCart.push({ product: element, amount: amount });
+    } else myCart[index] = { product: element, amount: amount };
+
     label_input.removeChild(label_input_text);
     label_input_text = document.createTextNode(amount);
     label_input.appendChild(label_input_text);
@@ -52,16 +59,21 @@ array.forEach(element => {
   icon_add.classList.add("material-icons");
   const icon_add_text = document.createTextNode("add");
 
-  //button remove
+  //button Remove
   const button_remove = document.createElement("button");
   button_remove.classList.add(
     "mdl-button",
     "mdl-js-button",
     "mdl-js-ripple-effect"
   );
+  //button Remove Clickevent
   button_remove.addEventListener("click", function() {
-    let index = myCart.findIndex(item => item === element);
-    if (index >= 0) myCart.splice(index, 1);
+    let index = myCart.findIndex(item => item.product === element);
+    if (index >= 0) myCart[index] = { product: element, amount: --amount };
+    label_input.removeChild(label_input_text);
+    label_input_text = document.createTextNode(amount);
+    label_input.appendChild(label_input_text);
+    console.log(index);
     console.log(myCart);
   });
   button_remove.id = "button_remove";
