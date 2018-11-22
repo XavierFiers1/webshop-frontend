@@ -3,9 +3,48 @@
   padding: 3%;
 }
 
-/*.mdl-dialog {
-  width: 500px !important;
-}*/
+body {
+  background: #f0f9fc;
+}
+.banner {
+  width: 100%;
+}
+
+section {
+  margin: 0 auto;
+  color: #94c817;
+  background: white;
+  border-radius: 5px;
+  width: 60%;
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+}
+
+#searchField {
+  text-align: center;
+  margin: 0 auto;
+  color: #94c817;
+  background: white;
+  border-radius: 5px;
+  width: 60%;
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+  height: 15%;
+}
+/*products card layout*/
+.mdl-card__title-text {
+  color: #94c817 !important;
+}
+
+.mdl-card__supporting-text > img {
+  width: 50%;
+}
+
+.mdl-card--border {
+  background: #ff007f !important;
+}
+
+.mdl-card__actions {
+  color: white !important;
+}
 
 .thumbnail {
   width: 50px;
@@ -30,11 +69,10 @@
   background-color: black;
   color: white;
 }
-form {
-  width: 25px;
-  display: inline-block;
-}
 
+.mdl-grid {
+  text-align: center;
+}
 .material-icons.mdl-badge.mdl-badge--overlap {
   font-size: 200%;
   color: black;
@@ -50,3 +88,19 @@ form {
   width: auto;
   flex: 1;
 }
+
+.mdl-chip {
+  width: auto;
+  flex: 1;
+  color: white !important;
+  background: rgb(105, 145, 19) !important;
+}
+
+.mdl-chip:hover {
+  background: #94c817 !important;
+}
+.chipToggle {
+  background: #94c817 !important;
+}
+
+/*#94c817*/
