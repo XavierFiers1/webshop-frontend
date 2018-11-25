@@ -15,45 +15,80 @@ section {
   color: #94c817;
   background: white;
   border-radius: 5px;
-  width: 60%;
+  width: 65%;
   box-shadow: 0px 1px 1.5px 1px #cccccc;
 }
 
+/*section should be wider on phone screens*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  section {
+    margin: 0 auto;
+    color: #94c817;
+    background: white;
+    border-radius: 5px;
+    width: 80%;
+    box-shadow: 0px 1px 1.5px 1px #cccccc;
+  }
+}
+/*overrule weird padding rule*/
+.mdl-layout__header-row {
+  padding: 0 !important;
+  padding-left: 10px !important;
+}
 #searchField {
   text-align: center;
   margin: 0 auto;
   color: #94c817;
   background: white;
-  border-radius: 5px;
-  width: 60%;
-  box-shadow: 0px 1px 1.5px 1px #cccccc;
-  height: 15%;
 }
 /*products card layout*/
 .mdl-card__title-text {
-  color: #94c817 !important;
+  text-align: left !important;
 }
 
-.mdl-card__supporting-text > img {
-  width: 50%;
+.productTitle {
+  color: #7e7e7e !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+.brandTitle {
+  font-size: 16px !important;
+}
+.priceTitle {
+  font-size: 15px !important;
+  float: left !important;
+}
+.unitTitle {
+  font-size: 15px !important;
+  float: right !important;
+}
+.mdl-card__title {
+  padding: 0 !important;
+}
+.mdl-card__title > img {
+  text-align: center;
+
+  margin: 0 auto;
+  width: 80%;
+}
+.mdl-card__supporting-text {
+  padding: 3px !important;
 }
 
 .mdl-card--border {
-  background: #ff007f !important;
+  background: #94c817 !important;
 }
 
 .mdl-card__actions {
   color: white !important;
 }
 
-.thumbnail {
-  width: 50px;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
 #buttons_div {
   display: inline;
+}
+
+.addProduct {
+  border-radius: 0 0 1px 1px !important;
 }
 
 #button_add,
@@ -94,6 +129,10 @@ section {
   flex: 1;
   color: white !important;
   background: rgb(105, 145, 19) !important;
+}
+.mdl-chip__text {
+  overflow: hidden;
+  width: 50px;
 }
 
 .mdl-chip:hover {
