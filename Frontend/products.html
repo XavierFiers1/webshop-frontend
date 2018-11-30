@@ -19,53 +19,53 @@
 
   <body>
     <div
-      class="mdl-layout mdl-js-layout mdl-layout--fixed-header   mdl-layout--no-desktop-drawer-button"
+      class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button"
     >
       <header class="mdl-layout__header mdl-layout__header--scroll">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout__title">Material Design Lite</span>
+          <span class="mdl-layout__title">Aalborg Storcenter Pickup</span>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="#">Shopping cart</a>
-
-            <button
+            <a
+              href="http://www.google.com"
+              id="cart-button"
+              class="material-icons mdl-badge mdl-badge--overlap"
+            >
+              person
+            </a>
+            <a
+              href="www.google.com"
               id="cart-button"
               class="material-icons mdl-badge mdl-badge--overlap"
               data-badge="1"
             >
               shopping_cart
-            </button>
+            </a>
           </nav>
         </div>
       </header>
-      <div class="mdl-layout__drawer ">
-        <span class="mdl-layout__title">Aalborg Storcenter</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="#">Shopping cart</a>
-        </nav>
-      </div>
 
       <main class="mdl-layout__content">
         <div class="page-content">
           <img class="banner" src="img/banner.jpg" /> <br />
           <br />
 
-          <form id="searchField" action="#">
-            <div class="mdl-textfield mdl-js-textfield">
-              <input
-                class="mdl-textfield__input"
-                type="text"
-                id="productSearch"
-              />
-              <label class="mdl-textfield__label" for="productSearch">
-                <i class="material-icons">search</i>
-              </label>
-            </div>
-          </form>
-
           <br />
+
           <section class="products">
-            <h3>Products</h3>
+            <form id="searchField" action="#">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input
+                  class="mdl-textfield__input"
+                  type="text"
+                  id="productSearch"
+                />
+                <label class="mdl-textfield__label" for="productSearch">
+                  <i class="material-icons">search</i>
+                </label>
+              </div>
+            </form>
+
             <div class="mdl-grid" id="categories"></div>
             <div class="mdl-grid" id="products"></div>
           </section>
