@@ -1,3 +1,4 @@
+// "use strict";
 // show cart
 
 let productsArray = [
@@ -120,15 +121,15 @@ productsArray.forEach(p => {
 
 //append the categories to the html:
 
-const categoriesHTML = document.querySelector("#categories");
-categoriesHTML.innerHTML = categories.map(createCategories).join("");
-function createCategories(category) {
-  return `<div class="mdl-cell mdl-cell--2-col">
-  <button data-filterbtn="${category}" type="button" data-filterswitch="false" class="mdl-chip" id="filterButtons">
-    <span data-filterbtn="${category}" class="mdl-chip__text">${category}</span>
-  </button></div>
-`;
-}
+// const categoriesHTML = document.querySelector("#categories");
+// categoriesHTML.innerHTML = categories.map(createCategories).join("");
+// function createCategories(category) {
+//   return `<div class="mdl-cell mdl-cell--2-col">
+//   <button data-filterbtn="${category}" type="button" data-filterswitch="false" class="mdl-chip" id="filterButtons">
+//     <span data-filterbtn="${category}" class="mdl-chip__text">${category}</span>
+//   </button></div>
+// `;
+// }
 
 //here we query for the category buttons instead of adding onclick in html
 //so that we can use event.preventDefault();
@@ -201,7 +202,8 @@ filterButtons.forEach(function(btn) {
 /*************************/
 /*************************/
 (function() {
-  const searchbar = document.getElementById("productSearch");
+  if (document.getElementById("productSearch")) {
+    const searchbar = document.getElementById("productSearch");
 
   searchbar.addEventListener("keyup", function() {
     let value = searchbar.value.toLowerCase().trim();
@@ -221,6 +223,7 @@ filterButtons.forEach(function(btn) {
       }
     });
   });
+  }
 })();
 
 /******************************/
@@ -235,9 +238,11 @@ const products = document.querySelector("#products");
 let noPromotionProducts = productsArray.filter(
   product => product.promotion === 0
 );
+if (document.querySelector("#products")) {
+  //now map them into the innerHTML
+  products.innerHTML = noPromotionProducts.map(createProducts).join("");
+}
 
-//now map them into the innerHTML
-products.innerHTML = noPromotionProducts.map(createProducts).join("");
 
 function createProducts(product) {
   //notice the product "class" in first div. This is used
@@ -353,7 +358,7 @@ Also, if there are some items in storage, show the right buttons accordingly!
       btn.style.display = "none";
 
       /////snackbar logic///////
-      ("use strict");
+      
       let snackbarContainer = document.querySelector("#theToast");
       var data = { message: "Added " + productName + " to grocery Bag!" };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);

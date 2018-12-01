@@ -1,3 +1,65 @@
+/* CUSTOM HELPERS */
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}
+.align-right {
+  text-align: right !important;
+}
+.hvr-backward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-backward:hover, .hvr-backward:focus, .hvr-backward:active {
+  -webkit-transform: translateX(-8px);
+  transform: translateX(-8px);
+}
+.hvr-forward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-forward:hover, .hvr-forward:focus, .hvr-forward:active {
+  -webkit-transform: translateX(8px);
+  transform: translateX(8px);
+}
+/* put on parent element */
+.valign-center {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center !important;
+}
+.img.reposition.cover {
+  width: 100%;
+  object-fit: cover;
+}
+.img.reposition {
+  position: absolute;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+/* END CUSTOM HELPERS */
 #products {
   margin: 0 auto;
   padding: 3%;
@@ -33,7 +95,8 @@ section {
 /*overrule weird padding rule*/
 .mdl-layout__header-row {
   padding: 0 !important;
-  padding-left: 10px !important;
+  padding-left: 2rem !important;
+  padding-right: 1.5rem !important;
 }
 #searchField {
   text-align: center;
@@ -114,9 +177,11 @@ section {
   text-align: center;
 }
 .material-icons.mdl-badge.mdl-badge--overlap {
-  font-size: 200%;
-  color: black;
+  font-size: 250%;
+  color: white;
   text-decoration: none;
+  padding-right: .5rem;
+  padding-left: .5rem;
 }
 
 /*Important, otherwise cards overlap*/
@@ -317,8 +382,12 @@ section {
 .mdl-mega-footer {
   background-color: #2196f3 !important;
   color: white;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
-
+.mdl-mega-footer .mdl-grid {
+  padding: 0 !important;
+}
 .footerlogo {
   width: 50%;
 }
