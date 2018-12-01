@@ -1,0 +1,157 @@
+section {
+  margin: 0 auto;
+  color: #94c817;
+  background: white;
+  border-radius: 3px;
+  width: 90%;
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+}
+
+/*section should be wider on phone screens*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  section {
+    margin: 0 auto;
+    color: #94c817;
+    background: white;
+    border-radius: 5px;
+    width: 95%;
+    box-shadow: 0px 1px 1.5px 1px #cccccc;
+  }
+}
+
+/*overrule weird padding rule*/
+.mdl-layout__header-row {
+  padding: 0 !important;
+  padding-left: 10px !important;
+}
+.mdl-grid {
+  text-align: center;
+}
+
+/*Important, otherwise cards overlap*/
+.mdl-cell {
+  display: flex;
+}
+/*Important, otherwise cards overlap*/
+.mdl-card {
+  width: auto;
+  flex: 1;
+}
+
+/*Book a table*/
+
+.booktablecard {
+  display: inline-block;
+  border-radius: 3px;
+  width: 100%;
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+}
+
+.restaurants > .mdl-grid {
+  padding: 20px;
+}
+
+.booktablecard > .mdl-grid {
+  padding: 0;
+}
+
+.booktablecard > .mdl-grid > .mdl-cell {
+  margin: 0;
+}
+.booktablecard > .mdl-grid > .mdl-cell--4-col {
+  width: calc(33.3333333333%);
+}
+.booktablecard > .mdl-grid > .mdl-cell--5-col {
+  width: calc(41.6666666667%);
+}
+.booktablecard > .mdl-grid > .mdl-cell--7-col {
+  width: calc(58.3333333333%);
+}
+.booktablecard > .mdl-grid > .mdl-cell--8-col {
+  width: calc(66.6666666667%);
+}
+
+.booktablethumbnail {
+  height: 40%;
+  width: 100%;
+  margin: 0;
+}
+
+.booktabletext {
+  position: relative;
+  width: 100%;
+  float: left;
+  color: #4d4d4d;
+}
+
+.booktableTitle {
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: left;
+  margin: 10 10 10 10;
+}
+
+.booktableSubTitle {
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+  margin: 10 10 0 10;
+}
+.booktablecontent {
+  font-size: 12px;
+  text-align: left;
+  margin: 0 0 -10 10;
+}
+.booktablecontent2nd {
+  font-size: 12px;
+  text-align: left;
+  margin: 0 10;
+}
+
+.booktableButton {
+  width: 80%;
+  color: white !important;
+  background-color: #94c817 !important;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 750px) {
+  .restaurants > .mdl-grid {
+    padding: 0;
+  }
+  .booktablethumbnail {
+    float: left;
+    height: 35%;
+    width: 100%;
+  }
+  .booktableTitle {
+    font-size: 13px;
+    text-align: left;
+    margin: 0 10;
+  }
+  .booktableSubTitle {
+    font-size: 10px;
+    text-align: left;
+    margin: 0 10;
+  }
+
+  .booktablehours {
+    text-align: left;
+    font-size: 8px;
+    margin: 0;
+  }
+
+  .booktablecard > .mdl-grid > .mdl-cell--4-col {
+    width: calc(41.6666666667%);
+  }
+  .booktablecard > .mdl-grid > .mdl-cell--5-col {
+    width: calc(41.6666666667%);
+  }
+  .booktablecard > .mdl-grid > .mdl-cell--7-col {
+    width: calc(58.3333333333%);
+  }
+  .booktablecard > .mdl-grid > .mdl-cell--8-col {
+    width: calc(58.3333333333%);
+  }
+}
