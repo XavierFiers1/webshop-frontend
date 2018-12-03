@@ -30,11 +30,7 @@ section {
     box-shadow: 0px 1px 1.5px 1px #cccccc;
   }
 }
-/*overrule weird padding rule*/
-.mdl-layout__header-row {
-  padding: 0 !important;
-  padding-left: 10px !important;
-}
+
 #searchField {
   text-align: center;
   margin: 0 auto;
@@ -113,11 +109,7 @@ section {
 .mdl-grid {
   text-align: center;
 }
-.material-icons.mdl-badge.mdl-badge--overlap {
-  font-size: 200%;
-  color: black;
-  text-decoration: none;
-}
+
 
 /*Important, otherwise cards overlap*/
 .mdl-cell {

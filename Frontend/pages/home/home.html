@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title></title>
+  <title>Bigcenter</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="home.css" />
@@ -21,38 +21,70 @@
         <span class="mdl-layout__title">Aalborg Storcenter Pickup</span>
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
-          <a href="./grocerybag.html" id="cartButton" class="material-icons mdl-badge mdl-badge--overlap" data-badge="0">
+          <a href="/Frontend/pages/grocery/grocerybag.html" id="cartButton" class="material-icons mdl-badge mdl-badge--overlap" data-badge="0">
             shopping_cart
           </a>
-          <a href="" id="profileButton" class="material-icons mdl-badge mdl-badge--overlap">
+          <a id="profileButton" type="button" class="material-icons mdl-badge mdl-badge--overlap">
             person
           </a>
         </nav>
       </div>
     </header>
     <!-- END TOPBAR -->
-
+    
+      <dialog id="auth" class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Sign up</h4>
+        <div class="mdl-dialog__content">
+          <form action="javascript:showToast(); dialog.close()" style="border:1px solid #ccc">
+            <div class="container"> 
+              <p>Please fill in this form to create an account.</p>
+              <hr>
+          
+              <label for="email"><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" name="email" required>
+          
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+          
+              <label for="psw-repeat"><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+          
+              <label>
+                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+              </label>
+          
+              <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+          
+              <div class="clearfix">
+                <button type="button" class="cancelbtn close">Cancel</button>
+                <button type="submit" class="signupbtn close">Sign Up</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </dialog>
+     
+    
     <!-- MAIN CONTENT -->
     <main class="mdl-layout__content">
       <div class="mdl-grid crossroad">
-        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-backward" onclick="window.location = '/Frontend/products.html'">
+        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-backward" onclick="window.location = '/Frontend/pages/products/products.html'">
           <div id="grocery" class="card-image mdl-card mdl-shadow--2dp valign-center">
-
-
-            <h1 class="">Shop groceries</h1>
-
+            <h1 class="align-center">Shop groceries</h1>
           </div>
         </div>
-        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-forward">
+        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-forward " onclick="window.location = '/Frontend/pages/booktable/booktable.html'">
           <div id="booking" class="card-image mdl-card mdl-shadow--2dp valign-center">
-
-            <h1 class="">Book a table</h1>
-
+            <h1 class="align-center">Book a table</h1>
           </div>
         </div>
       </div>
     </main>
     <!-- END MAIN CONTENT -->
+    <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+      <div class="mdl-snackbar__text"></div>
+      <button type="button" class="mdl-snackbar__action"></button>
+  </div>
     <!-- FOOTER -->
     <footer class="mdl-mega-footer">
       <div class="mdl-mega-footer__middle-section">
@@ -82,6 +114,5 @@
   </div>
 </body>
 <!-- SCRIPTS -->
-<script src="../../app.js"></script>
-
+<script src="/Frontend/app.js"></script>
 </html>

@@ -9,7 +9,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Produce",
-    img: "./img/apple1.jpg",
+    img: "/Frontend/img/apple1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -23,7 +23,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Nuts",
-    img: "./img/nuts1.jpg",
+    img: "/Frontend/img/nuts1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -37,7 +37,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Produce",
-    img: "./img/banana1.jpg",
+    img: "/Frontend/img/banana1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -51,7 +51,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Nutrition",
-    img: "./img/cliff1.jpg",
+    img: "/Frontend/img/cliff1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -65,7 +65,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Chips, snacks & cookies",
-    img: "./img/lays1.jpg",
+    img: "/Frontend/img/lays1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -79,7 +79,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Chips, snacks & cookies",
-    img: "./img/peeledmango1.jpg",
+    img: "/Frontend/img/peeledmango1.jpg",
     promotion: 0,
     highlight: 0
   },
@@ -93,7 +93,7 @@ let productsArray = [
     promotionPrice: "",
     extraInfo: "",
     category: "Dairy",
-    img: "./img/philadelphiaOriginal.jpg",
+    img: "/Frontend/img/philadelphiaOriginal.jpg",
     promotion: 0,
     highlight: 0
   }
