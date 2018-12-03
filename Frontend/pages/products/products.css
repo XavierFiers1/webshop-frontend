@@ -8,6 +8,12 @@ body {
 }
 .banner {
   width: 100%;
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+  margin-bottom: 3rem;
 }
 
 section {
@@ -140,31 +146,3 @@ section {
 }
 
 /*#94c817*/
-
-/*footer*/
-
-.mdl-mega-footer {
-  background-color: #2196f3 !important;
-  color: white;
-}
-
-.footerlogo {
-  width: 50%;
-}
-.mdl-mega-footer__heading {
-  margin: 0;
-  padding: 0 !important;
-}
-.footerRight {
-  /*width: 75% !important;
-    float: left;
-    text-align: right;
-    display: inline;*/
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 750px) {
-  .footerRight {
-    width: 100% !important;
-    text-align: left;
-  }
-}

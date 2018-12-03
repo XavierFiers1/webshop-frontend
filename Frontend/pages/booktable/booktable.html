@@ -15,23 +15,9 @@
 
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
-    <header class="mdl-layout__header mdl-layout__header--scroll">
-      <div class="mdl-layout__header-row">
-        <a href="/Frontend/index.html">
-          <span class="mdl-layout__title">Aalborg Storcenter Pickup</span>
-        </a>
-        <div class="mdl-layout-spacer"></div>
-        <nav class="mdl-navigation">
-          <a onclick="authenticate()" id="cart-button" class="material-icons mdl-badge mdl-badge--overlap">
-            person
-          </a>
-          <a href="./grocerybag.html" id="cart-button" class="material-icons mdl-badge mdl-badge--overlap" data-badge="0">
-            shopping_cart
-          </a>
-        </nav>
-      </div>
-    </header>
-
+    <!-- TOPBAR -->
+    <header id="topbarContainer" class="mdl-layout__header "></header>
+    <!-- END TOPBAR -->
     <main class="mdl-layout__content">
       <div class="page-content">
         <img class="banner" src="../../img/bannerTable.jpg" /> <br />
@@ -150,33 +136,10 @@
 
         <br />
       </div>
-      <!-- footer -->
-      <footer class="mdl-mega-footer">
-        <div class="mdl-mega-footer__middle-section">
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col">
-              <div class="mdl-mega-footer__drop-down-section">
-                <h1 class="mdl-mega-footer__heading">In cooperation with:</h1>
-                <img class="footerlogo" src="../../img/bilkalogo.png" />
-              </div>
-            </div>
-
-            <div class="mdl-cell mdl-cell--6-col">
-              <div class="footerRight mdl-mega-footer__drop-down-section">
-                <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked />
-                <h1 class="mdl-mega-footer__heading">Opening hours Bilka</h1>
-                <ul class="mdl-mega-footer__link-list">
-                  Monday - Saturday: 09:00 - 00:00
-                </ul>
-                <ul class="mdl-mega-footer__link-list">
-                  test
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </main>
+    <!-- FOOTER -->
+    <footer id="footerContainer" class="mdl-mega-footer"></footer>
+    <!-- END FOOTER -->
   </div>
   <script src="/Frontend/app.js"></script>
 </body>
