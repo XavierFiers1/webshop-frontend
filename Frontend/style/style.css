@@ -1,0 +1,105 @@
+/* CUSTOM HELPERS */
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}
+.align-right {
+  text-align: right !important;
+}
+.hvr-backward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-backward:hover, .hvr-backward:focus, .hvr-backward:active {
+  -webkit-transform: translateX(-8px);
+  transform: translateX(-8px);
+}
+.hvr-forward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-forward:hover, .hvr-forward:focus, .hvr-forward:active {
+  -webkit-transform: translateX(8px);
+  transform: translateX(8px);
+}
+/* put on parent element */
+.valign-center {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center !important;
+}
+
+/* END CUSTOM HELPERS */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+.mdl-layout__header-row {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+header a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+.material-icons.mdl-badge.mdl-badge--overlap:hover {
+  transition: 200ms;
+  color: rgb(202, 202, 202);
+}
+.material-icons.mdl-badge.mdl-badge--overlap {
+  font-size: 250%;
+  color: white;
+  text-decoration: none;
+}
+.mdl-mega-footer {
+  background-color: #2196f3 !important;
+  color: white;
+}
+
+.footerlogo {
+  width: 50%;
+}
+.mdl-mega-footer__heading {
+  margin: 0;
+  padding: 0 !important;
+}
+.footerRight {
+  /*width: 75% !important;
+    float: left;
+    text-align: right;
+    display: inline;*/
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 750px) {
+  .footerRight {
+    width: 100% !important;
+    text-align: left;
+  }
+}

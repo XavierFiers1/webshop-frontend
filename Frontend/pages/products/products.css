@@ -1,0 +1,148 @@
+#products {
+  margin: 0 auto;
+  padding: 3%;
+}
+
+body {
+  background: #f0f9fc;
+}
+.banner {
+  width: 100%;
+  /* display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+  margin-bottom: 3rem; */
+}
+
+section {
+  margin: 0 auto;
+  color: #94c817;
+  background: white;
+  border-radius: 3px;
+  width: 90%;
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+}
+
+/*section should be wider on phone screens*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  section {
+    margin: 0 auto;
+    color: #94c817;
+    background: white;
+    border-radius: 5px;
+    width: 95%;
+    box-shadow: 0px 1px 1.5px 1px #cccccc;
+  }
+}
+
+#searchField {
+  text-align: center;
+  margin: 0 auto;
+  color: #94c817;
+  background: white;
+}
+/*products card layout*/
+.mdl-card__title-text {
+  text-align: left !important;
+}
+
+.productTitle {
+  color: #7e7e7e !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+.brandTitle {
+  font-size: 16px !important;
+}
+.priceTitle {
+  font-size: 15px !important;
+  float: left !important;
+}
+.unitTitle {
+  font-size: 15px !important;
+  float: right !important;
+}
+.mdl-card__title {
+  padding: 0 !important;
+}
+.mdl-card__title > img {
+  text-align: center;
+
+  margin: 0 auto;
+  width: 80%;
+}
+.mdl-card__supporting-text {
+  padding: 3px !important;
+}
+
+.mdl-card--border {
+  background: #94c817 !important;
+}
+
+.mdl-card__actions {
+  color: white !important;
+}
+
+#buttons_div {
+  display: inline;
+}
+
+.cartButton {
+  border-radius: 0 0 1px 1px !important;
+}
+
+.plusMinusButtons {
+  padding: 0 !important;
+  display: none;
+}
+
+.plusminButton {
+  display: inline !important;
+  float: left;
+  color: white !important;
+  width: calc(33.3333333333%);
+}
+
+.productAmount {
+  float: left;
+  display: inline !important;
+  width: calc(33.3333333333%);
+  color: white !important;
+}
+
+.mdl-grid {
+  text-align: center;
+}
+
+
+/*Important, otherwise cards overlap*/
+.mdl-cell {
+  display: flex;
+}
+/*Important, otherwise cards overlap*/
+.mdl-card {
+  width: auto;
+  flex: 1;
+}
+
+.mdl-chip {
+  width: auto;
+  flex: 1;
+  color: white !important;
+  background: rgb(105, 145, 19) !important;
+}
+.mdl-chip__text {
+  overflow: hidden;
+  width: 50px;
+}
+
+.mdl-chip:hover {
+  background: #94c817 !important;
+}
+.chipToggle {
+  background: #94c817 !important;
+}
+
+/*#94c817*/
