@@ -2,28 +2,39 @@
 // Declarations
 let user;
 let notification = document.querySelector('.mdl-js-snackbar');
-let dialog = document.querySelector('dialog');
-let showDialogButton = document.querySelector('#profileButton');
+
 
 
 // init 
 loadTopbar();
 loadFooter();
-
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker
+//       .register('/sw.js')
+//       .then(function () { console.log("Service Worker Registered"); });
+// }
 // functions
 // Initialize Modals and listen for events, polyfill for fallbacks
 
+document.addEventListener('readystatechange', event => {
+  if (event.target.readyState === 'interactive') {
 
-if (!dialog.showModal) {
-  dialogPolyfill.registerDialog(dialog);
-}
+  }
+  else if (event.target.readyState === 'complete') {
+    let dialog = document.querySelector('dialog');
+    let showDialogButton = document.querySelector('#profileButton');
+    if (!dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
 
-showDialogButton.addEventListener('click', function () {
-  dialog.showModal();
-});
+    showDialogButton.addEventListener('click', function () {
+      dialog.showModal();
+    });
 
-dialog.querySelector('.close').addEventListener('click', function () {
-  dialog.close();
+    dialog.querySelector('.close').addEventListener('click', function () {
+      dialog.close();
+    });
+  }
 });
 
 function loadSection(url) {
@@ -61,6 +72,7 @@ function loadFooter(event) {
     console.warn(error);
   });
 }
+
 
 
 

@@ -1,0 +1,30 @@
+{
+    "short_name": "Pickcenter",
+    "name": "Aalborg Storcenter Pickup n Book",
+    "icons": [
+      {
+        "src": "/Frontend/img/apple1.jpg",
+        "type": "image/jpg",
+        "sizes": "325x325"
+      },
+      {
+        "src": "/Frontend/img/banana1.jpg",
+        "type": "image/jpg",
+        "sizes": "325x325"
+      },
+      {
+        "src": "/Frontend/assets/android-chrome-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+    },
+    {
+      "src": "/Frontend/assets/android-chrome-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+  }
+    ],
+    "start_url": "/Frontend/index.html",
+    "background_color": "#2196f3",
+    "display": "standalone",
+    "theme_color": "#2196f3"
+  }
