@@ -98,6 +98,76 @@ let productsArray = [
     img: "../../img/philadelphiaOriginal.jpg",
     promotion: 0,
     highlight: 0
+  },
+  {
+    name: "Chiquita banana",
+    subtitle: "",
+    brand: "",
+    weight: "",
+    unit: "/kg",
+    price: "3",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Produce",
+    img: "../../img/banana1.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Cliff Bar",
+    subtitle: "Chocolate Chip",
+    brand: "Cliff",
+    weight: "",
+    unit: "",
+    price: "6",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Nutrition",
+    img: "../../img/cliff1.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Lay's Classic",
+    subtitle: "Family Size",
+    brand: "Lay's",
+    weight: "",
+    unit: "",
+    price: "2,5",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Chips, snacks & cookies",
+    img: "../../img/lays1.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Peeled Snacks",
+    subtitle: "Organic Dried Mango",
+    brand: "Peeled Snacks",
+    weight: "",
+    unit: "",
+    price: "3,79",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Chips, snacks & cookies",
+    img: "../../img/peeledmango1.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Philadelphia",
+    subtitle: "Original",
+    brand: "Philadelphia",
+    weight: "",
+    unit: "",
+    price: "3,79",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Dairy",
+    img: "../../img/philadelphiaOriginal.jpg",
+    promotion: 1,
+    highlight: 0
   }
 ];
 
@@ -222,6 +292,52 @@ filterButtons.forEach(function(btn) {
     });
   });
 })();
+/******************************/
+/*******************************/
+/*****Generate promotion HTML*****/
+/******************************/
+/*****************************/
+
+const promotionProductsHTML = document.querySelector(".promotion");
+//first filter productArray to get promotion products:
+let promotionProducts = productsArray.filter(
+  product => product.promotion === 1
+);
+function chunkArrayInGroups(arr, size) {
+  let myArray = [];
+  for (var i = 0; i < arr.length; i += size) {
+    myArray.push(arr.slice(i, i + size));
+  }
+  return myArray;
+}
+//get the promotionArray and slice it in a two dim array with 4 columns
+let promotionPerFour = chunkArrayInGroups(promotionProducts, 4);
+
+//now map them into the innerHTML
+let promotionIndex = 0;
+promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
+  .map(createProducts)
+  .join("");
+
+var promotionColumnCode = 0;
+let backArrow = document.querySelector("#backArrow");
+backArrow.addEventListener("click", function(event) {
+  //on backarrowclick, go back in the promotionArray and show these items
+  promotionIndex--;
+  let temp = promotionIndex;
+  let size = promotionPerFour.length;
+  if (promotionIndex < 0) {
+    //modulo doesn't work with negatives : BUG
+    //so I make it positive and add the index to it (symmetry)
+    temp = (size + promotionIndex * -1) % size;
+  } else temp = promotionIndex % size;
+  promotionColumnCode = promotionPerFour[temp].length;
+  promotionProductsHTML.innerHTML = promotionPerFour[temp]
+    .map(createProducts)
+    .join("");
+  //get the length of the amount of products in the array in order to
+  //construct the column of the grid in case the array only has 3 2 or 1 elements
+});
 
 /******************************/
 /*******************************/
@@ -240,13 +356,29 @@ let noPromotionProducts = productsArray.filter(
 products.innerHTML = noPromotionProducts.map(createProducts).join("");
 
 function createProducts(product) {
+  let code = 3;
+  //if the last row in an array only contains 1 2 or 3 elements,
+  //change the column class accordingly
+  switch (promotionColumnCode) {
+    case 0:
+      break;
+    case 1:
+      code = 12;
+      break;
+    case 2:
+      code = 6;
+      break;
+    case 3:
+      code = 4;
+      break;
+  }
   //notice the product "class" in first div. This is used
   //for querying for filtering purposes
   return `
     <div
-    class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone mdl-cell--6-col-tablet product ${
-      product.category
-    }"
+    class="mdl-cell mdl-cell--${code}-col mdl-cell--2-col-phone mdl-cell--6-col-tablet product ${
+    product.category
+  }"
     data-category="${product.category}"
     data-name="${product.name}"
   >
@@ -470,6 +602,13 @@ function saveToStorage(key, value) {
 }
 
 function updateCartIcon() {
+  document.addEventListener("readystatechange", event => {
+    if (event.target.readyState === "interactive") {
+    } else if (event.target.readyState === "complete") {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
+    }
+  });
   const cart = document.getElementById("cartButton");
   cart.setAttribute("data-badge", myCart.length);
 }

@@ -2,7 +2,28 @@
   margin: 0 auto;
   padding: 3%;
 }
+#promotions {
+  margin: 0 auto;
+  padding: 3%;
+}
+.inlinePromotion {
+  display: flex;
+}
+.arrowIcons {
+  font-size: 48px !important;
+  position: relative;
 
+  transform: translateY(40%);
+}
+.arrowIconsBack {
+  font-size: 48px !important;
+  position: relative;
+
+  transform: translateY(40%) scaleX(-1) !important;
+}
+.arrowIconsBack:hover {
+  cursor: pointer;
+}
 body {
   background: #f0f9fc;
 }
@@ -42,7 +63,9 @@ section {
   margin: 0 auto;
   color: #94c817;
   background: white;
+  width: 100%;
 }
+
 /*products card layout*/
 .mdl-card__title-text {
   text-align: left !important;
@@ -71,7 +94,7 @@ section {
   text-align: center;
 
   margin: 0 auto;
-  width: 80%;
+  width: 50%;
 }
 .mdl-card__supporting-text {
   padding: 3px !important;
@@ -115,7 +138,6 @@ section {
 .mdl-grid {
   text-align: center;
 }
-
 
 /*Important, otherwise cards overlap*/
 .mdl-cell {
