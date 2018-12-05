@@ -55,6 +55,6 @@ body::before {
     }
 
     .mdl-cell--1-offset, .mdl-cell--1-offset-desktop.mdl-cell--1-offset-desktop {
-          margin-left: unset !important;
+          margin-left: 8px !important;
     }
   }
