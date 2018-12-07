@@ -22,7 +22,7 @@ section {
 /*badge icons*/
 .material-icons.mdl-badge.mdl-badge--overlap {
   font-size: 200%;
-  color: black;
+  color: white !important;
   text-decoration: none;
 }
 
@@ -116,10 +116,6 @@ section {
 
 /*footer*/
 
-.mdl-mega-footer {
-  background-color: #2196f3 !important;
-  color: white;
-}
 
 .footerlogo {
   width: 50%;

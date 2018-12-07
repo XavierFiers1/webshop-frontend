@@ -206,10 +206,10 @@ if (!orders.length) {
             </table>
         </div>
         <div class="mdl-card__menu">
-            <button id="editOrder" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <button id="editOrder${order.orderId}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                 <i class="material-icons">menu</i>
             </button>
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="editOrder">
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="editOrder${order.orderId}">
                 <li class="mdl-menu__item">Some Action</li>
                 <li class="mdl-menu__item">Another Action</li>
                 <li disabled class="mdl-menu__item">Disabled Action</li>
@@ -230,3 +230,13 @@ if (!orders.length) {
         });
     });
 }
+(function() {
+    'use strict';
+    var snackbarContainer = document.querySelector('#toast');
+    var showToastButton = document.querySelector('#editProfile');
+    showToastButton.addEventListener('click', function() {
+      'use strict';
+      var data = {message: 'Feature is currently in development'};
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    });
+  }());

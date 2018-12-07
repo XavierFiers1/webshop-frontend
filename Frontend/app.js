@@ -2,7 +2,8 @@
 // Declarations
 let user;
 let notification = document.querySelector('.mdl-js-snackbar');
-
+let deferredPrompt;
+const TOPBARCONTAINER = document.getElementById('topbarContainer');
 
 
 // init 
@@ -34,8 +35,16 @@ document.addEventListener('readystatechange', event => {
     dialog.querySelector('.close').addEventListener('click', function () {
       dialog.close();
     });
+
+    if (window.location.pathname === '/Frontend/pages/products/products.html' || window.location.pathname === '/Frontend/pages/grocery/grocerybag.html') {
+      console.log('bilkaish');
+      document.getElementById('banner').src = '../../img/AaStorcenterPickup-w.svg' ;
+    }
+    
+    
   }
 });
+
 
 function loadSection(url) {
   return fetch(url).then((response) => (response.text()));
@@ -60,7 +69,7 @@ function showToast() {
 }
 function loadTopbar(event) {
   loadSection('/Frontend/shared/topbar/topbar.html').then((html) => {
-    document.getElementById("topbarContainer").innerHTML = html;
+    TOPBARCONTAINER.innerHTML = html;
   }).catch((error) => {
     console.warn(error);
   });
@@ -72,8 +81,14 @@ function loadFooter(event) {
     console.warn(error);
   });
 }
-
-
+// || '/Frontend/pages/grocerybag/grocerybag.html')
+console.log(window.location);
+if (window.location.pathname === ('/Frontend/pages/products/products.html' || '/Frontend/pages/grocerybag/grocerybag.html')) {
+  TOPBARCONTAINER.classList.add('bilka_topbar');
+  console.log('bilkaish');
+  TOPBARCONTAINER.classList.remove('bilka_topbar');
+  
+}
 
 
 
