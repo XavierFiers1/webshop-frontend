@@ -133,8 +133,8 @@ let productsArray = [
     brand: "Lay's",
     weight: "",
     unit: "",
-    price: "2,5",
-    promotionPrice: "",
+    price: "2.5",
+    promotionPrice: "1.5",
     extraInfo: "",
     category: "Chips, snacks & cookies",
     img: "../../img/lays1.jpg",
@@ -147,7 +147,7 @@ let productsArray = [
     brand: "Peeled Snacks",
     weight: "",
     unit: "",
-    price: "3,79",
+    price: "3.79",
     promotionPrice: "",
     extraInfo: "",
     category: "Chips, snacks & cookies",
@@ -161,7 +161,7 @@ let productsArray = [
     brand: "Philadelphia",
     weight: "",
     unit: "",
-    price: "3,79",
+    price: "3.79",
     promotionPrice: "",
     extraInfo: "",
     category: "Dairy",
@@ -175,7 +175,7 @@ let productsArray = [
     brand: "Philadelphia",
     weight: "",
     unit: "",
-    price: "3,79",
+    price: "3.79",
     promotionPrice: "",
     extraInfo: "",
     category: "Dairy",
@@ -189,8 +189,8 @@ let productsArray = [
     brand: "Philadelphia",
     weight: "",
     unit: "",
-    price: "3,79",
-    promotionPrice: "",
+    price: "3.79",
+    promotionPrice: "3",
     extraInfo: "",
     category: "Dairy",
     img: "../../img/philadelphiaOriginal.jpg",
@@ -414,7 +414,11 @@ function createProducts(product) {
   //if not, then we don't add the "product" class to the first div
   //this way the search function doesn't target the promotion products array
   let productClass = "product";
-  if (product.promotion === 1) productClass = ""; //empty string
+  let strikeThroughClass = "";
+  if (product.promotion === 1) {
+    productClass = "";
+    strikeThroughClass = "strikeThrough";
+  }
 
   let code = 3;
   //if the last row in an array only contains 1 2 or 3 elements,
@@ -429,7 +433,7 @@ function createProducts(product) {
       code = 6;
       break;
     case 3:
-      code = 4;
+      code = 3;
       break;
   }
   //notice the product "class" in first div. This is used
@@ -451,7 +455,12 @@ function createProducts(product) {
         <h2 class="productTitle mdl-card__title-text">${product.name}</h2>
         <h3 class="brandTitle mdl-card__title-text">${product.subtitle}</h3>
         <br />
-        <h4 class="priceTitle mdl-card__title-text">€ ${product.price}</h4>
+        <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">€ ${
+    product.price
+  }</h4>
+        <h4 class="priceTitle mdl-card__title-text">&nbsp € ${
+          product.promotionPrice
+        }</h4>
         <h4 class="unitTitle mdl-card__title-text">${product.unit}</h4>
         <br />
       </div>

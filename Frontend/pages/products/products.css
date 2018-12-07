@@ -145,6 +145,9 @@ section {
   width: calc(33.3333333333%);
   color: white !important;
 }
+.strikeThrough {
+  text-decoration: line-through !important;
+}
 
 .mdl-grid {
   text-align: center;
@@ -179,23 +182,17 @@ section {
 }
 
 /*specific style for the carousel cards so they keep the same size*/
-.mdl-cell--12-col,
-.mdl-cell--12-col-desktop,
-.mdl-cell--12-col-desktop {
+.mdl-cell--12-col {
   margin: auto !important;
   width: 50% !important;
 }
 
-.mdl-cell--6-col,
-.mdl-cell--6-col-desktop,
-.mdl-cell--6-col-desktop {
+.mdl-cell--6-col {
   margin: auto !important;
   width: 35% !important;
 }
 
-.mdl-cell--4-col,
-.mdl-cell--4-col-desktop,
-.mdl-cell--4-col-desktop {
+.mdl-cell--4-col {
   margin: auto !important;
   width: calc(29% - 16px) !important;
 }
