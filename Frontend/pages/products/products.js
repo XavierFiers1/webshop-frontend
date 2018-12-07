@@ -100,7 +100,7 @@ let productsArray = [
     highlight: 0
   },
   {
-    name: "Chiquita banana",
+    name: "Test5",
     subtitle: "",
     brand: "",
     weight: "",
@@ -114,7 +114,7 @@ let productsArray = [
     highlight: 0
   },
   {
-    name: "Cliff Bar",
+    name: "Test4",
     subtitle: "Chocolate Chip",
     brand: "Cliff",
     weight: "",
@@ -128,7 +128,7 @@ let productsArray = [
     highlight: 0
   },
   {
-    name: "Lay's Classic",
+    name: "Test3",
     subtitle: "Family Size",
     brand: "Lay's",
     weight: "",
@@ -142,7 +142,7 @@ let productsArray = [
     highlight: 0
   },
   {
-    name: "Peeled Snacks",
+    name: "Test2",
     subtitle: "Organic Dried Mango",
     brand: "Peeled Snacks",
     weight: "",
@@ -156,7 +156,35 @@ let productsArray = [
     highlight: 0
   },
   {
-    name: "Philadelphia",
+    name: "Test1",
+    subtitle: "Original",
+    brand: "Philadelphia",
+    weight: "",
+    unit: "",
+    price: "3,79",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Dairy",
+    img: "../../img/philadelphiaOriginal.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Test6",
+    subtitle: "Original",
+    brand: "Philadelphia",
+    weight: "",
+    unit: "",
+    price: "3,79",
+    promotionPrice: "",
+    extraInfo: "",
+    category: "Dairy",
+    img: "../../img/philadelphiaOriginal.jpg",
+    promotion: 1,
+    highlight: 0
+  },
+  {
+    name: "Test7",
     subtitle: "Original",
     brand: "Philadelphia",
     weight: "",
@@ -297,47 +325,73 @@ filterButtons.forEach(function(btn) {
 /*****Generate promotion HTML*****/
 /******************************/
 /*****************************/
-
-const promotionProductsHTML = document.querySelector(".promotion");
-//first filter productArray to get promotion products:
-let promotionProducts = productsArray.filter(
-  product => product.promotion === 1
-);
-function chunkArrayInGroups(arr, size) {
-  let myArray = [];
-  for (var i = 0; i < arr.length; i += size) {
-    myArray.push(arr.slice(i, i + size));
+let promotionColumnCode = 0;
+(function() {
+  const promotionProductsHTML = document.querySelector(".promotion");
+  //first filter productArray to get promotion products:
+  let promotionProducts = productsArray.filter(
+    product => product.promotion === 1
+  );
+  function chunkArrayInGroups(arr, size) {
+    let myArray = [];
+    for (var i = 0; i < arr.length; i += size) {
+      myArray.push(arr.slice(i, i + size));
+    }
+    return myArray;
   }
-  return myArray;
-}
-//get the promotionArray and slice it in a two dim array with 4 columns
-let promotionPerFour = chunkArrayInGroups(promotionProducts, 4);
+  //get the promotionArray and slice it in a two dim array with 4 columns
+  let promotionPerFour = chunkArrayInGroups(promotionProducts, 4);
 
-//now map them into the innerHTML
-let promotionIndex = 0;
-promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
-  .map(createProducts)
-  .join("");
-
-var promotionColumnCode = 0;
-let backArrow = document.querySelector("#backArrow");
-backArrow.addEventListener("click", function(event) {
-  //on backarrowclick, go back in the promotionArray and show these items
-  promotionIndex--;
-  let temp = promotionIndex;
-  let size = promotionPerFour.length;
-  if (promotionIndex < 0) {
-    //modulo doesn't work with negatives : BUG
-    //so I make it positive and add the index to it (symmetry)
-    temp = (size + promotionIndex * -1) % size;
-  } else temp = promotionIndex % size;
-  promotionColumnCode = promotionPerFour[temp].length;
-  promotionProductsHTML.innerHTML = promotionPerFour[temp]
+  //now map them into the innerHTML
+  let promotionIndex = 0;
+  promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
     .map(createProducts)
     .join("");
-  //get the length of the amount of products in the array in order to
-  //construct the column of the grid in case the array only has 3 2 or 1 elements
-});
+
+  ////////////BackArrow
+  let backArrow = document.querySelector("#backArrow");
+  backArrow.addEventListener("click", function(event) {
+    //on backarrowclick, go back in the promotionArray and show these items
+    promotionIndex--;
+    let temp = promotionIndex;
+    let size = promotionPerFour.length;
+    if (promotionIndex < 0) {
+      //modulo doesn't work with negatives : BUG
+      //so I make it positive and add the index to it (symmetry) instead of
+      // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
+      //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
+      temp = (size + promotionIndex * -1) % size;
+    } else temp = promotionIndex % size;
+    promotionColumnCode = promotionPerFour[temp].length;
+    promotionProductsHTML.innerHTML = promotionPerFour[temp]
+      .map(createProducts)
+      .join("");
+    //get the length of the amount of products in the array in order to
+    //construct the column of the grid in case the array only has 3 2 or 1 elements
+  });
+
+  ////////////FrontArrow
+  let frontArrow = document.querySelector("#frontArrow");
+  frontArrow.addEventListener("click", function(event) {
+    //on backarrowclick, go back in the promotionArray and show these items
+    promotionIndex++;
+    let temp = promotionIndex;
+    let size = promotionPerFour.length;
+    if (promotionIndex < 0) {
+      //modulo doesn't work with negatives : BUG
+      //so I make it positive and add the index to it (symmetry) instead of
+      // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
+      //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
+      temp = (size + promotionIndex * -1) % size;
+    } else temp = promotionIndex % size;
+    promotionColumnCode = promotionPerFour[temp].length;
+    promotionProductsHTML.innerHTML = promotionPerFour[temp]
+      .map(createProducts)
+      .join("");
+    //get the length of the amount of products in the array in order to
+    //construct the column of the grid in case the array only has 3 2 or 1 elements
+  });
+})();
 
 /******************************/
 /*******************************/
@@ -356,6 +410,12 @@ let noPromotionProducts = productsArray.filter(
 products.innerHTML = noPromotionProducts.map(createProducts).join("");
 
 function createProducts(product) {
+  //first let's check if we're working with a promotion product:
+  //if not, then we don't add the "product" class to the first div
+  //this way the search function doesn't target the promotion products array
+  let productClass = "product";
+  if (product.promotion === 1) productClass = ""; //empty string
+
   let code = 3;
   //if the last row in an array only contains 1 2 or 3 elements,
   //change the column class accordingly
@@ -376,7 +436,7 @@ function createProducts(product) {
   //for querying for filtering purposes
   return `
     <div
-    class="mdl-cell mdl-cell--${code}-col mdl-cell--2-col-phone mdl-cell--6-col-tablet product ${
+    class="mdl-cell mdl-cell--${code}-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${productClass} ${
     product.category
   }"
     data-category="${product.category}"
@@ -607,21 +667,14 @@ function updateCartIcon() {
     } else if (event.target.readyState === "complete") {
       const cart = document.getElementById("cartButton");
       cart.setAttribute("data-badge", myCart.length);
+    } else {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
     }
   });
-  const cart = document.getElementById("cartButton");
-  cart.setAttribute("data-badge", myCart.length);
 }
 
 function updateProductAmountHtml(productname, amount) {
   let amountHTML = document.getElementById("productAmount" + productname);
   amountHTML.innerHTML = amount;
 }
-
-/*function removeProductFromCart(element) {
-    let product = element.getAttribute("data-product");
-    let index = myCart.findIndex(item => item.product === product);
-    if (index >= 0) myCart[index] = { product: product, amount: --amount };
-    let label_input_text = document.getElementById("label_" + product + "_input");
-    label_input_text.innerHTML = amount;
-  }*/

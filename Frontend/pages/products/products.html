@@ -17,8 +17,8 @@
     <meta name="theme-color" content="#2196f3" />
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="products.css" />
-    <link rel="stylesheet" href="swiper.min.css" />
     <link rel="stylesheet" href="../../style/style.css" />
+    <!-- <link rel="stylesheet" href="../../style/style.css" /> -->
 
     <link
       rel="stylesheet"
@@ -69,11 +69,13 @@
           <section class="products">
             <!-- carousel -->
             <div class="inlinePromotion">
-              <div id="backArrow" class="arrowIconsBack">
-                <i class="material-icons">arrow_forward_ios</i>
+              <div id="backArrow" class="arrowIconBack">
+                <i class="material-icons arrowIcons">arrow_forward_ios</i>
               </div>
               <div class="mdl-grid promotion" id="promotions"></div>
-              <i class="material-icons arrowIcons">arrow_forward_ios</i>
+              <div id="frontArrow" class="arrowIconForward">
+                <i class="material-icons arrowIcons">arrow_forward_ios</i>
+              </div>
             </div>
             <form id="searchField" action="#">
               <div class="mdl-textfield mdl-js-textfield">

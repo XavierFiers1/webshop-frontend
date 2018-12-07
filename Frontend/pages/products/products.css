@@ -11,18 +11,24 @@
 }
 .arrowIcons {
   font-size: 48px !important;
-  position: relative;
-
-  transform: translateY(40%);
 }
-.arrowIconsBack {
+.arrowIconForward {
+  transform: translateY(40%) !important;
+}
+.arrowIconBack {
   font-size: 48px !important;
   position: relative;
 
   transform: translateY(40%) scaleX(-1) !important;
 }
-.arrowIconsBack:hover {
+.arrowIconForward:hover {
   cursor: pointer;
+}
+.arrowIconBack:hover {
+  cursor: pointer;
+}
+.arrowSize {
+  font-size: 48px !important;
 }
 body {
   background: #f0f9fc;
@@ -55,6 +61,11 @@ section {
     border-radius: 5px;
     width: 95%;
     box-shadow: 0px 1px 1.5px 1px #cccccc;
+  }
+  #promotions {
+    margin: 0 auto;
+    padding: 3%;
+    width: 75%;
   }
 }
 
@@ -167,4 +178,24 @@ section {
   background: #94c817 !important;
 }
 
-/*#94c817*/
+/*specific style for the carousel cards so they keep the same size*/
+.mdl-cell--12-col,
+.mdl-cell--12-col-desktop,
+.mdl-cell--12-col-desktop {
+  margin: auto !important;
+  width: 50% !important;
+}
+
+.mdl-cell--6-col,
+.mdl-cell--6-col-desktop,
+.mdl-cell--6-col-desktop {
+  margin: auto !important;
+  width: 35% !important;
+}
+
+.mdl-cell--4-col,
+.mdl-cell--4-col-desktop,
+.mdl-cell--4-col-desktop {
+  margin: auto !important;
+  width: calc(29% - 16px) !important;
+}

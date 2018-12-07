@@ -292,10 +292,11 @@ function updateCartIcon() {
     } else if (event.target.readyState === "complete") {
       const cart = document.getElementById("cartButton");
       cart.setAttribute("data-badge", myCart.length);
+    } else {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
     }
   });
-  const cart = document.getElementById("cartButton");
-  cart.setAttribute("data-badge", myCart.length);
 }
 
 function deleteProductFromList(event) {
