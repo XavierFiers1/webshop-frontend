@@ -1,40 +1,24 @@
-@media (-webkit-min-device-pixel-ratio: 1.5) and (max-width: 1024px) and (min-width: 513px), 
-(max-width: 1024px) and (min-resolution: 1.5dppx) and (min-width: 513px),
-(-webkit-max-device-pixel-ratio: 1.5) and (max-width: 2048px), 
-(max-resolution: 1.5dppx) and (max-width: 2048px) {
-    body::before {
-        background-image: url('https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ea7aeb5fc4e3623a3f16af817ec12129&auto=format&fit=crop&w=1355&q=80') ;
-    }
-}
-  
-
-body::before {
-    background-size: cover;
-    background-attachment: fixed;
-    content: '';
-    will-change: transform;
-    z-index: -1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    position: fixed;
-}
-
+.mdl-layout__header {
+    background-color: white !important;
+    color: black;
+  }
 
 .mdl-card {
     width: unset !important;
 }
 .card-image.mdl-card#grocery {
     min-height: 600px;
-    max-height: 85vh;
-    background: url('/Frontend/img/shoppingCart.jpg') center / cover;
+    height: 85vh;
+    /* optimized image */
+    background: url('/Frontend/img/shoppingCart-min.jpg') center / cover;
 }
+
 .card-image.mdl-card#booking {
     min-height: 600px;
     max-height: 85vh;
     background: url('/Frontend/img/bookatable.jpg') center / cover;
 }
+
 .card-image.mdl-card:hover {
     transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -45,10 +29,12 @@ body::before {
     display: flex;
     justify-content: center;
 }
+
 .crossroad .mdl-card {
- height: 100% !important;
+ height: 100%;
  cursor: pointer;
 }
+
 .crossroad h1 {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -60,9 +46,11 @@ body::before {
     color: white;
     
 }
+
 #grocery img, #booking img{
   max-height: 120px !important;
 }
+
 #grocery:hover h1, #booking:hover h1{
     background-color: rgba(0, 0, 0, .5) !important;
 }

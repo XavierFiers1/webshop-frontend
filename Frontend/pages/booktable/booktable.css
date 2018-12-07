@@ -18,7 +18,22 @@ section {
     box-shadow: 0px 1px 1.5px 1px #cccccc;
   }
 }
-
+.mdl-layout__header {
+  background-color: white !important;
+  color: black;
+}
+.quicknav {
+  display: flex;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+.quicknav img{
+  cursor: pointer;
+  height: 100px !important;
+}
+.quicknav img:hover{
+  filter: grayscale();
+}
 /*overrule weird padding rule*/
 .mdl-layout__header-row {
   padding: 0 !important;
@@ -37,7 +52,9 @@ section {
   width: auto;
   flex: 1;
 }
-
+/* .banner {
+  margin-bottom: 3rem;
+} */
 /*Book a table*/
 
 .booktablecard {

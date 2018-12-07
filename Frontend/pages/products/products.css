@@ -48,6 +48,13 @@ section {
   text-align: left !important;
 }
 
+/*badge icons*/
+.material-icons.mdl-badge.mdl-badge--overlap {
+  font-size: 200%;
+  color: white !important;
+  text-decoration: none;
+}
+
 .productTitle {
   color: #7e7e7e !important;
   font-weight: bold !important;
