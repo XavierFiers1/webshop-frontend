@@ -148,6 +148,15 @@ section {
 .strikeThrough {
   text-decoration: line-through !important;
 }
+.heartIconUntouched {
+  bottom: 85%;
+  margin: 2px;
+  right: 0;
+  position: absolute;
+}
+.heartIconUntouched:hover {
+  cursor: pointer;
+}
 
 .mdl-grid {
   text-align: center;
@@ -195,4 +204,8 @@ section {
 .mdl-cell--4-col {
   margin: auto !important;
   width: calc(29% - 16px) !important;
+}
+
+.mdl-cell--3-col {
+  margin: 8px auto !important;
 }

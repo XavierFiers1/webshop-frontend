@@ -449,6 +449,7 @@ function createProducts(product) {
     <div class="mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title mdl-card--expand">
         <img src="${product.img}" />
+        <i class="material-icons heartIconUntouched">favorite_border</i>
       </div>
   
       <div class="mdl-card__supporting-text">
@@ -510,8 +511,36 @@ function createProducts(product) {
     `;
 }
 
-/*
- */
+/*///////////////////////////////////
+  Add clickevents and hover to all product heart buttons:
+  ///////////////////////////////////*/
+let toggle = false;
+(function() {
+  const heartUntouchedIcons = document.querySelectorAll(".heartIconUntouched");
+
+  heartUntouchedIcons.forEach(function(heart) {
+    heart.addEventListener("mouseover", function(event) {
+      heart.innerHTML = "favorite";
+    });
+
+    heart.addEventListener("mouseout", mouseOutfunc);
+    heart.addEventListener("click", function(event) {
+      if (!toggle) {
+        this.removeEventListener("mouseout", mouseOutfunc);
+        heart.innerHTML = "favorite";
+        toggle = !toggle;
+      } else {
+        this.addEventListener("mouseout", mouseOutfunc);
+        toggle = false;
+      }
+    });
+    //in order to use the removeEventListener, I had to create
+    //a custom function to be used as callback
+    function mouseOutfunc() {
+      heart.innerHTML = "favorite_border";
+    }
+  });
+})();
 
 /*///////////////////////////////////
   Add clickevents to all product buttons:
