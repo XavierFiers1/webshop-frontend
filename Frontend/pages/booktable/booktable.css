@@ -7,6 +7,10 @@ section {
   box-shadow: 0px 1px 1.5px 1px #cccccc;
 }
 
+p {
+  margin: 0 0 1px !important;
+}
+
 /*section should be wider on phone screens*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   section {
@@ -18,7 +22,22 @@ section {
     box-shadow: 0px 1px 1.5px 1px #cccccc;
   }
 }
-
+.mdl-layout__header {
+  background-color: white !important;
+  color: black;
+}
+.quicknav {
+  display: flex;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+.quicknav img {
+  cursor: pointer;
+  height: 100px !important;
+}
+.quicknav img:hover {
+  filter: grayscale();
+}
 /*overrule weird padding rule*/
 .mdl-layout__header-row {
   padding: 0 !important;
@@ -37,7 +56,9 @@ section {
   width: auto;
   flex: 1;
 }
-
+/* .banner {
+  margin-bottom: 3rem;
+} */
 /*Book a table*/
 
 .booktablecard {
@@ -60,6 +81,7 @@ section {
 }
 .booktablecard > .mdl-grid > .mdl-cell--4-col {
   width: calc(33.3333333333%);
+  padding: 10px;
 }
 .booktablecard > .mdl-grid > .mdl-cell--5-col {
   width: calc(41.6666666667%);
@@ -72,9 +94,10 @@ section {
 }
 
 .booktablethumbnail {
-  height: 40%;
+  height: 100%;
   width: 100%;
   margin: 0;
+  object-fit: cover;
 }
 
 .booktabletext {
@@ -122,8 +145,9 @@ section {
   }
   .booktablethumbnail {
     float: left;
-    height: 35%;
+    height: 100%;
     width: 100%;
+    object-fit: cover;
   }
   .booktableTitle {
     font-size: 13px;
