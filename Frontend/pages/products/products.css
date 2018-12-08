@@ -2,7 +2,34 @@
   margin: 0 auto;
   padding: 3%;
 }
+#promotions {
+  margin: 0 auto;
+  padding: 3%;
+}
+.inlinePromotion {
+  display: flex;
+}
+.arrowIcons {
+  font-size: 48px !important;
+}
+.arrowIconForward {
+  transform: translateY(40%) !important;
+}
+.arrowIconBack {
+  font-size: 48px !important;
+  position: relative;
 
+  transform: translateY(40%) scaleX(-1) !important;
+}
+.arrowIconForward:hover {
+  cursor: pointer;
+}
+.arrowIconBack:hover {
+  cursor: pointer;
+}
+.arrowSize {
+  font-size: 48px !important;
+}
 body {
   background: #f0f9fc;
 }
@@ -35,6 +62,11 @@ section {
     width: 95%;
     box-shadow: 0px 1px 1.5px 1px #cccccc;
   }
+  #promotions {
+    margin: 0 auto;
+    padding: 3%;
+    width: 75%;
+  }
 }
 
 #searchField {
@@ -42,7 +74,9 @@ section {
   margin: 0 auto;
   color: #94c817;
   background: white;
+  width: 100%;
 }
+
 /*products card layout*/
 .mdl-card__title-text {
   text-align: left !important;
@@ -78,7 +112,7 @@ section {
   text-align: center;
 
   margin: 0 auto;
-  width: 80%;
+  width: 50%;
 }
 .mdl-card__supporting-text {
   padding: 3px !important;
@@ -118,11 +152,22 @@ section {
   width: calc(33.3333333333%);
   color: white !important;
 }
+.strikeThrough {
+  text-decoration: line-through !important;
+}
+.heartIconUntouched {
+  bottom: 85%;
+  margin: 2px;
+  right: 0;
+  position: absolute;
+}
+.heartIconUntouched:hover {
+  cursor: pointer;
+}
 
 .mdl-grid {
   text-align: center;
 }
-
 
 /*Important, otherwise cards overlap*/
 .mdl-cell {
@@ -152,4 +197,22 @@ section {
   background: #94c817 !important;
 }
 
-/*#94c817*/
+/*specific style for the carousel cards so they keep the same size*/
+.mdl-cell--12-col {
+  margin: auto !important;
+  width: 50% !important;
+}
+
+.mdl-cell--6-col {
+  margin: auto !important;
+  width: 35% !important;
+}
+
+.mdl-cell--4-col {
+  margin: auto !important;
+  width: calc(29% - 16px) !important;
+}
+
+.mdl-cell--3-col {
+  margin: 8px auto !important;
+}

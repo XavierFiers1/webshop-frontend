@@ -61,7 +61,7 @@ let productsArray = [
     brand: "Lay's",
     weight: "",
     unit: "",
-    price: "2,5",
+    price: "2.25",
     promotionPrice: "",
     extraInfo: "",
     category: "Chips, snacks & cookies",
@@ -75,7 +75,7 @@ let productsArray = [
     brand: "Peeled Snacks",
     weight: "",
     unit: "",
-    price: "3,79",
+    price: "3.79",
     promotionPrice: "",
     extraInfo: "",
     category: "Chips, snacks & cookies",
@@ -89,7 +89,7 @@ let productsArray = [
     brand: "Philadelphia",
     weight: "",
     unit: "",
-    price: "3,79",
+    price: "3.79",
     promotionPrice: "",
     extraInfo: "",
     category: "Dairy",
@@ -109,6 +109,10 @@ let myCart = [];
 
 //fill the cart array from content from sessionstorage:
 (function() {
+  cartBuilder();
+})();
+
+function cartBuilder() {
   productsArray.forEach(product => {
     if (sessionStorage.getItem(product.name)) {
       let amount = JSON.parse(sessionStorage.getItem(product.name)).amount;
@@ -116,15 +120,19 @@ let myCart = [];
       myCart.push({ product: product, amount: amount });
     }
   });
-})();
+}
 
 //create the product array based off of cart
 (function() {
+  pageBuilder();
+})();
+
+function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
   shoppingListContent.innerHTML = myCart
     .map(createShoppingListProducts)
     .join("");
-})();
+}
 
 function createShoppingListProducts(product) {
   //notice the product "class" in first div. This is used
@@ -141,16 +149,25 @@ function createShoppingListProducts(product) {
               <h2 class="productTitle mdl-card__title-text">${
                 product.product.name
               }</h2>
+              <div class="deleteDiv"onclick="deleteProductFromList(this)" data-product="${
+                product.product.name
+              }">
               <i class="deleteProductFromList material-icons">delete</i>
-              <h3 class="mdl-card__title-text">
-                €${product.product.price} <br />
-                ${product.product.price}
+              </div>      
+             
+              <h3 class="mdl-card__title-text"> <span data-info="${
+                product.product.name
+              }">${product.amount} X €${product.product.price}
+               <br />
+                Total: €${parseFloat(
+                  product.product.price * product.amount
+                ).toFixed(2)}</span>
               </h3>
   
               <h3 class="mdl-card__title-text"></h3>
             </div>
   
-            <!-- the plus minus buttons that are hidden by default -->
+            <!-- the plus minus buttons -->
             <div
               class="plusMinusButtonsShoppingList mdl-card__actions mdl-card--border"
               data-productname="${product.product.name}"
@@ -162,8 +179,8 @@ function createShoppingListProducts(product) {
               >
                 <i class="material-icons">remove</i>
               </button>
-              <button
-                id="productAmount${product.product.name}"
+              <button data-amount="${product.product.name}"
+                
                 class="productAmount mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
                 disabled
               >
@@ -210,15 +227,33 @@ function removeAnotherProductFromCart(event) {
   //now check if button product hasn't amount 1:
   disableMinButtonsAmountOne();
 
-  updateProductAmountHtml(productname, product.amount);
+  updateProductAmountHtml(productname, product.amount, product.product.price);
   //also update the storage
   //create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
 }
 
-function updateProductAmountHtml(productname, amount) {
-  let amountHTML = document.getElementById("productAmount" + productname);
+function updateProductAmountHtml(productname, amount, price) {
+  //to be able to use queryselectorAll with string literals:
+  //only option is working with a data attribute and
+  //querying on the specific productname
+
+  //update the info
+  let infoHTML = document.querySelector(
+    `[data-info=${CSS.escape(productname)}]`
+  );
+  price = parseFloat(price).toFixed(2);
+  infoHTML.innerHTML = `${amount} X €${price}
+    <br />
+     Total: €${parseFloat(price * amount).toFixed(2)}`;
+
+  //update the amount between plusminus buttons
+
+  let amountHTML = document.querySelector(
+    `[data-amount=${CSS.escape(productname)}]`
+  );
+
   amountHTML.innerHTML = amount;
 }
 
@@ -241,8 +276,40 @@ function addAnotherProductToCart(event) {
   }
   product.amount++;
   //update the amount html
-  updateProductAmountHtml(productname, product.amount);
+  updateProductAmountHtml(productname, product.amount, product.product.price);
   //also update the storage//create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
+}
+
+//update cart icon in the header
+updateCartIcon();
+
+//update cart icon in header //only when all resources are loaded!:
+function updateCartIcon() {
+  document.addEventListener("readystatechange", event => {
+    if (event.target.readyState === "interactive") {
+    } else if (event.target.readyState === "complete") {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
+    } else {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
+    }
+  });
+}
+
+function deleteProductFromList(event) {
+  let productname = event.dataset.product;
+
+  //remove product from sessionstorage:
+  sessionStorage.removeItem(productname);
+  //empty the cart
+  myCart = [];
+  //then rebuild the cart based on new sessionstorage
+  cartBuilder();
+
+  updateCartIcon();
+  //rebuild the page
+  pageBuilder();
 }
