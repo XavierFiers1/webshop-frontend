@@ -1,14 +1,29 @@
 <div class="mdl-layout__header-row">
   <a href="/Frontend/pages/home/home.html">
     <div class="mdl-layout__title">
-      <img id="banner" src="../../img/AaStorcenter-b.svg" alt="Aalborg Storcenter Pickup">
+      <img
+        id="banner"
+        src="../../img/AaStorcenter-b.svg"
+        alt="Aalborg Storcenter Pickup"
+      />
     </div>
   </a>
-  <div class="mdl-layout-spacer">
-  </div>
+  <div class="mdl-layout-spacer"></div>
   <nav class="mdl-navigation">
-    <a href="/Frontend/pages/grocery/grocerybag.html" id="cartButton" class="material-icons mdl-badge mdl-badge--overlap"
-      data-badge="0">
+    <a
+      href="/Frontend/pages/favorites/favorites.html"
+      id="favButton"
+      class="material-icons  mdl-badge mdl-badge--overlap"
+    >
+      favorite
+    </a>
+    <div class="mdl-tooltip mdl-tooltip--large" for="favButton">Favorites</div>
+    <a
+      href="/Frontend/pages/grocery/grocerybag.html"
+      id="cartButton"
+      class="material-icons mdl-badge mdl-badge--overlap"
+      data-badge="0"
+    >
       shopping_cart
     </a>
     <div class="mdl-tooltip mdl-tooltip--large" for="cartButton">
@@ -24,25 +39,47 @@
   <dialog id="auth" class="mdl-dialog">
     <h4 class="mdl-dialog__title">Sign up</h4>
     <div class="mdl-dialog__content">
-      <form action="javascript:showToast(); dialog.close()" style="border:1px solid #ccc">
+      <form
+        action="javascript:showToast(); dialog.close()"
+        style="border:1px solid #ccc"
+      >
         <div class="container">
           <p>Please fill in this form to create an account.</p>
-          <hr>
+          <hr />
 
           <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
+          <input type="text" placeholder="Enter Email" name="email" required />
 
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="psw"
+            required
+          />
 
           <label for="psw-repeat"><b>Repeat Password</b></label>
-          <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+          <input
+            type="password"
+            placeholder="Repeat Password"
+            name="psw-repeat"
+            required
+          />
 
           <label>
-            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+            <input
+              type="checkbox"
+              checked="checked"
+              name="remember"
+              style="margin-bottom:15px"
+            />
+            Remember me
           </label>
 
-          <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+          <p>
+            By creating an account you agree to our
+            <a href="#" style="color:dodgerblue">Terms & Privacy</a>.
+          </p>
 
           <div class="clearfix">
             <button type="button" class="cancelbtn close">Cancel</button>
@@ -51,8 +88,9 @@
         </div>
       </form>
 
-      <a href="/Frontend/pages/user/user.html"> <button>Go to user overview</button></a>
-
+      <a href="/Frontend/pages/user/user.html">
+        <button>Go to user overview</button></a
+      >
     </div>
   </dialog>
 </div>

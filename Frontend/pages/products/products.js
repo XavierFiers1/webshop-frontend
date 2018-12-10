@@ -13,7 +13,7 @@ let productsArray = [
     category: "Produce",
     img: "../../img/apple1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Archer Farms",
@@ -27,7 +27,7 @@ let productsArray = [
     category: "Nuts",
     img: "../../img/nuts1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Chiquita banana",
@@ -41,7 +41,7 @@ let productsArray = [
     category: "Produce",
     img: "../../img/banana1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Cliff Bar",
@@ -55,7 +55,7 @@ let productsArray = [
     category: "Nutrition",
     img: "../../img/cliff1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Lay's Classic",
@@ -69,7 +69,7 @@ let productsArray = [
     category: "Chips, snacks & cookies",
     img: "../../img/lays1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Peeled Snacks",
@@ -83,7 +83,7 @@ let productsArray = [
     category: "Chips, snacks & cookies",
     img: "../../img/peeledmango1.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Philadelphia",
@@ -97,7 +97,7 @@ let productsArray = [
     category: "Dairy",
     img: "../../img/philadelphiaOriginal.jpg",
     promotion: 0,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test5",
@@ -111,7 +111,7 @@ let productsArray = [
     category: "Produce",
     img: "../../img/banana1.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test4",
@@ -125,7 +125,7 @@ let productsArray = [
     category: "Nutrition",
     img: "../../img/cliff1.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test3",
@@ -139,7 +139,7 @@ let productsArray = [
     category: "Chips, snacks & cookies",
     img: "../../img/lays1.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test2",
@@ -153,7 +153,7 @@ let productsArray = [
     category: "Chips, snacks & cookies",
     img: "../../img/peeledmango1.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test1",
@@ -167,7 +167,7 @@ let productsArray = [
     category: "Dairy",
     img: "../../img/philadelphiaOriginal.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test6",
@@ -181,7 +181,7 @@ let productsArray = [
     category: "Dairy",
     img: "../../img/philadelphiaOriginal.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   },
   {
     name: "Test7",
@@ -195,7 +195,7 @@ let productsArray = [
     category: "Dairy",
     img: "../../img/philadelphiaOriginal.jpg",
     promotion: 1,
-    highlight: 0
+    liked: 0
   }
 ];
 
@@ -433,7 +433,7 @@ function createProducts(product) {
       code = 6;
       break;
     case 3:
-      code = 3;
+      code = 4;
       break;
   }
   //notice the product "class" in first div. This is used
@@ -449,7 +449,9 @@ function createProducts(product) {
     <div class="mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title mdl-card--expand">
         <img src="${product.img}" />
-        <i class="material-icons heartIconUntouched">favorite_border</i>
+        <i class="material-icons heartIconUntouched" data-toggle="false" data-productname="${
+          product.name
+        }">favorite_border</i>
       </div>
   
       <div class="mdl-card__supporting-text">
@@ -514,24 +516,30 @@ function createProducts(product) {
 /*///////////////////////////////////
   Add clickevents and hover to all product heart buttons:
   ///////////////////////////////////*/
-let toggle = false;
+
 (function() {
   const heartUntouchedIcons = document.querySelectorAll(".heartIconUntouched");
 
   heartUntouchedIcons.forEach(function(heart) {
-    heart.addEventListener("mouseover", function(event) {
+    //fill in hearts where needed according to local storage liked heart
+
+    if (localStorage.getItem(heart.dataset.productname)) {
       heart.innerHTML = "favorite";
-    });
+    }
+
+    /* heart.addEventListener("mouseover", function(event) {
+      heart.innerHTML = "favorite";
+    });*/
 
     heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
-      if (!toggle) {
+      if (heart.innerHTML !== "favorite") {
+        localStorage.setItem(event.target.dataset.productname, "liked");
         this.removeEventListener("mouseout", mouseOutfunc);
         heart.innerHTML = "favorite";
-        toggle = !toggle;
       } else {
         this.addEventListener("mouseout", mouseOutfunc);
-        toggle = false;
+        localStorage.removeItem(event.target.dataset.productname);
       }
     });
     //in order to use the removeEventListener, I had to create
