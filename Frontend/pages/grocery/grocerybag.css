@@ -7,8 +7,19 @@ section {
   box-shadow: 0px 1px 1.5px 1px #cccccc;
 }
 
+.mdl-cell--8-col {
+  color: #94c817;
+  background: white;
+  border-radius: 3px;
+
+  box-shadow: 0px 1px 1.5px 1px #cccccc;
+}
+
 /*section should be wider on phone screens*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .shoppingListCardTitle {
+    margin: auto;
+  }
   section {
     margin: 0 auto;
     color: #94c817;
@@ -17,6 +28,35 @@ section {
     width: 95%;
     box-shadow: 0px 1px 1.5px 1px #cccccc;
   }
+
+  .total {
+    position: relative !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+  }
+}
+
+.totalCalculation {
+  bottom: 0;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.total {
+  text-align: right;
+  margin: 10px;
+  position: absolute;
+  width: 30%;
+  bottom: 45px;
+  right: 100px;
+}
+
+.mdl-button {
+  width: 40%;
+  background-color: #94c817 !important;
 }
 
 /*badge icons*/
@@ -118,7 +158,6 @@ section {
 }
 
 /*footer*/
-
 
 .footerlogo {
   width: 50%;

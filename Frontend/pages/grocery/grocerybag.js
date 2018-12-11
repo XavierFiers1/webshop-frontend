@@ -129,9 +129,22 @@ function cartBuilder() {
 
 function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
-  shoppingListContent.innerHTML = myCart
-    .map(createShoppingListProducts)
-    .join("");
+  if (myCart.length > 0)
+    shoppingListContent.innerHTML = myCart
+      .map(createShoppingListProducts)
+      .join("");
+  else shoppingListContent.innerHTML = "Cart is empty";
+}
+
+function updateGrandTotal() {
+  const totalHTML = document.querySelector("#totalValue");
+
+  let total = 0;
+  myCart.forEach(p => {
+    total += parseFloat(p.product.price * p.amount);
+  });
+  total += 1; //service costs
+  totalHTML.innerHTML = total;
 }
 
 function createShoppingListProducts(product) {
@@ -146,14 +159,15 @@ function createShoppingListProducts(product) {
               <img class="shoppinglistThumbnails" src="${
                 product.product.img
               }" />
-              <h2 class="productTitle mdl-card__title-text">${
-                product.product.name
-              }</h2>
               <div class="deleteDiv"onclick="deleteProductFromList(this)" data-product="${
                 product.product.name
               }">
               <i class="deleteProductFromList material-icons">delete</i>
               </div>      
+              <h2 class="productTitle mdl-card__title-text">${
+                product.product.name
+              }</h2>
+            
              
               <h3 class="mdl-card__title-text"> <span data-info="${
                 product.product.name
@@ -232,6 +246,7 @@ function removeAnotherProductFromCart(event) {
   //create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
+  updateGrandTotal();
 }
 
 function updateProductAmountHtml(productname, amount, price) {
@@ -280,6 +295,7 @@ function addAnotherProductToCart(event) {
   //also update the storage//create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
+  updateGrandTotal();
 }
 
 //update cart icon in the header
@@ -313,3 +329,4 @@ function deleteProductFromList(event) {
   //rebuild the page
   pageBuilder();
 }
+updateGrandTotal();

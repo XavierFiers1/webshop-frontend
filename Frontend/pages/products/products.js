@@ -531,7 +531,7 @@ function createProducts(product) {
       heart.innerHTML = "favorite";
     });*/
 
-    heart.addEventListener("mouseout", mouseOutfunc);
+    //heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
       if (heart.innerHTML !== "favorite") {
         localStorage.setItem(event.target.dataset.productname, "liked");

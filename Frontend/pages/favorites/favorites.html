@@ -16,8 +16,10 @@
     />
     <meta name="theme-color" content="#2196f3" />
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="booktable.css" />
+    <link rel="stylesheet" href="favorites.css" />
     <link rel="stylesheet" href="../../style/style.css" />
+    <!-- <link rel="stylesheet" href="../../style/style.css" /> -->
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -60,142 +62,13 @@
       <!-- TOPBAR -->
       <header id="topbarContainer" class="mdl-layout__header "></header>
       <!-- END TOPBAR -->
+
       <main class="mdl-layout__content">
         <div class="page-content">
-          <img class="banner" src="../../img/bannerTable.jpg" />
-          <nav id="quicknavigation" class="quicknav"></nav>
-          <section class="restaurants">
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/starbucksthumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Starbucks Coffee</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Sunset Boulevard -->
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/sunsetthumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Sunset Boulevard</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Joe & The Juice -->
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/joethumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Joe & The Juice</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Baresso Coffee -->
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/baressothumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Baresso Coffee</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <img class="banner" src="../../img/bannerFavorites.jpg" />
+          <section class="products">
+            <div class="mdl-grid" id="favorites"></div>
           </section>
-
-          <br />
         </div>
       </main>
       <!-- FOOTER -->
@@ -203,7 +76,8 @@
       <!-- END FOOTER -->
     </div>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="./booktable.js"></script>
+
+    <script src="favorites.js"></script>
     <script src="/Frontend/app.js"></script>
   </body>
 </html>
