@@ -35,6 +35,7 @@ body {
 }
 .banner {
   width: 100%;
+  object-fit: cover;
   /* display: block;
   max-width:230px;
   max-height:95px;
@@ -42,7 +43,10 @@ body {
   height: auto;
   margin-bottom: 3rem; */
 }
-
+h3 {
+  padding-top: 25px !important;
+  text-align: center;
+}
 section {
   margin: 0 auto;
   color: #94c817;
@@ -198,20 +202,20 @@ section {
 
 /*specific style for the carousel cards so they keep the same size*/
 .mdl-cell--12-col {
-  margin: auto !important;
+  margin: 8px !important;
   width: 50% !important;
 }
 
 .mdl-cell--6-col {
-  margin: auto !important;
+  margin: 8px !important;
   width: 35% !important;
 }
 
 .mdl-cell--4-col {
-  margin: auto !important;
+  margin: 8px !important;
   width: calc(29% - 16px) !important;
 }
 
 .mdl-cell--3-col {
-  margin: 8px auto !important;
+  margin: 8px !important;
 }

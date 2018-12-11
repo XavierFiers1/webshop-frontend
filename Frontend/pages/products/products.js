@@ -200,6 +200,7 @@ let productsArray = [
 ];
 
 let myCart = [];
+let favorites = [];
 
 /*************************/
 /*************************/
@@ -520,32 +521,48 @@ function createProducts(product) {
 (function() {
   const heartUntouchedIcons = document.querySelectorAll(".heartIconUntouched");
 
+  //get all the hearts from storage
+  let storage = JSON.parse(localStorage.getItem("liked"));
+  console.log(storage);
+  if (storage === null) storage = [];
+  favorites = storage;
+  let storageProduct = "";
   heartUntouchedIcons.forEach(function(heart) {
+    storageProduct = favorites.find(p => p === heart.dataset.productname);
+
     //fill in hearts where needed according to local storage liked heart
 
-    if (localStorage.getItem(heart.dataset.productname)) {
+    if (favorites.findIndex(p => p === storageProduct) >= 0)
       heart.innerHTML = "favorite";
-    }
 
-    /* heart.addEventListener("mouseover", function(event) {
-      heart.innerHTML = "favorite";
-    });*/
-
-    //heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
-      if (heart.innerHTML !== "favorite") {
-        localStorage.setItem(event.target.dataset.productname, "liked");
-        this.removeEventListener("mouseout", mouseOutfunc);
+      let productname = event.target.dataset.productname;
+
+      if (favorites.findIndex(p => p === productname) < 0) {
+        favorites.push(event.target.dataset.productname);
+
+        localStorage.setItem("liked", JSON.stringify(favorites));
         heart.innerHTML = "favorite";
+        this.addEventListener("mouseover", mouseOver);
+        this.addEventListener("mouseout", mouseOut);
       } else {
-        this.addEventListener("mouseout", mouseOutfunc);
-        localStorage.removeItem(event.target.dataset.productname);
+        //remove the item from the favorites array, then store this again in localstorage
+        let index = favorites.findIndex(p => p === productname);
+
+        favorites.splice(index, 1);
+
+        localStorage.setItem("liked", JSON.stringify(favorites));
+
+        this.removeEventListener("mouseover", mouseOver);
+        this.removeEventListener("mouseout", mouseOut);
+        heart.innerHTML = "favorite_border";
       }
     });
-    //in order to use the removeEventListener, I had to create
-    //a custom function to be used as callback
-    function mouseOutfunc() {
-      heart.innerHTML = "favorite_border";
+    function mouseOver() {
+      heart.innerHTML = "remove";
+    }
+    function mouseOut() {
+      heart.innerHTML = "favorite";
     }
   });
 })();
@@ -563,7 +580,7 @@ function createProducts(product) {
 
   addProductButtons.forEach(function(btn) {
     //for every cart button on a product, if the session already has a product like this, hide this cartbutton and show the plusminusbutton instead
-    if (sessionStorage.getItem(btn.dataset.productname)) {
+    if (localStorage.getItem(btn.dataset.productname)) {
       //hide this button
       btn.style.display = "none";
 
@@ -572,7 +589,7 @@ function createProducts(product) {
         if (entry.dataset.productname === btn.dataset.productname) {
           entry.style.display = "flex";
           //ofcourse, also update this divs innerhtml amount section
-          let productFromStorage = sessionStorage.getItem(
+          let productFromStorage = localStorage.getItem(
             btn.dataset.productname
           );
           let productAmount = JSON.parse(productFromStorage).amount;
@@ -703,8 +720,8 @@ function saveToStorage(key, value) {
 
   //if the amount is 0, delete this key value pair from storage cause there is no need for it anymore
   if (amount === 0) {
-    sessionStorage.removeItem(key);
-  } else sessionStorage.setItem(key, value);
+    localStorage.removeItem(key);
+  } else localStorage.setItem(key, value);
 }
 
 function updateCartIcon() {

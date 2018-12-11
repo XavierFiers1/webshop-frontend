@@ -1,88 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- TITLE -->
-  <title>Pickup</title>
-  <!-- META -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="Aalborg Storcenter Pickup - order your groceries, pick them up at 
-  Bilka point and enjoy the rest of the day in one of Storcenters food places" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-title" content="Pickup">
-  <meta name="application-name" content="Pickup">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="msapplication-config" content="/Frontend/assets/browserconfig.xml">
-  <meta name="theme-color" content="#2196f3">
-  <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="home.css" />
-  <link rel="stylesheet" href="../../style/style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-green.min.css" />
-  <!-- REST -->
-  <link rel="manifest" href="/Frontend/assets/manifest.json">
-  <link rel="apple-touch-icon" sizes="76x76" href="/Frontend/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/Frontend/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/Frontend/assets/favicon-16x16.png">
-  <link rel="mask-icon" href="/Frontend/assets/safari-pinned-tab.svg" color="#2196f3">
-  <link rel="icon" type=image/ico href="/Frontend/assets/favicon.ico">
+  <head>
+    <!-- TITLE -->
+    <title>Pickup</title>
+    <!-- META -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Aalborg Storcenter Pickup - order your groceries, pick them up at 
+  Bilka point and enjoy the rest of the day in one of Storcenters food places"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-title" content="Pickup" />
+    <meta name="application-name" content="Pickup" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-config"
+      content="/Frontend/assets/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#2196f3" />
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="../../style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.blue-green.min.css"
+    />
+    <!-- REST -->
+    <link rel="manifest" href="/Frontend/assets/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/Frontend/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/Frontend/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/Frontend/assets/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="/Frontend/assets/safari-pinned-tab.svg"
+      color="#2196f3"
+    />
+    <link rel="icon" type=image/ico href="/Frontend/assets/favicon.ico">
+  </head>
 
-</head>
+  <body>
+    <div
+      class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button"
+    >
+      <!-- TOPBAR -->
+      <header id="topbarContainer" class="mdl-layout__header "></header>
+      <!-- END TOPBAR -->
 
-<body>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-desktop-drawer-button">
-    <!-- TOPBAR -->
-    <header id="topbarContainer" class="mdl-layout__header "></header>
-    <!-- END TOPBAR -->
-
-    <!-- MAIN CONTENT -->
-    <main class="mdl-layout__content">
-      <div class="mdl-grid crossroad">
-        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow" onclick="window.location = '/Frontend/pages/products/products.html'">
-          <div id="grocery" class="card-image mdl-card mdl-shadow--2dp valign-center">
-            <h1 class="align-center">Shop groceries <br>
-              <img src="/Frontend/img/bilkalogo.png" alt="bilka">
-            </h1>
-
+      <!-- MAIN CONTENT -->
+      <main class="mdl-layout__content">
+        <div class="mdl-grid crossroad">
+          <div
+            class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow"
+            onclick="window.location = '/Frontend/pages/products/products.html'"
+          >
+            <div
+              id="grocery"
+              class="card-image mdl-card mdl-shadow--2dp valign-center"
+            >
+              <h1 class="align-center">
+                Shop groceries <br />
+                <img src="/Frontend/img/bilkalogo.png" alt="bilka" />
+              </h1>
+            </div>
+          </div>
+          <div
+            class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow"
+            onclick="window.location = '/Frontend/pages/booktable/booktable.html'"
+          >
+            <div
+              id="booking"
+              class="card-image mdl-card mdl-shadow--2dp valign-center"
+            >
+              <h1 class="align-center">
+                Book a table <br />
+                <img
+                  src="/Frontend/img/AaStorcenter.svg"
+                  alt="Aalborg Storcenter"
+                />
+              </h1>
+            </div>
           </div>
         </div>
-        <div class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow" onclick="window.location = '/Frontend/pages/booktable/booktable.html'">
-          <div id="booking" class="card-image mdl-card mdl-shadow--2dp valign-center">
-            <h1 class="align-center">Book a table <br> <img src="/Frontend/img/AaStorcenter.svg" alt="Aalborg Storcenter"></h1>
-
-          </div>
-        </div>
+      </main>
+      <!-- END MAIN CONTENT -->
+      <!-- SNACK BAR CONTAINER -->
+      <div
+        aria-live="assertive"
+        aria-atomic="true"
+        aria-relevant="text"
+        class="mdl-snackbar mdl-js-snackbar"
+      >
+        <div class="mdl-snackbar__text"></div>
+        <button type="button" class="mdl-snackbar__action"></button>
       </div>
-    </main>
-    <!-- END MAIN CONTENT -->
-    <!-- SNACK BAR CONTAINER -->
-    <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-      <div class="mdl-snackbar__text"></div>
-      <button type="button" class="mdl-snackbar__action"></button>
+      <!-- END SNACKBAR CONTAINER -->
+      <!-- FOOTER -->
+      <footer id="footerContainer" class="mdl-mega-footer"></footer>
+      <!-- END FOOTER -->
     </div>
-    <!-- END SNACKBAR CONTAINER -->
-    <!-- FOOTER -->
-    <footer id="footerContainer" class="mdl-mega-footer"></footer>
-    <!-- END FOOTER -->
-  </div>
-</body>
-<!-- SCRIPTS -->
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script src="/Frontend/app.js"></script>
-<script> 
-// Uncomment to make service worker work, makes the development harder because of cache 
+  </body>
+  <!-- SCRIPTS -->
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="/Frontend/app.js"></script>
+  <script>
+    // Uncomment to make service worker work, makes the development harder because of cache
 
-// if ('serviceWorker' in navigator) {
-//   // wait until page finish loading for better UX
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('/Frontend/sw.js').then(function(registration) {
-//       // Registration was successful
-//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-//     }, function(err) {
-//       // registration failed :(
-//       console.log('ServiceWorker registration failed: ', err);
-//     });
-//   });
-// }
-</script>
+    // if ('serviceWorker' in navigator) {
+    //   // wait until page finish loading for better UX
+    //   window.addEventListener('load', function() {
+    //     navigator.serviceWorker.register('/Frontend/sw.js').then(function(registration) {
+    //       // Registration was successful
+    //       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    //     }, function(err) {
+    //       // registration failed :(
+    //       console.log('ServiceWorker registration failed: ', err);
+    //     });
+    //   });
+    // }
+  </script>
 </html>

@@ -171,7 +171,7 @@ section {
 /*Important, otherwise cards overlap*/
 .mdl-cell {
   display: flex;
-  margin: 8px auto !important;
+  margin: 8px !important;
 }
 /*Important, otherwise cards overlap*/
 .mdl-card {

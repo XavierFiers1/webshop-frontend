@@ -114,8 +114,8 @@ let myCart = [];
 
 function cartBuilder() {
   productsArray.forEach(product => {
-    if (sessionStorage.getItem(product.name)) {
-      let amount = JSON.parse(sessionStorage.getItem(product.name)).amount;
+    if (localStorage.getItem(product.name)) {
+      let amount = JSON.parse(localStorage.getItem(product.name)).amount;
 
       myCart.push({ product: product, amount: amount });
     }
@@ -129,11 +129,20 @@ function cartBuilder() {
 
 function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
+  const checkoutInfoHTML = document.querySelector(".totalCalculation");
+  const removeWhenEmptyCartHTML = document.querySelector(
+    ".removeWhenEmptyCart"
+  );
   if (myCart.length > 0)
     shoppingListContent.innerHTML = myCart
       .map(createShoppingListProducts)
       .join("");
-  else shoppingListContent.innerHTML = "Cart is empty";
+  else {
+    shoppingListContent.innerHTML = "Cart is empty";
+    checkoutInfoHTML.innerHTML = "";
+    //remove this element to remove the white background
+    removeWhenEmptyCartHTML.parentNode.removeChild(removeWhenEmptyCartHTML);
+  }
 }
 
 function updateGrandTotal() {
@@ -273,7 +282,7 @@ function updateProductAmountHtml(productname, amount, price) {
 }
 
 function saveToStorage(key, value) {
-  sessionStorage.setItem(key, value);
+  localStorage.setItem(key, value);
 }
 
 function addAnotherProductToCart(event) {
@@ -319,7 +328,7 @@ function deleteProductFromList(event) {
   let productname = event.dataset.product;
 
   //remove product from sessionstorage:
-  sessionStorage.removeItem(productname);
+  localStorage.removeItem(productname);
   //empty the cart
   myCart = [];
   //then rebuild the cart based on new sessionstorage

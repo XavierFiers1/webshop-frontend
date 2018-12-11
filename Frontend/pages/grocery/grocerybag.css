@@ -11,7 +11,7 @@ section {
   color: #94c817;
   background: white;
   border-radius: 3px;
-
+  height: 230px;
   box-shadow: 0px 1px 1.5px 1px #cccccc;
 }
 
@@ -35,6 +35,9 @@ section {
     bottom: 0 !important;
     right: 0 !important;
   }
+  .mdl-cell--8-col {
+    height: 350px;
+  }
 }
 
 .totalCalculation {
@@ -50,7 +53,7 @@ p {
   margin: 10px;
   position: absolute;
   width: 30%;
-  bottom: 45px;
+  /*bottom: 45px;*/
   right: 100px;
 }
 
@@ -140,6 +143,7 @@ p {
   display: inline !important;
   width: calc(33.3333333333%);
   color: white !important;
+  background-color: #80ae15 !important;
 }
 .mdl-card__supporting-text {
   padding: 3px !important;

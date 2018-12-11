@@ -56,9 +56,10 @@ p {
   width: auto;
   flex: 1;
 }
-/* .banner {
-  margin-bottom: 3rem;
-} */
+.banner {
+  width: 100%;
+  object-fit: cover;
+}
 /*Book a table*/
 
 .booktablecard {

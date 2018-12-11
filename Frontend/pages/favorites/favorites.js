@@ -197,18 +197,26 @@ let productsArray = [
   }
 ];
 
+let myCart = [];
+
 /******************************/
 /*******************************/
 /*****Generate Favorites HTML*****/
 /******************************/
 /*****************************/
 let favorites = [];
+let storage = [];
+let names = [];
+storage = JSON.parse(localStorage.getItem("liked"));
+if (storage === null) storage = [];
 const favoriteHTML = document.querySelector("#favorites");
 (function() {
   productsArray.forEach(p => {
-    if (localStorage.getItem(p.name)) {
-      let product = productsArray.find(pr => pr.name === p.name);
-      favorites.push(product);
+    if (storage.findIndex(fav => fav === p.name) >= 0) {
+      //favorites is used to map the products
+      favorites.push(p);
+      //names is used to write to local storage
+      names.push(p.name);
     }
   });
 })();
@@ -235,7 +243,7 @@ function createFavorites(product) {
           <img src="${product.img}" />
           <i class="material-icons heartIconUntouched" data-toggle="false" data-productname="${
             product.name
-          }">favorite_border</i>
+          }">favorite</i>
         </div>
     
         <div class="mdl-card__supporting-text">
@@ -306,31 +314,25 @@ function heartEventListeners() {
 
   heartUntouchedIcons.forEach(function(heart) {
     //fill in hearts where needed according to local storage liked heart
-
-    if (localStorage.getItem(heart.dataset.productname)) {
-      heart.innerHTML = "favorite";
-    }
-
+    heart.addEventListener("mouseover", function(event) {
+      heart.innerHTML = "remove";
+    });
     heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
-      if (heart.innerHTML !== "favorite") {
-        localStorage.setItem(event.target.dataset.productname, "liked");
-        this.removeEventListener("mouseout", mouseOutfunc);
-        heart.innerHTML = "favorite";
-      } else {
-        this.addEventListener("mouseout", mouseOutfunc);
-        localStorage.removeItem(event.target.dataset.productname);
-        let index = favorites.findIndex(
-          f => f.name === event.target.dataset.productname
-        );
-        favorites.splice(index, 1);
-        buildFavorites();
-      }
+      let index = favorites.findIndex(
+        f => f.name === event.target.dataset.productname
+      );
+      favorites.splice(index, 1);
+      names = [];
+      favorites.forEach(f => names.push(f.name));
+      localStorage.setItem("liked", JSON.stringify(names));
+      buildFavorites();
     });
+
     //in order to use the removeEventListener, I had to create
     //a custom function to be used as callback
     function mouseOutfunc() {
-      heart.innerHTML = "favorite_border";
+      heart.innerHTML = "favorite";
     }
   });
 }
@@ -340,4 +342,179 @@ function buildFavorites() {
     favoriteHTML.innerHTML = favorites.map(createFavorites).join("");
   else favoriteHTML.innerHTML = "Add some favorite products to your watchlist";
   heartEventListeners();
+}
+
+/*///////////////////////////////////
+  Add clickevents to all product buttons:
+  ///////////////////////////////////*/
+/*///////////////////////////////////
+  Also, if there are some items in storage, show the right buttons accordingly!
+  ///////////////////////////////////*/
+(function() {
+  let amount = 0;
+  let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
+  let addProductButtons = document.querySelectorAll(".cartButton");
+
+  addProductButtons.forEach(function(btn) {
+    //for every cart button on a product, if the session already has a product like this, hide this cartbutton and show the plusminusbutton instead
+    if (localStorage.getItem(btn.dataset.productname)) {
+      //hide this button
+      btn.style.display = "none";
+
+      //show the plus minus buttons for this product
+      plusminusDivs.forEach(entry => {
+        if (entry.dataset.productname === btn.dataset.productname) {
+          entry.style.display = "flex";
+          //ofcourse, also update this divs innerhtml amount section
+          let productFromStorage = localStorage.getItem(
+            btn.dataset.productname
+          );
+          let productAmount = JSON.parse(productFromStorage).amount;
+
+          updateProductAmountHtml(btn.dataset.productname, productAmount);
+          //also add this item to the cart with amount from storage:
+          addProductToCart(btn.dataset.productname, productAmount);
+        }
+      });
+    }
+
+    //register the clickevent for each button
+    btn.addEventListener("click", function(event) {
+      let productName = event.target.dataset.productname;
+      //OnClick: Hide this button
+      btn.style.display = "none";
+
+      /////snackbar logic///////
+      ("use strict");
+      let snackbarContainer = document.querySelector("#theToast");
+      var data = { message: "Added " + productName + " to grocery Bag!" };
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      //////////////////////////
+
+      //get the specific plus min buttons for this product and show them
+      plusminusDivs.forEach(div => {
+        if (div.dataset.productname === productName) {
+          div.style.display = "flex";
+        }
+      });
+
+      ///////cart logic////////
+      //this product isn't added throug session storage so
+      //the second attribute has to be set 0;
+      addProductToCart(productName, 0);
+    });
+  });
+})();
+
+//this function will execute if there was no product of this type in the cart
+//the cart button will change into plus minus buttons
+function addProductToCart(productname, amountFromStorage) {
+  let index = myCart.findIndex(item => item.product === productname);
+  let amount = 0;
+
+  if (index === -1 && amountFromStorage === 0) {
+    amount = 1;
+    myCart.push({ product: productname, amount: amount });
+    //save this to sessionstorage
+    let product = myCart.find(element => element.product === productname);
+    saveToStorage(productname, JSON.stringify(product));
+  }
+  //check if the given parameter productAmount is greater than 0, this means we
+  //get the value from session storage
+  //set the exact amount in cart
+  else if (amountFromStorage > 0) {
+    myCart.push({ product: productname, amount: amountFromStorage });
+    amount = amountFromStorage;
+  }
+  //else, the functions add and remove product use this method and you'll just want to update the
+  //amount by 1
+  else {
+    myCart[index] = { product: productname, amount: ++amount };
+    //save this to sessionstorage
+    let product = myCart.find(element => element.product === productname);
+    saveToStorage(productname, JSON.stringify(product));
+  }
+
+  /////update cart icon in the header with new items added
+  updateCartIcon();
+  //update the html of the productAmount shown
+  updateProductAmountHtml(productname, amount);
+}
+
+//if there already was a first product in cart, this function will be launched (clicking the plus button)
+function addAnotherProductToCart(event) {
+  let productname = event.dataset.productname;
+  let product = myCart.find(element => element.product === productname);
+  product.amount++;
+  //update the amount html
+  updateProductAmountHtml(productname, product.amount);
+  //also update the storage
+  saveToStorage(productname, JSON.stringify(product));
+}
+
+function removeAnotherProductFromCart(event) {
+  productname = event.dataset.productname;
+
+  let product = myCart.find(element => element.product === productname);
+
+  product.amount--;
+  if (product.amount === 0) {
+    //remove this product from the myCart Array!
+
+    let index = myCart.findIndex(element => {
+      return element.product === productname;
+    });
+
+    myCart.splice(index, 1);
+
+    //also update cartIcon
+    updateCartIcon();
+
+    //find specific div for this product and hide it
+    let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
+    plusminusDivs.forEach(div => {
+      if (div.dataset.productname === productname) {
+        div.style.display = "none";
+      }
+    });
+
+    //find the specific cartbutton div for this product and show it
+    let cartButtonDiv = document.querySelectorAll(".cartButton");
+    cartButtonDiv.forEach(div => {
+      if (div.dataset.productname === productname) {
+        div.style.display = "inline-block";
+      }
+    });
+  }
+  updateProductAmountHtml(productname, product.amount);
+  //also update the storage
+  saveToStorage(productname, JSON.stringify(product));
+}
+
+function saveToStorage(key, value) {
+  //fist get the amount from the product to store
+  let amount = JSON.parse(value).amount;
+
+  //if the amount is 0, delete this key value pair from storage cause there is no need for it anymore
+  if (amount === 0) {
+    localStorage.removeItem(key);
+  } else localStorage.setItem(key, value);
+}
+
+function updateCartIcon() {
+  document.addEventListener("readystatechange", event => {
+    if (event.target.readyState === "interactive") {
+    } else if (event.target.readyState === "complete") {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
+    } else {
+      const cart = document.getElementById("cartButton");
+      cart.setAttribute("data-badge", myCart.length);
+    }
+  });
+}
+
+function updateProductAmountHtml(productname, amount) {
+  let amountHTML = document.getElementById("productAmount" + productname);
+  amountHTML.innerHTML = amount;
 }
