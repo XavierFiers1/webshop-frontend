@@ -89,111 +89,57 @@
                         <p class="booktableSubTitle">Price range</p>
                         <p class="booktablecontent">$$ - $$$</p>
                         <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Sunset Boulevard -->
               <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/sunsetthumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Sunset Boulevard</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <section class="sectionTimeDate">
+                  <div class="timeDate">
+                    <p>Pickup Date:</p>
 
-              <!-- Joe & The Juice -->
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/joethumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Joe & The Juice</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                        >
-                          Book table
-                        </button>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input
+                          class="mdl-textfield__input datePicker"
+                          type="date"
+                          id="pickupDate"
+                        />
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </form>
 
-              <!-- Baresso Coffee -->
-              <div class="mdl-cell mdl-cell--6-col">
-                <div class="booktablecard">
-                  <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--8-col">
-                      <img
-                        src="../../img/baressothumbnail.jpg"
-                        class="booktablethumbnail"
-                      />
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
-                      <div class="booktabletext">
-                        <p class="booktableTitle">Baresso Coffee</p>
-                        <p class="booktableSubTitle">Opening hours</p>
-                        <p class="booktablecontent">
-                          Monday - Saturday: 09:00 - 19:00
-                        </p>
-                        <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-                        <p class="booktableSubTitle">Price range</p>
-                        <p class="booktablecontent">$$ - $$$</p>
-                        <br />
-                        <button
-                          class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                    <p>Pickup Time:</p>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input
+                          class="mdl-textfield__input timePicker"
+                          type="time"
+                          id="pickupTime"
+                          min="09:00:00"
+                          max="00:00:00"
+                        />
+                        <span class="mdl-textfield__error"
+                          >Please select a time between Bilka's opening
+                          hours</span
                         >
-                          Book table
-                        </button>
                       </div>
+                    </form>
+                    <div>
+                      <button
+                        class="mdl-button mdl-js-button mdl-button--raised"
+                      >
+                        Book!
+                      </button>
+                      <button
+                        class="mdl-button mdl-js-button mdl-button--raised"
+                      >
+                        Back to restaurants
+                      </button>
                     </div>
                   </div>
-                </div>
+                </section>
               </div>
             </div>
           </section>

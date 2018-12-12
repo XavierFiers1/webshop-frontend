@@ -140,6 +140,14 @@ p {
   text-align: center;
 }
 
+.timeDate {
+  margin: 0 auto;
+  text-align: left;
+}
+.sectionTimeDate {
+  padding: 10px;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 750px) {
   .restaurants > .mdl-grid {
     padding: 0;

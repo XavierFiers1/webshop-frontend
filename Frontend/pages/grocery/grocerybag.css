@@ -182,4 +182,7 @@ p {
     width: 100% !important;
     text-align: left;
   }
+  .mdl-grid {
+    text-align: center;
+  }
 }

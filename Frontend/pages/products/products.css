@@ -75,12 +75,6 @@ section {
     padding: 3%;
     width: 75%;
   }
-  /*fix footer*/
-  .mdl-cell--6-col .mdl-cell--12-col,
-  .mdl-cell--12-col-phone,
-  .mdl-cell--12-col-phone {
-    width: 100% !important;
-  }
 }
 
 #searchField {
