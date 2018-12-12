@@ -1,59 +1,61 @@
 .mdl-layout__header {
-    background-color: white !important;
-    color: black;
-  }
+  background-color: white !important;
+  color: black;
+}
 
 .mdl-card {
-    width: unset !important;
+  width: unset !important;
 }
 .card-image.mdl-card#grocery {
-    min-height: 600px;
-    height: 85vh;
-    /* optimized image */
-    background: url('/Frontend/img/shoppingCart-min.jpg') center / cover;
+  min-height: 600px;
+  height: 85vh;
+  /* optimized image */
+  background: url("/Frontend/img/shoppingCart-min.jpg") center / cover;
 }
 
 .card-image.mdl-card#booking {
-    min-height: 600px;
-    max-height: 85vh;
-    background: url('/Frontend/img/bookatable.jpg') center / cover;
+  min-height: 600px;
+  max-height: 85vh;
+  background: url("/Frontend/img/bookatable.jpg") center / cover;
 }
 
 .card-image.mdl-card:hover {
-    transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .crossroad {
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
-    display: flex;
-    justify-content: center;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  display: flex;
+  justify-content: center;
 }
 
 .crossroad .mdl-card {
- height: 100%;
- cursor: pointer;
+  height: 100%;
+  cursor: pointer;
 }
 
 .crossroad h1 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: rgba(0, 0, 0, .3);
-    width: 100%;
-    top: 50%;
-    position: relative;
-    white-space: nowrap;
-    color: white;
-    
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  top: 50%;
+  position: relative;
+  white-space: nowrap;
+  color: white;
 }
 
-#grocery img, #booking img{
+#grocery img,
+#booking img {
   max-height: 120px !important;
 }
 
-#grocery:hover h1, #booking:hover h1{
-    background-color: rgba(0, 0, 0, .5) !important;
+#grocery:hover h1,
+#booking:hover h1 {
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-
-  
+.mdl-grid {
+  text-align: center;
+}
