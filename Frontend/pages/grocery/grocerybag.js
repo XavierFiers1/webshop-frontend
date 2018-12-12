@@ -168,7 +168,7 @@ function createShoppingListProducts(product) {
               <img class="shoppinglistThumbnails" src="${
                 product.product.img
               }" />
-              <div class="deleteDiv"onclick="deleteProductFromList(this)" data-product="${
+              <div class="deleteDiv"onclick="deleteProductFromList(this);updateCartIcon()" data-product="${
                 product.product.name
               }">
               <i class="deleteProductFromList material-icons">delete</i>
@@ -307,21 +307,10 @@ function addAnotherProductToCart(event) {
   updateGrandTotal();
 }
 
-//update cart icon in the header
-updateCartIcon();
-
 //update cart icon in header //only when all resources are loaded!:
 function updateCartIcon() {
-  document.addEventListener("readystatechange", event => {
-    if (event.target.readyState === "interactive") {
-    } else if (event.target.readyState === "complete") {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    } else {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    }
-  });
+  const cart = document.getElementById("cartButton");
+  cart.setAttribute("data-badge", myCart.length);
 }
 
 function deleteProductFromList(event) {
@@ -334,8 +323,29 @@ function deleteProductFromList(event) {
   //then rebuild the cart based on new sessionstorage
   cartBuilder();
 
-  updateCartIcon();
   //rebuild the page
   pageBuilder();
 }
 updateGrandTotal();
+
+///restrict date to today
+(function() {
+  const datepicker = document.querySelector(".datePicker");
+
+  let date = new Date();
+  let min =
+    date.getFullYear() +
+    "-" +
+    (date.getUTCMonth() + 1).toLocaleString() +
+    "-" +
+    date.getDate().toLocaleString();
+
+  datepicker.setAttribute("min", min);
+})();
+
+document.addEventListener("readystatechange", event => {
+  if (event.target.readyState === "interactive") {
+  } else if (event.target.readyState === "complete") {
+    updateCartIcon();
+  }
+});

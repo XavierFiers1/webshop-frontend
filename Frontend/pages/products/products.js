@@ -481,7 +481,7 @@ function createProducts(product) {
       }">
         <button
           class="plusminButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-          onclick="removeAnotherProductFromCart(this)" data-productname="${
+          onclick="removeAnotherProductFromCart(this);updateCartIcon()"  data-productname="${
             product.name
           }">
           <i class="material-icons">remove</i>
@@ -523,7 +523,7 @@ function createProducts(product) {
 
   //get all the hearts from storage
   let storage = JSON.parse(localStorage.getItem("liked"));
-  console.log(storage);
+
   if (storage === null) storage = [];
   favorites = storage;
   let storageProduct = "";
@@ -622,9 +622,10 @@ function createProducts(product) {
       });
 
       ///////cart logic////////
-      //this product isn't added throug session storage so
+      //this product isn't added throug local storage so
       //the second attribute has to be set 0;
       addProductToCart(productName, 0);
+      updateCartIcon();
     });
   });
 })();
@@ -659,7 +660,7 @@ function addProductToCart(productname, amountFromStorage) {
   }
 
   /////update cart icon in the header with new items added
-  updateCartIcon();
+
   //update the html of the productAmount shown
   updateProductAmountHtml(productname, amount);
 }
@@ -689,9 +690,6 @@ function removeAnotherProductFromCart(event) {
     });
 
     myCart.splice(index, 1);
-
-    //also update cartIcon
-    updateCartIcon();
 
     //find specific div for this product and hide it
     let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
@@ -725,19 +723,20 @@ function saveToStorage(key, value) {
 }
 
 function updateCartIcon() {
-  document.addEventListener("readystatechange", event => {
-    if (event.target.readyState === "interactive") {
-    } else if (event.target.readyState === "complete") {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    } else {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    }
-  });
+  const cart = document.getElementById("cartButton");
+  cart.setAttribute("data-badge", myCart.length);
 }
 
 function updateProductAmountHtml(productname, amount) {
   let amountHTML = document.getElementById("productAmount" + productname);
   amountHTML.innerHTML = amount;
 }
+
+//after everything is set in place, also updateCartIcon
+
+document.addEventListener("readystatechange", event => {
+  if (event.target.readyState === "interactive") {
+  } else if (event.target.readyState === "complete") {
+    updateCartIcon();
+  }
+});

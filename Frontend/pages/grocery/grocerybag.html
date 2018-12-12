@@ -81,7 +81,7 @@
                     <form action="#">
                       <div class="mdl-textfield mdl-js-textfield">
                         <input
-                          class="mdl-textfield__input"
+                          class="mdl-textfield__input datePicker"
                           type="date"
                           id="pickupDate"
                         />
@@ -93,10 +93,16 @@
                     <form action="#">
                       <div class="mdl-textfield mdl-js-textfield">
                         <input
-                          class="mdl-textfield__input"
+                          class="mdl-textfield__input timePicker"
                           type="time"
                           id="pickupTime"
+                          min="09:00:00"
+                          max="00:00:00"
                         />
+                        <span class="mdl-textfield__error"
+                          >Please select a time between Bilka's opening
+                          hours</span
+                        >
                       </div>
                     </form>
                     <div class="total">
