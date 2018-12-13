@@ -236,7 +236,9 @@ if (!orders.length) {
     var showToastButton = document.querySelector('#editProfile');
     showToastButton.addEventListener('click', function() {
       'use strict';
-      var data = {message: 'Feature is currently in development'};
+      var data = {message: 'Logged out'};
+      sessionStorage.removeItem('user');
+      window.location = 'Frontend/index.html';
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
     });
   }());
