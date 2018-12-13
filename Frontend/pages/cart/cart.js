@@ -114,8 +114,8 @@ let myCart = [];
 
 function cartBuilder() {
   productsArray.forEach(product => {
-    if (sessionStorage.getItem(product.name)) {
-      let amount = JSON.parse(sessionStorage.getItem(product.name)).amount;
+    if (localStorage.getItem(product.name)) {
+      let amount = JSON.parse(localStorage.getItem(product.name)).amount;
 
       myCart.push({ product: product, amount: amount });
     }
@@ -129,9 +129,31 @@ function cartBuilder() {
 
 function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
-  shoppingListContent.innerHTML = myCart
-    .map(createShoppingListProducts)
-    .join("");
+  const checkoutInfoHTML = document.querySelector(".totalCalculation");
+  const removeWhenEmptyCartHTML = document.querySelector(
+    ".removeWhenEmptyCart"
+  );
+  if (myCart.length > 0)
+    shoppingListContent.innerHTML = myCart
+      .map(createShoppingListProducts)
+      .join("");
+  else {
+    shoppingListContent.innerHTML = "Cart is empty";
+    checkoutInfoHTML.innerHTML = "";
+    //remove this element to remove the white background
+    removeWhenEmptyCartHTML.parentNode.removeChild(removeWhenEmptyCartHTML);
+  }
+}
+
+function updateGrandTotal() {
+  const totalHTML = document.querySelector("#totalValue");
+
+  let total = 0;
+  myCart.forEach(p => {
+    total += parseFloat(p.product.price * p.amount);
+  });
+  total += 1; //service costs
+  totalHTML.innerHTML = total;
 }
 
 function createShoppingListProducts(product) {
@@ -146,14 +168,15 @@ function createShoppingListProducts(product) {
               <img class="shoppinglistThumbnails" src="${
                 product.product.img
               }" />
-              <h2 class="productTitle mdl-card__title-text">${
-                product.product.name
-              }</h2>
-              <div class="deleteDiv"onclick="deleteProductFromList(this)" data-product="${
+              <div class="deleteDiv"onclick="deleteProductFromList(this);updateCartIcon()" data-product="${
                 product.product.name
               }">
               <i class="deleteProductFromList material-icons">delete</i>
               </div>      
+              <h2 class="productTitle mdl-card__title-text">${
+                product.product.name
+              }</h2>
+            
              
               <h3 class="mdl-card__title-text"> <span data-info="${
                 product.product.name
@@ -232,6 +255,7 @@ function removeAnotherProductFromCart(event) {
   //create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
+  updateGrandTotal();
 }
 
 function updateProductAmountHtml(productname, amount, price) {
@@ -258,7 +282,7 @@ function updateProductAmountHtml(productname, amount, price) {
 }
 
 function saveToStorage(key, value) {
-  sessionStorage.setItem(key, value);
+  localStorage.setItem(key, value);
 }
 
 function addAnotherProductToCart(event) {
@@ -280,36 +304,48 @@ function addAnotherProductToCart(event) {
   //also update the storage//create a new product to match the original session storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
+  updateGrandTotal();
 }
-
-//update cart icon in the header
-updateCartIcon();
 
 //update cart icon in header //only when all resources are loaded!:
 function updateCartIcon() {
-  document.addEventListener("readystatechange", event => {
-    if (event.target.readyState === "interactive") {
-    } else if (event.target.readyState === "complete") {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    } else {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    }
-  });
+  const cart = document.getElementById("cartButton");
+  cart.setAttribute("data-badge", myCart.length);
 }
 
 function deleteProductFromList(event) {
   let productname = event.dataset.product;
 
   //remove product from sessionstorage:
-  sessionStorage.removeItem(productname);
+  localStorage.removeItem(productname);
   //empty the cart
   myCart = [];
   //then rebuild the cart based on new sessionstorage
   cartBuilder();
 
-  updateCartIcon();
   //rebuild the page
   pageBuilder();
 }
+updateGrandTotal();
+
+///restrict date to today
+(function() {
+  const datepicker = document.querySelector(".datePicker");
+
+  let date = new Date();
+  let min =
+    date.getFullYear() +
+    "-" +
+    (date.getUTCMonth() + 1).toLocaleString() +
+    "-" +
+    date.getDate().toLocaleString();
+
+  datepicker.setAttribute("min", min);
+})();
+
+document.addEventListener("readystatechange", event => {
+  if (event.target.readyState === "interactive") {
+  } else if (event.target.readyState === "complete") {
+    updateCartIcon();
+  }
+});

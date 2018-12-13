@@ -28,7 +28,9 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.hvr-backward:hover, .hvr-backward:focus, .hvr-backward:active {
+.hvr-backward:hover,
+.hvr-backward:focus,
+.hvr-backward:active {
   -webkit-transform: translateX(-8px);
   transform: translateX(-8px);
 }
@@ -43,7 +45,9 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.hvr-forward:hover, .hvr-forward:focus, .hvr-forward:active {
+.hvr-forward:hover,
+.hvr-forward:focus,
+.hvr-forward:active {
   -webkit-transform: translateX(8px);
   transform: translateX(8px);
 }
@@ -59,7 +63,9 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
   -webkit-transform: scale(1.02);
   transform: scale(1.02);
 }
@@ -76,27 +82,26 @@
 }
 
 /* END CUSTOM HELPERS */
-@media (-webkit-min-device-pixel-ratio: 1.5) and (max-width: 1024px) and (min-width: 513px), 
-(max-width: 1024px) and (min-resolution: 1.5dppx) and (min-width: 513px),
-(-webkit-max-device-pixel-ratio: 1.5) and (max-width: 2048px), 
-(max-resolution: 1.5dppx) and (max-width: 2048px) {
-    body::before {
-        background-image: url('https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ea7aeb5fc4e3623a3f16af817ec12129&auto=format&fit=crop&w=1355&q=80') ;
-    }
+@media (-webkit-min-device-pixel-ratio: 1.5) and (max-width: 1024px) and (min-width: 513px),
+  (max-width: 1024px) and (min-resolution: 1.5dppx) and (min-width: 513px),
+  (-webkit-max-device-pixel-ratio: 1.5) and (max-width: 2048px),
+  (max-resolution: 1.5dppx) and (max-width: 2048px) {
+  body::before {
+    background-image: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ea7aeb5fc4e3623a3f16af817ec12129&auto=format&fit=crop&w=1355&q=80");
+  }
 }
-  
 
 body::before {
-    background-size: cover;
-    background-attachment: fixed;
-    content: '';
-    will-change: transform;
-    z-index: -1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    position: fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  content: "";
+  will-change: transform;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: fixed;
 }
 body {
   display: flex;
@@ -117,9 +122,9 @@ header a {
   color: black;
 }
 .groceryBilka {
-max-height: 50px;
+  max-height: 50px;
 }
-.mdl-layout__title img{
+.mdl-layout__title img {
   max-height: 50px;
 }
 .material-icons.mdl-badge.mdl-badge--overlap:hover {
@@ -155,9 +160,17 @@ max-height: 50px;
     width: 100% !important;
     text-align: left;
   }
+  /*fix footer*/
+  .mdl-cell--6-col .mdl-cell--12-col,
+  .mdl-cell--12-col-phone,
+  .mdl-cell--12-col-phone {
+    width: 100% !important;
+  }
 }
 /* AUTH MODAL STYLING */
-* {box-sizing: border-box}
+* {
+  box-sizing: border-box;
+}
 
 /* Full-width input fields */
   .user-input {
@@ -216,7 +229,8 @@ hr {
 
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
+  .cancelbtn,
+  .signupbtn {
     width: 100%;
   }
 }

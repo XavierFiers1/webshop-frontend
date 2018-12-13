@@ -56,9 +56,10 @@ p {
   width: auto;
   flex: 1;
 }
-/* .banner {
-  margin-bottom: 3rem;
-} */
+.banner {
+  width: 100%;
+  object-fit: cover;
+}
 /*Book a table*/
 
 .booktablecard {
@@ -137,6 +138,14 @@ p {
   background-color: #94c817 !important;
   margin: 0 auto;
   text-align: center;
+}
+
+.timeDate {
+  margin: 0 auto;
+  text-align: left;
+}
+.sectionTimeDate {
+  padding: 10px;
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 750px) {

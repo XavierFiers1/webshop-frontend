@@ -1,4 +1,4 @@
-#products {
+#favorites {
   margin: 0 auto;
   padding: 3%;
 }
@@ -35,31 +35,23 @@ body {
 }
 .banner {
   width: 100%;
-  object-fit: cover;
-  padding-bottom: 25px;
   /* display: block;
-  max-width:230px;
-  max-height:95px;
-  width: auto;
-  height: auto;
-  margin-bottom: 3rem; */
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+    margin-bottom: 3rem; */
 }
-h3 {
-  padding-top: 25px !important;
-  text-align: center;
-}
+
 section {
   margin: 0 auto;
-
   color: #94c817;
   background: white;
   border-radius: 3px;
   width: 90%;
   box-shadow: 0px 1px 1.5px 1px #cccccc;
 }
-.products {
-  padding-top: 10px;
-}
+
 /*section should be wider on phone screens*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   section {
@@ -179,6 +171,7 @@ section {
 /*Important, otherwise cards overlap*/
 .mdl-cell {
   display: flex;
+  margin: 8px !important;
 }
 /*Important, otherwise cards overlap*/
 .mdl-card {
@@ -206,20 +199,20 @@ section {
 
 /*specific style for the carousel cards so they keep the same size*/
 .mdl-cell--12-col {
-  margin: 8px !important;
+  margin: auto !important;
   width: 50% !important;
 }
 
 .mdl-cell--6-col {
-  margin: 8px !important;
+  margin: auto !important;
   width: 35% !important;
 }
 
 .mdl-cell--4-col {
-  margin: 8px !important;
+  margin: auto !important;
   width: calc(29% - 16px) !important;
 }
 
 .mdl-cell--3-col {
-  margin: 8px !important;
+  margin: 8px auto !important;
 }
