@@ -1,4 +1,9 @@
 /* CUSTOM HELPERS */
+.is-blurred {
+  overflow-x: hidden;
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+}
 .align-center {
   text-align: center !important;
 }
@@ -155,16 +160,16 @@ max-height: 50px;
 * {box-sizing: border-box}
 
 /* Full-width input fields */
-  input[type=text], input[type=password] {
+  .user-input {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 5px 0 5px 0;
   display: inline-block;
   border: none;
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+.user-input:focus{
   background-color: #ddd;
   outline: none;
 }
@@ -175,36 +180,31 @@ hr {
 }
 
 /* Set a style for all buttons */
-button {
+#auth .modal-button {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin: 0;
   border: none;
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
 }
 
-button:hover {
+#auth button:hover {
   opacity:1;
 }
 
 /* Extra styles for the cancel button */
-.cancelbtn {
+#auth .cancelbtn {
   padding: 14px 20px;
   background-color: #f44336;
 }
 
 /* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+#auth .cancelbtn, #auth .signupbtn {
   float: left;
   width: 50%;
-}
-
-/* Add padding to container elements */
-.container {
-  padding: 16px;
 }
 
 /* Clear floats */
@@ -222,4 +222,45 @@ button:hover {
 }
 dialog#auth.mdl-dialog {
     width: -webkit-fit-content;
+    padding: 0;
+    width: 1000px;
+    height: 911px;
+}
+dialog#auth .mdl-dialog__content {
+  padding: 0 !important;
+}
+.side-pic img {
+  width: 490px;
+  height: 911px;
+  object-fit: cover;
+}
+#auth .user-form {
+  padding-top: 25px;
+}
+@media (min-width: 1000px){
+  #auth .mdl-grid { 
+   padding: 0 !important;
+  }
+  #auth .mdl-cell {
+    margin: 0 !important;
+  }
+}
+@media (max-width: 1000px){
+  .side-pic img {
+    display: none;
+  }
+  .is-blurred{
+    overflow-y: visible !important;
+  }
+  dialog#auth.mdl-dialog {
+    width: -webkit-fit-content;
+    padding: 0;
+    width: auto;
+}
+  .mdl-cell--6-col, .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
+    width: auto !important;
+    align-content: center;
+    padding-right: 2rem !important;
+    
+  }
 }
