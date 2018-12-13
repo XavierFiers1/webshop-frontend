@@ -62,6 +62,30 @@ let bookables = [
     category: "coffee"
   }
 ];
+
+let restaurants = [
+  {
+    name: "Starbucks Coffee",
+    price: "$$ - $$$",
+    imgpath: "../../img/starbucksthumbnail.jpg"
+  },
+  {
+    name: "Sunset Boulevard",
+    price: "$ - $$",
+    imgpath: "../../img/sunsetthumbnail.jpg"
+  },
+  {
+    name: "Joe & The Juice",
+    price: "$$ - $$$",
+    imgpath: "../../img/joethumbnail.jpg"
+  },
+  {
+    name: "Baresso Coffee",
+    price: "$$ - $$$",
+    imgpath: "../../img/baressothumbnail.jpg"
+  }
+];
+
 bookables.forEach(bookable => {
   let bkable = document.createElement("div");
   bkable.classList.add("mdl-grid");
@@ -77,7 +101,7 @@ bookables.forEach(bookable => {
   QUICKNAV.appendChild(bkable);
 });
 const restaurantsHTML = document.querySelector(".restaurants");
-//buildRestaurants();
+buildRestaurants();
 
 function buildRestaurants() {
   restaurantsHTML.innerHTML = restaurantCode();
@@ -138,7 +162,7 @@ function restaurantCode() {
               <p class="booktablecontent">$ - $$</p>
               <br />
               <button
-                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Starbucks Coffee"
+                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Sunset Boulevard"
               >
                 Book table
               </button>
@@ -170,7 +194,7 @@ function restaurantCode() {
               <p class="booktablecontent">$$ - $$$</p>
               <br />
               <button
-                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Starbucks Coffee"
+                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Joe & The Juice"
               >
                 Book table
               </button>
@@ -202,7 +226,7 @@ function restaurantCode() {
               <p class="booktablecontent">$ - $$</p>
               <br />
               <button
-                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Starbucks Coffee"
+                class="booktableButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="bookTable(this)" data-restaurant="Baresso Coffee"
               >
                 Book table
               </button>
@@ -214,45 +238,50 @@ function restaurantCode() {
   </div>`;
 }
 
+//book single table screen
+
 function bookTable(event) {
-  let restaurant = event.dataset.restaurant;
-  restaurantsHTML.innerHTML = buildSingleRestaurant();
+  let target = event.dataset.restaurant;
+  let restaurant = restaurants.find(r => r.name === target);
+
+  restaurantsHTML.innerHTML = buildSingleRestaurant(restaurant);
+  //also make sure datepicker has the right restrictions after every page rebuild:
+  datePicker();
 }
 
-function buildSingleRestaurant() {
-  return `<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col">
-      <div class="booktablecard">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--8-col">
-            <img
-              src="../../img/starbucksthumbnail.jpg"
-              class="booktablethumbnail"
-            />
-          </div>
-          <div class="mdl-cell mdl-cell--4-col">
-            <div class="booktabletext">
-              <p class="booktableTitle">Starbucks Coffee</p>
-              <p class="booktableSubTitle">Opening hours</p>
-              <p class="booktablecontent">
-                Monday - Saturday: 09:00 - 19:00
-              </p>
-              <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
-              <p class="booktableSubTitle">Price range</p>
-              <p class="booktablecontent">$$ - $$$</p>
-              <br />
-              
-            </div>
+function buildSingleRestaurant(restaurant) {
+  return ` <div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--6-col">
+    <div class="booktablecard">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--8-col">
+          <img
+            src=${restaurant.imgpath}
+            class="booktablethumbnail"
+          />
+        </div>
+        <div class="mdl-cell mdl-cell--4-col">
+          <div class="booktabletext">
+            <p class="booktableTitle">${restaurant.name}</p>
+            <p class="booktableSubTitle">Opening hours</p>
+            <p class="booktablecontent">
+              Monday - Saturday: 09:00 - 19:00
+            </p>
+            <p class="booktablecontent">Sunday: 10:00 - 19:00</p>
+            <p class="booktableSubTitle">Price range</p>
+            <p class="booktablecontent">${restaurant.price}</p>
+            <br />
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
+  <div class="mdl-cell mdl-cell--6-col">
+    <section class="sectionTimeDate">
+      <div class="timeDate">
+        <p>Day of visit:</p>
 
-
-      
-      <div class="mdl-cell mdl-cell--6-col">
-        <p>Pickup Date:</p>
-    
         <form action="#">
           <div class="mdl-textfield mdl-js-textfield">
             <input
@@ -262,8 +291,7 @@ function buildSingleRestaurant() {
             />
           </div>
         </form>
-      </div>
-      <div class="mdl-cell mdl-cell--6-col">
+
         <p>Pickup Time:</p>
         <form action="#">
           <div class="mdl-textfield mdl-js-textfield">
@@ -271,28 +299,45 @@ function buildSingleRestaurant() {
               class="mdl-textfield__input timePicker"
               type="time"
               id="pickupTime"
-              min="09:00:00"
-              max="00:00:00"
+              min="09:00"
+              max="18:59"
             />
             <span class="mdl-textfield__error"
-              >Please select a time between Bilka's opening hours</span
+              >Please select a time between restaurant's opening
+              hours</span
             >
           </div>
         </form>
-        <div class="total">
-          <p>Service cost: €1</p>
-          <p>Total: € <span id="totalValue"> test</span></p>
-    
-          <button class="mdl-button mdl-js-button mdl-button--raised">
-            Checkout!
+        <div>
+          <button
+            class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
+          >
+            Book!
+          </button>
+          <button
+            class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
+            onclick="buildRestaurants()"
+          >
+            Back to restaurants
           </button>
         </div>
       </div>
+    </section>
+  </div>
+</div>`;
+}
 
-    
+///restrict date to today
+function datePicker() {
+  const datepicker = document.querySelector(".datePicker");
 
+  let date = new Date();
+  let min =
+    date.getFullYear() +
+    "-" +
+    (date.getUTCMonth() + 1).toLocaleString() +
+    "-" +
+    date.getDate().toLocaleString();
 
-
-
-    </div>`;
+  datepicker.setAttribute("min", min);
 }
