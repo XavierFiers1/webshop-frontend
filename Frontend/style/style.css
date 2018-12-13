@@ -227,7 +227,7 @@ hr {
   display: table;
 }
 
-/* Change styles for cancel button and signup button on extra small screens */
+/* Change styles for key elements on change to width <1000px */
 @media screen and (max-width: 300px) {
   .cancelbtn,
   .signupbtn {
@@ -271,10 +271,24 @@ dialog#auth .mdl-dialog__content {
     padding: 0;
     width: auto;
 }
-  .mdl-cell--6-col, .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
-    width: auto !important;
+  #auth .mdl-cell--6-col, #auth .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
+    width: 100% !important;
     align-content: center;
     padding-right: 2rem !important;
     
+  }
+  .mdl-layout__title img {
+    max-height: 25px;
+  }
+  .mdl-layout__header-row {
+    padding-left: 1rem !important;
+    padding-right: .5rem !important;
+  }
+  .crossroad h1 {
+    max-height: 250px;
+  }
+  .crossroad h1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

@@ -4,7 +4,7 @@
 let notification = document.querySelector('.mdl-js-snackbar');
 const BODY = document.getElementsByTagName('body')[0];
 const TOPBARCONTAINER = document.getElementById('topbarContainer');
-
+const URLBASE = 'http://localhost:57269/api/';
 
 // init 
 loadTopbar();
@@ -31,8 +31,12 @@ document.addEventListener('readystatechange', event => {
     }
 
     showDialogButton.addEventListener('click', function () {
-      BODY.classList.add('is-blurred');
-      dialog.showModal();
+      if (sessionStorage.getItem('user')) {
+        window.location.pathname = '/Frontend/pages/user/user.html';
+      } else {
+        BODY.classList.add('is-blurred');
+        dialog.showModal();
+      }
     });
 
     dialog.querySelector('.close').addEventListener('click', function () {
@@ -64,13 +68,9 @@ document.addEventListener('readystatechange', event => {
 
   }
 });
-
-
 function loadSection(url) {
   return fetch(url).then((response) => (response.text()));
 }
-
-
 function showToast() {
   notification.MaterialSnackbar.showSnackbar(
     {
@@ -102,7 +102,7 @@ if (window.location.pathname === ('/Frontend/pages/products/products.html' || '/
 function changeForm(form) {
   switch (form) {
     case 'signup':
-    document.getElementById('form').innerHTML = `
+      document.getElementById('form').innerHTML = `
     <form action="javascript:showToast(); dialog.close()">
         <p class="align-center">Please fill in this form to create an account.</p>
         <hr />
@@ -163,12 +163,12 @@ function changeForm(form) {
       break;
     case 'login':
       document.getElementById('form').innerHTML = `
-      <form action="javascript:showToast(); dialog.close()">
+      <form class="" action="javascript:loginUser(); dialog.close()">
           <p class="align-center">Please enter yout credentials.</p>
 <!-- <label for="email"><b>Email</b></label> -->
-        <input id="email" class="user-input" type="email" placeholder="Enter email" name="email" required />
-<!-- <label for="psw"><b>Password</b></label> -->
-        <input id="psw" class="user-input" type="password" placeholder="Enter Password" name="psw"  required />      
+        <input id="loginEmail" class="user-input" type="email" placeholder="Enter email" name="email" required />
+<!-- <label for="loginPassword"><b>Password</b></label> -->
+        <input id="loginPassword" class="user-input" type="password" placeholder="Enter Password" name="psw"  required />      
         <div class="clearfix">
           <button type="button" class="modal-button cancelbtn close">Cancel</button>
           <button type="submit" class="modal-button signupbtn close">Log in</button>
@@ -179,9 +179,56 @@ function changeForm(form) {
       </form>
        
 `;
+      break;
     default:
       dialog.close();
       break;
   }
 }
+// register the user
+function registerUser() {
+  var user = {
+    FName: document.querySelector('#fname').value,
+    LName: document.querySelector('#lname').value,
+    EMail: document.querySelector('#email').value,
+    PhoneNo: document.querySelector('#phoneNo').value,
+    City: document.querySelector('#city').value,
+    Street: document.querySelector('#street').value,
+    FlatNo: document.querySelector('#flatNo').value,
+    Zip: document.querySelector('#zip').value,
+    CPR: document.querySelector('#cpr').value,
+    UPassword: document.querySelector('#psw').value
 
+  };
+  sessionStorage.setItem("userID", user.email);
+  let json = JSON.stringify(user);
+  const request = new XMLHttpRequest();
+  request.open("POST", URLBASE + "postUser", true);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+
+      loginUser(user.EMail, user.UPassword);
+    } else {
+      showToast('Something went wrong');
+    }
+  };
+  request.send(json);
+}
+function loginUser(email, password) {
+  email = document.getElementById('loginEmail').value;
+  password = document.getElementById('loginPassword').value;
+  const request = new XMLHttpRequest();
+  
+  request.open("GET", URLBASE + "getUser/" + email + "/" + password, true);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+      sessionStorage.setItem('user', email);
+      
+    } else {
+      showToast('Wrong e-mail or password.');
+    }
+  };
+  request.send();
+}
