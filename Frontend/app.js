@@ -18,7 +18,9 @@ loadFooter();
 
 // FUNCTIONS
 // Initialize Modals and listen for events, polyfill for fallbacks
-
+if (!sessionStorage.getItem('user') && window.location.pathname === '/Frontend/pages/user/user.html') {
+  window.location.pathname = '../home/home.html';
+}
 document.addEventListener('readystatechange', event => {
   if (event.target.readyState === 'interactive') {
 
@@ -39,7 +41,7 @@ document.addEventListener('readystatechange', event => {
       }
     });
 
-    dialog.querySelector('.close').addEventListener('click', function () {
+    dialog.querySelector('.cancelbtn').addEventListener('click', function () {
       BODY.classList.remove('is-blurred');
       dialog.close();
     });
@@ -51,7 +53,12 @@ document.addEventListener('readystatechange', event => {
         dialog.close();
       }
     };
-
+document.getElementsByClassName('close').onclick = function (event) {
+  if (event.target == dialog) {
+    dialog.close();
+    BODY.classList.remove('is-blurred');
+  }
+};
 
     window.onclick = function (event) {
       if (event.target == dialog) {
@@ -60,7 +67,7 @@ document.addEventListener('readystatechange', event => {
 
       }
     }
-    if (window.location.pathname === '/Frontend/pages/products/products.html' || window.location.pathname === '/Frontend/pages/cart/cart.html') {
+    if (window.location.pathname === '/Frontend/pages/products/products.html' || window.location.pathname === '/Frontend/pages/cart/cart.html' || window.location.pathname === '/Frontend/pages/favorites/favorites.html') {
       document.getElementById('banner').src = '../../img/AaStorcenterPickup-w.svg';
     }
 
@@ -225,7 +232,7 @@ function loginUser(email, password) {
   request.onload = function () {
     if (request.status >= 200 && request.status < 400) {
       sessionStorage.setItem('user', email);
-      
+      location.reload();
     } else {
       showToast('Wrong e-mail or password.');
     }

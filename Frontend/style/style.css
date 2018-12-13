@@ -270,6 +270,7 @@ dialog#auth .mdl-dialog__content {
     width: -webkit-fit-content;
     padding: 0;
     width: auto;
+    height: 100%;
 }
   #auth .mdl-cell--6-col, #auth .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
     width: 100% !important;
