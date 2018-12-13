@@ -284,18 +284,18 @@ function buildSingleRestaurant(restaurant) {
 
         <form action="#">
           <div class="mdl-textfield mdl-js-textfield">
-            <input
+            <input required
               class="mdl-textfield__input datePicker"
               type="date"
               id="pickupDate"
             />
           </div>
-        </form>
+       
 
-        <p>Pickup Time:</p>
-        <form action="#">
+        <p>Time of visit:</p>
+    
           <div class="mdl-textfield mdl-js-textfield">
-            <input
+            <input required
               class="mdl-textfield__input timePicker"
               type="time"
               id="pickupTime"
@@ -307,20 +307,22 @@ function buildSingleRestaurant(restaurant) {
               hours</span
             >
           </div>
-        </form>
-        <div>
+          <div>
           <button
             class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
           >
             Book!
           </button>
-          <button
+          
+        </div>
+        </form>
+        <button
             class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
             onclick="buildRestaurants()"
           >
             Back to restaurants
           </button>
-        </div>
+       
       </div>
     </section>
   </div>

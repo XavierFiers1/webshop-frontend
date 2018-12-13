@@ -71,7 +71,8 @@ p {
 
 /*Checkout*/
 .shoppingList {
-  background: #f0f9fc;
+  /* background: #f0f9fc;*/
+  background: white;
 }
 .plusMinusButtonsShoppingList {
   margin-top: -5;
