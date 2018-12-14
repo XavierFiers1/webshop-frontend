@@ -1,4 +1,4 @@
-let productsArray = [
+/*let productsArray = [
   {
     name: "Pink Lady Apples",
     subtitle: "",
@@ -97,20 +97,50 @@ let productsArray = [
     promotion: 0,
     highlight: 0
   }
-];
+];*/
 
 let myCart = [];
+
+let requestProducts = new XMLHttpRequest();
+// Open a new connection, using the GET request on the URL endpoint
+let productsArray = [];
+let data = [];
+
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
+  // Begin accessing JSON data here
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
+
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+
+    //fill the cart array from content from localStorage:
+    cartBuilder();
+    //create the product array based off of cart
+    pageBuilder();
+    updateGrandTotal();
+  } else {
+    prompt("something went wrong, sorry for the inconvenience");
+  }
+};
+requestProducts.send();
 
 /******************************/
 /*******************************/
 /*****Shopping List before checkout*****/
 /******************************/
 /*****************************/
-
-//fill the cart array from content from sessionstorage:
-(function() {
-  cartBuilder();
-})();
 
 function cartBuilder() {
   productsArray.forEach(product => {
@@ -121,11 +151,6 @@ function cartBuilder() {
     }
   });
 }
-
-//create the product array based off of cart
-(function() {
-  pageBuilder();
-})();
 
 function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
@@ -329,7 +354,6 @@ function deleteProductFromList(event) {
   //rebuild the page
   pageBuilder();
 }
-updateGrandTotal();
 
 ///restrict date to today
 (function() {

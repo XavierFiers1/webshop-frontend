@@ -1,4 +1,4 @@
-let productsArray = [
+/*let productsArray = [
   {
     name: "Pink Lady Apples",
     subtitle: "",
@@ -195,22 +195,55 @@ let productsArray = [
     promotion: 1,
     liked: 0
   }
-];
+];*/
 
 let myCart = [];
+let requestProducts = new XMLHttpRequest();
+// Open a new connection, using the GET request on the URL endpoint
+let productsArray = [];
+let data = [];
+let favorites = [];
+let storage = [];
+let names = [];
+const favoriteHTML = document.querySelector("#favorites");
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
+  // Begin accessing JSON data here
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
+
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+
+    getFavoritesFromStorage();
+    buildFavorites();
+    buttonClickEvents();
+  } else {
+    prompt("something went wrong, sorry for the inconvenience");
+  }
+};
+requestProducts.send();
 
 /******************************/
 /*******************************/
 /*****Generate Favorites HTML*****/
 /******************************/
 /*****************************/
-let favorites = [];
-let storage = [];
-let names = [];
-storage = JSON.parse(localStorage.getItem("liked"));
-if (storage === null) storage = [];
-const favoriteHTML = document.querySelector("#favorites");
-(function() {
+
+function getFavoritesFromStorage() {
+  storage = JSON.parse(localStorage.getItem("liked"));
+  if (storage === null) storage = [];
+
   productsArray.forEach(p => {
     if (storage.findIndex(fav => fav === p.name) >= 0) {
       //favorites is used to map the products
@@ -219,13 +252,11 @@ const favoriteHTML = document.querySelector("#favorites");
       names.push(p.name);
     }
   });
-})();
-
-buildFavorites();
+}
 
 function createFavorites(product) {
   let strikeThroughClass = "";
-  if (product.promotion === 1) {
+  if (product.promotion === true) {
     productClass = "";
     strikeThroughClass = "strikeThrough";
   }
@@ -250,10 +281,10 @@ function createFavorites(product) {
           <h2 class="productTitle mdl-card__title-text">${product.name}</h2>
           <h3 class="brandTitle mdl-card__title-text">${product.subtitle}</h3>
           <br />
-          <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">€ ${
+          <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">DKK ${
     product.price
   }</h4>
-          <h4 class="priceTitle mdl-card__title-text">&nbsp € ${
+          <h4 class="priceTitle mdl-card__title-text">&nbsp DKK ${
             product.promotionPrice
           }</h4>
           <h4 class="unitTitle mdl-card__title-text">${product.unit}</h4>
@@ -350,7 +381,7 @@ function buildFavorites() {
 /*///////////////////////////////////
   Also, if there are some items in storage, show the right buttons accordingly!
   ///////////////////////////////////*/
-(function() {
+function buttonClickEvents() {
   let amount = 0;
   let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
   let addProductButtons = document.querySelectorAll(".cartButton");
@@ -404,7 +435,7 @@ function buildFavorites() {
       addProductToCart(productName, 0);
     });
   });
-})();
+}
 
 //this function will execute if there was no product of this type in the cart
 //the cart button will change into plus minus buttons

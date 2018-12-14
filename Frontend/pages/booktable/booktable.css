@@ -134,8 +134,8 @@ p {
 
 .booktableButton {
   width: 80%;
-  color: white !important;
-  background-color: #94c817 !important;
+  color: black !important;
+  /* background-color: #94c817 !important;*/
   margin: 0 auto;
   text-align: center;
 }
@@ -184,7 +184,7 @@ p {
     margin: 0;
   }
   .mdl-cell {
-    margin: 10px auto !important;
+    /* margin: 10px auto !important;*/
   }
   .booktablecard > .mdl-grid > .mdl-cell--4-col {
     width: calc(41.6666666667%);
@@ -197,5 +197,11 @@ p {
   }
   .booktablecard > .mdl-grid > .mdl-cell--8-col {
     width: calc(58.3333333333%);
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .mdl-cell {
+    margin: 0 auto !important;
   }
 }

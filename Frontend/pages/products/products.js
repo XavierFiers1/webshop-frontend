@@ -464,11 +464,18 @@ function buildPromotions() {
 
   //now map them into the innerHTML
   let promotionIndex = 0;
+  //get the length of the amount of products in the array in order to
+  //construct the column of the grid in case the array only has 3 2 or 1 elements
   promotionColumnCode = promotionPerFour[promotionIndex].length;
   promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
     .map(createProducts)
     .join("");
 
+  ///if 2 dim array only consist of 1 row, don't even generate the arrows!
+  if (promotionPerFour.length === 1) {
+    const arrows = document.querySelectorAll(".arrowIcons");
+    arrows.forEach(a => (a.style.display = "none"));
+  }
   ////////////BackArrow
   let backArrow = document.querySelector("#backArrow");
   backArrow.addEventListener("click", function(event) {
@@ -483,13 +490,12 @@ function buildPromotions() {
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
       temp = (size + promotionIndex * -1) % size;
     } else temp = promotionIndex % size;
-    promotionColumnCode = promotionPerFour[temp].length;
 
+    promotionColumnCode = promotionPerFour[temp].length;
     promotionProductsHTML.innerHTML = promotionPerFour[temp]
       .map(createProducts)
       .join("");
-    //get the length of the amount of products in the array in order to
-    //construct the column of the grid in case the array only has 3 2 or 1 elements
+    buttonClickEvents();
   });
 
   ////////////FrontArrow
@@ -506,12 +512,12 @@ function buildPromotions() {
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
       temp = (size + promotionIndex * -1) % size;
     } else temp = promotionIndex % size;
+
     promotionColumnCode = promotionPerFour[temp].length;
     promotionProductsHTML.innerHTML = promotionPerFour[temp]
       .map(createProducts)
       .join("");
-    //get the length of the amount of products in the array in order to
-    //construct the column of the grid in case the array only has 3 2 or 1 elements
+    buttonClickEvents();
   });
 }
 
@@ -543,7 +549,7 @@ function createProducts(product) {
   let code = 3;
   //if the last row in an array only contains 1 2 or 3 elements,
   //change the column class accordingly
-  console.log(promotionColumnCode);
+
   switch (promotionColumnCode) {
     case 0:
       break;
@@ -695,7 +701,7 @@ function buttonClickEvents() {
   let amount = 0;
   let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
   let addProductButtons = document.querySelectorAll(".cartButton");
-
+  let data = "";
   addProductButtons.forEach(function(btn) {
     //for every cart button on a product, if the session already has a product like this, hide this cartbutton and show the plusminusbutton instead
     if (localStorage.getItem(btn.dataset.productname)) {
@@ -726,10 +732,10 @@ function buttonClickEvents() {
       btn.style.display = "none";
 
       /////snackbar logic///////
-      ("use strict");
+      /*("use strict");
       let snackbarContainer = document.querySelector("#theToast");
-      var data = { message: "Added " + productName + " to grocery Bag!" };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      data = { message: "Added " + productName + " to grocery Bag!" };
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);*/
       //////////////////////////
 
       //get the specific plus min buttons for this product and show them
