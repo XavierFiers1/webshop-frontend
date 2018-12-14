@@ -255,10 +255,8 @@ function getFavoritesFromStorage() {
 }
 
 function createFavorites(product) {
-  let strikeThroughClass = "";
   if (product.promotion === true) {
     productClass = "";
-    strikeThroughClass = "strikeThrough";
   }
 
   return `
@@ -281,12 +279,8 @@ function createFavorites(product) {
           <h2 class="productTitle mdl-card__title-text">${product.name}</h2>
           <h3 class="brandTitle mdl-card__title-text">${product.subtitle}</h3>
           <br />
-          <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">DKK ${
-    product.price
-  }</h4>
-          <h4 class="priceTitle mdl-card__title-text">&nbsp DKK ${
-            product.promotionPrice
-          }</h4>
+          <h4 class="priceTitle  mdl-card__title-text">DKK ${product.price}</h4>
+          
           <h4 class="unitTitle mdl-card__title-text">${product.unit}</h4>
           <br />
         </div>
