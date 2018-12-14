@@ -74,49 +74,48 @@
               </div>
 
               <div class="mdl-cell mdl-cell--8-col removeWhenEmptyCart">
-                <div class="mdl-grid totalCalculation">
-                  <div class="mdl-cell mdl-cell--6-col">
-                    <p>Pickup Date:</p>
+                <form action="#">
+                  <div class="mdl-grid totalCalculation">
+                    <div class="mdl-cell mdl-cell--6-col">
+                      <p>Pickup Date:</p>
 
-                    <form action="#">
                       <div class="mdl-textfield mdl-js-textfield">
                         <input
+                          required
                           class="mdl-textfield__input datePicker"
                           type="date"
                           id="pickupDate"
                         />
                       </div>
-                    </form>
-                  </div>
-                  <div class="mdl-cell mdl-cell--6-col">
-                    <p>Pickup Time:</p>
-                    <form action="#">
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                      <p>Pickup Time:</p>
+
                       <div class="mdl-textfield mdl-js-textfield">
                         <input
+                          required
                           class="mdl-textfield__input timePicker"
                           type="time"
                           id="pickupTime"
-                          min="09:00:00"
-                          max="00:00:00"
+                          min="09:00"
+                          max="23:59"
+                          value="09:30"
                         />
                         <span class="mdl-textfield__error"
                           >Please select a time between Bilka's opening
                           hours</span
                         >
                       </div>
-                    </form>
-                    <div class="total">
-                      <p>Service cost: €1</p>
-                      <p>Total: € <span id="totalValue"> test</span></p>
-
-                      <button
-                        class="mdl-button mdl-js-button mdl-button--raised"
-                      >
-                        Checkout!
-                      </button>
                     </div>
                   </div>
-                </div>
+                  <div class="total">
+                    <p>Service cost: €1</p>
+                    <p>Total: € <span id="totalValue">test</span></p>
+                    <button class="mdl-button mdl-js-button mdl-button--raised">
+                      Checkout!
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </section>
