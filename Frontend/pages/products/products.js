@@ -325,7 +325,7 @@ requestProducts.onload = function() {
     products.innerHTML = noPromotionProducts.map(createProducts).join("");
 
     //build promotion products
-    //buildPromotions();
+    buildPromotions();
     //create all the clickevents;
     heartsClickEvents();
     buttonClickEvents();
@@ -449,8 +449,9 @@ function buildPromotions() {
   const promotionProductsHTML = document.querySelector(".promotion");
   //first filter productArray to get promotion products:
   let promotionProducts = productsArray.filter(
-    product => product.promotion === 1
+    product => product.promotion === true
   );
+
   function chunkArrayInGroups(arr, size) {
     let myArray = [];
     for (var i = 0; i < arr.length; i += size) {
@@ -463,6 +464,7 @@ function buildPromotions() {
 
   //now map them into the innerHTML
   let promotionIndex = 0;
+  promotionColumnCode = promotionPerFour[promotionIndex].length;
   promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
     .map(createProducts)
     .join("");
@@ -482,6 +484,7 @@ function buildPromotions() {
       temp = (size + promotionIndex * -1) % size;
     } else temp = promotionIndex % size;
     promotionColumnCode = promotionPerFour[temp].length;
+
     promotionProductsHTML.innerHTML = promotionPerFour[temp]
       .map(createProducts)
       .join("");
@@ -531,7 +534,7 @@ function createProducts(product) {
   //first let's check if we're working with a promotion product:
   //if not, then we don't add the "product" class to the first div
   //this way the search function doesn't target the promotion products array
-  if (product.promotion === 1) {
+  if (product.promotion === true) {
     productClass = "";
     strikeThroughClass = "strikeThrough";
     promotionPriceMarkup = "DKK " + product.promotionPrice;
@@ -540,6 +543,7 @@ function createProducts(product) {
   let code = 3;
   //if the last row in an array only contains 1 2 or 3 elements,
   //change the column class accordingly
+  console.log(promotionColumnCode);
   switch (promotionColumnCode) {
     case 0:
       break;
@@ -634,7 +638,7 @@ function createProducts(product) {
 
 function heartsClickEvents() {
   const heartUntouchedIcons = document.querySelectorAll(".heartIconUntouched");
-  console.log(heartUntouchedIcons);
+
   //get all the hearts from storage
   let storage = JSON.parse(localStorage.getItem("liked"));
 
