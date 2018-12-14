@@ -451,7 +451,7 @@ function buildPromotions() {
   let promotionProducts = productsArray.filter(
     product => product.promotion === true
   );
-
+  //custom function to split an array into 2 dim array
   function chunkArrayInGroups(arr, size) {
     let myArray = [];
     for (var i = 0; i < arr.length; i += size) {
@@ -459,65 +459,132 @@ function buildPromotions() {
     }
     return myArray;
   }
+
   //get the promotionArray and slice it in a two dim array with 4 columns
   let promotionPerFour = chunkArrayInGroups(promotionProducts, 4);
 
-  //now map them into the innerHTML
   let promotionIndex = 0;
   //get the length of the amount of products in the array in order to
-  //construct the column of the grid in case the array only has 3 2 or 1 elements
+  //we will use promotionColumnCode to check how many elements that particular array chunk has
+  //grid class should be adapted to this number
   promotionColumnCode = promotionPerFour[promotionIndex].length;
-  promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
+
+  //add ALL the products to the innerhtml
+  promotionProductsHTML.innerHTML = promotionProducts
     .map(createProducts)
     .join("");
+  //now display = "none" ALL those products
+  const promotionObjectsHTML = document.querySelectorAll(".isPromotion");
+  promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+
+  //set display to flex on first elements of the first array dim
+  for (let i = 0; i < promotionPerFour[promotionIndex].length; i++) {
+    promotionObjectsHTML[i].style.display = "flex";
+  }
 
   ///if 2 dim array only consist of 1 row, don't even generate the arrows!
   if (promotionPerFour.length === 1) {
     const arrows = document.querySelectorAll(".arrowIcons");
     arrows.forEach(a => (a.style.display = "none"));
   }
+
   ////////////BackArrow
   let backArrow = document.querySelector("#backArrow");
   backArrow.addEventListener("click", function(event) {
-    //on backarrowclick, go back in the promotionArray and show these items
-    promotionIndex--;
-    let temp = promotionIndex;
+    //again, set ALL products display to none
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
+    let index = 0;
+    promotionIndex--;
+
     if (promotionIndex < 0) {
       //modulo doesn't work with negatives : BUG
       //so I make it positive and add the index to it (symmetry) instead of
       // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      temp = (size + promotionIndex * -1) % size;
-    } else temp = promotionIndex % size;
+      index = (size + promotionIndex * -1) % size;
+    } else index = promotionIndex % size;
 
-    promotionColumnCode = promotionPerFour[temp].length;
-    promotionProductsHTML.innerHTML = promotionPerFour[temp]
-      .map(createProducts)
-      .join("");
-    buttonClickEvents();
+    promotionColumnCode = promotionPerFour[index].length;
+
+    let code = 1;
+    switch (promotionColumnCode) {
+      case 0:
+        break;
+      case 1:
+        code = 12;
+        break;
+      case 2:
+        code = 6;
+        break;
+      case 3:
+        code = 4;
+        break;
+      case 4:
+        code = 3;
+        break;
+    }
+
+    for (let i = 0; i < promotionPerFour[index].length; i++) {
+      let j = index * 4 + i;
+      promotionObjectsHTML[j].style.display = "flex";
+      //first remove ALL the possible classes
+      promotionObjectsHTML[j].classList.remove(
+        "mdl-cell--3-col",
+        "mdl-cell--6-col",
+        "mdl-cell--12-col"
+      );
+      //then add the particular class thanks to the promotioncolumncode
+      promotionObjectsHTML[j].classList.add("mdl-cell--" + code + "-col");
+    }
   });
 
   ////////////FrontArrow
   let frontArrow = document.querySelector("#frontArrow");
   frontArrow.addEventListener("click", function(event) {
-    //on backarrowclick, go back in the promotionArray and show these items
-    promotionIndex++;
-    let temp = promotionIndex;
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
+    let index = 0;
+    promotionIndex++;
+
     if (promotionIndex < 0) {
       //modulo doesn't work with negatives : BUG
       //so I make it positive and add the index to it (symmetry) instead of
       // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      temp = (size + promotionIndex * -1) % size;
-    } else temp = promotionIndex % size;
+      index = (size + promotionIndex * -1) % size;
+    } else index = promotionIndex % size;
 
-    promotionColumnCode = promotionPerFour[temp].length;
-    promotionProductsHTML.innerHTML = promotionPerFour[temp]
-      .map(createProducts)
-      .join("");
-    buttonClickEvents();
+    promotionColumnCode = promotionPerFour[index].length;
+
+    let code = 1;
+    switch (promotionColumnCode) {
+      case 0:
+        break;
+      case 1:
+        code = 12;
+        break;
+      case 2:
+        code = 6;
+        break;
+      case 3:
+        code = 4;
+        break;
+      case 4:
+        code = 3;
+        break;
+    }
+
+    for (let i = 0; i < promotionPerFour[index].length; i++) {
+      let j = index * 4 + i;
+      promotionObjectsHTML[j].style.display = "flex";
+      promotionObjectsHTML[j].classList.remove(
+        "mdl-cell--3-col",
+        "mdl-cell--6-col",
+        "mdl-cell--12-col"
+      );
+      promotionObjectsHTML[j].classList.add("mdl-cell--" + code + "-col");
+    }
   });
 }
 
@@ -532,6 +599,7 @@ function createProducts(product) {
   let strikeThroughClass = "";
   let promotionPriceMarkup = "";
   let productUnit = product.unit;
+  let isPromotion = "";
 
   if (productUnit !== "") {
     productUnit = "/" + productUnit;
@@ -544,30 +612,14 @@ function createProducts(product) {
     productClass = "";
     strikeThroughClass = "strikeThrough";
     promotionPriceMarkup = "DKK " + product.promotionPrice;
+    isPromotion = "isPromotion";
   }
 
-  let code = 3;
-  //if the last row in an array only contains 1 2 or 3 elements,
-  //change the column class accordingly
-
-  switch (promotionColumnCode) {
-    case 0:
-      break;
-    case 1:
-      code = 12;
-      break;
-    case 2:
-      code = 6;
-      break;
-    case 3:
-      code = 4;
-      break;
-  }
   //notice the product "class" in first div. This is used
   //for querying for filtering purposes
   return `
     <div
-    class="mdl-cell mdl-cell--${code}-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${productClass} ${
+    class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${isPromotion} ${productClass} ${
     product.category
   }"
     data-category="${product.category}"
@@ -732,10 +784,10 @@ function buttonClickEvents() {
       btn.style.display = "none";
 
       /////snackbar logic///////
-      /*("use strict");
+      ("use strict");
       let snackbarContainer = document.querySelector("#theToast");
       data = { message: "Added " + productName + " to grocery Bag!" };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);*/
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
       //////////////////////////
 
       //get the specific plus min buttons for this product and show them

@@ -210,7 +210,7 @@ section {
 /*specific style for the carousel cards so they keep the same size*/
 .mdl-cell--12-col {
   margin: 8px !important;
-  width: 50% !important;
+  width: 55% !important;
 }
 
 .mdl-cell--6-col {
