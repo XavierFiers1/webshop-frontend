@@ -123,7 +123,7 @@ filterButtons.forEach(function(btn) {
 /******************************/
 /*****************************/
 let promotionColumnCode = 0;
-(function() {
+function buildPromotions() {
   const promotionProductsHTML = document.querySelector(".promotion");
   //first filter productArray to get promotion products:
   let promotionProducts = productsArray.filter(
@@ -188,7 +188,7 @@ let promotionColumnCode = 0;
     //get the length of the amount of products in the array in order to
     //construct the column of the grid in case the array only has 3 2 or 1 elements
   });
-})();
+}
 
 /******************************/
 /*******************************/
