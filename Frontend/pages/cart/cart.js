@@ -143,6 +143,9 @@ function pageBuilder() {
     //remove this element to remove the white background
     removeWhenEmptyCartHTML.parentNode.removeChild(removeWhenEmptyCartHTML);
   }
+
+  //after the page has been built, disable the min buttons on the products that have amount 1
+  disableMinButtonsAmountOne();
 }
 
 function updateGrandTotal() {
@@ -235,7 +238,7 @@ function disableMinButtonsAmountOne() {
   const minbuttons = document.querySelectorAll("#minButton");
   minbuttons.forEach(btn => {
     let product = myCart.find(p => p.product.name === btn.dataset.productname);
-    if (product.amount === 1) {
+    if (product.amount <= 1) {
       btn.disabled = true;
     }
   });
@@ -252,7 +255,7 @@ function removeAnotherProductFromCart(event) {
 
   updateProductAmountHtml(productname, product.amount, product.product.price);
   //also update the storage
-  //create a new product to match the original session storage key value pairs
+  //create a new product to match the original local storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
   updateGrandTotal();

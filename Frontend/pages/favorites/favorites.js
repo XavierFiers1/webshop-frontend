@@ -315,7 +315,7 @@ function heartEventListeners() {
   heartUntouchedIcons.forEach(function(heart) {
     //fill in hearts where needed according to local storage liked heart
     heart.addEventListener("mouseover", function(event) {
-      heart.innerHTML = "remove";
+      heart.innerHTML = "favorite_border";
     });
     heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
