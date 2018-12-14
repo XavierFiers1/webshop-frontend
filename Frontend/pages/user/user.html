@@ -40,30 +40,37 @@
             <aside id="userInfo" class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--1-offset-desktop">
                 <div class="card-wide mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title">
-                        <h3 class="mdl-card__title-text">Velkommen Tester Jensen!</h3>
+                        <h3 id="welcomeUser" class="mdl-card__title-text"></h3>
                     </div>
                     <div class="mdl-card__supporting-text">
                         <table class="mdl-data-table mdl-js-data-table m-auto">
                             <tbody>
                                 <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Navn</td>
-                                    <td>Tester Jensen</td>
+                                    <td class="mdl-data-table__cell--non-numeric">Name</td>
+                                    <td id="userName">Username</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">CPR</td>
+                                    <td id="cpr">cpr</td>
                                 </tr>
                                 <tr>
                                     <td class="mdl-data-table__cell--non-numeric">E-mail</td>
-                                    <td>tj@gmail.dk</td>
+                                    <td id="email">email</td>
                                 </tr>
                                 <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">Adresse</td>
-                                    <td>Danmarksgade 65, 2 <br> Testerborg <br> 9050 <br> Danmark</td>
+                                    <td class="mdl-data-table__cell--non-numeric">Address</td>
+                                    <td id="address">Danmarksgade 65, 2 <br> Testerborg <br> 9050 <br> Danmark</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Phone Number</td>
+                                    <td id="phone">phone</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="mdl-card__menu">
                         <button id="editProfile" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                            
-                            <i class="material-icons">voice_over_off</i> 
+                            <i class="material-icons">voice_over_off</i>
                         </button>
                     </div>
                 </div>
