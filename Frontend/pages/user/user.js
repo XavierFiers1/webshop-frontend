@@ -222,7 +222,7 @@ if (!orders.length) {
             order.orderContent = document.createElement('tr');
             item.totalPrice = parseFloat(item.price) * parseInt(item.quantity);
             console.log(order.price);
-            order.orderContent.innerHTML = 
+            order.orderContent.innerHTML =
                 `<td class="mdl-data-table__cell--non-numeric">${item.name}</td>
                 <td>${item.quantity}</td>
                 <td>${item.totalPrice} kr</td>`;
@@ -230,15 +230,25 @@ if (!orders.length) {
         });
     });
 }
-(function() {
-    'use strict';
-    var snackbarContainer = document.querySelector('#toast');
-    var showToastButton = document.querySelector('#editProfile');
-    showToastButton.addEventListener('click', function() {
-      'use strict';
-      var data = {message: 'Logged out'};
-      sessionStorage.removeItem('user');
-      window.location = 'Frontend/index.html';
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    });
-  }());
+function makeUser(userInfo) {
+    document.querySelector('#welcomeUser').innerHTML = `Welcome ${userInfo[0].FName} ${userInfo[0].LName}`;
+    document.querySelector('#userName').innerHTML = `${userInfo[0].FName} ${userInfo[0].LName}`;
+    document.querySelector('#cpr').innerHTML = `${userInfo[0].CPR}`;
+    document.querySelector('#email').innerHTML = `${userInfo[0].EMail}`;
+    document.querySelector('#address').innerHTML = `${userInfo[0].Street}, ${userInfo[0].FlatNo} <br> ${userInfo[0].City} <br> ${userInfo[0].Zip}`;
+    document.querySelector('#phone').innerHTML = `${userInfo[0].PhoneNo}`;
+}
+makeUser(JSON.parse(sessionStorage.getItem('userInfo')));
+    (function () {
+        'use strict';
+        var snackbarContainer = document.querySelector('#toast');
+        var showToastButton = document.querySelector('#editProfile');
+        showToastButton.addEventListener('click', function () {
+            'use strict';
+            var data = { message: 'Logged out' };
+            sessionStorage.removeItem('userID');
+            sessionStorage.removeItem('userInfo');
+            sessionStorage.setItem('logoutFlag', true);
+            location = '../home/home.html';
+        });
+    }());

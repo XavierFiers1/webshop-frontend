@@ -5,6 +5,7 @@ let notification = document.querySelector(".mdl-js-snackbar");
 const BODY = document.getElementsByTagName("body")[0];
 const TOPBARCONTAINER = document.getElementById("topbarContainer");
 const URLBASE = "http://localhost:57269/api/";
+sessionStorage.setItem("logoutFlag", false);
 
 // init
 loadTopbar();
@@ -19,10 +20,16 @@ loadFooter();
 // FUNCTIONS
 // Initialize Modals and listen for events, polyfill for fallbacks
 if (
-  !sessionStorage.getItem("user") &&
-  window.location.pathname === "/Frontend/pages/user/user.html"
+  (!sessionStorage.getItem("userID") &&
+    window.location.pathname === "/Frontend/pages/user/user.html") ||
+  sessionStorage.getItem("userInfo") === "undefined"
 ) {
-  window.location.pathname = "../home/home.html";
+  try {
+    sessionStorage.removeItem("userInfo");
+  } catch (error) {
+    console.log(error);
+  }
+  location = "../home/home.html";
 }
 document.addEventListener("readystatechange", event => {
   if (event.target.readyState === "interactive") {
@@ -34,7 +41,7 @@ document.addEventListener("readystatechange", event => {
     }
 
     showDialogButton.addEventListener("click", function() {
-      if (sessionStorage.getItem("user")) {
+      if (sessionStorage.getItem("userID")) {
         window.location.pathname = "/Frontend/pages/user/user.html";
       } else {
         BODY.classList.add("is-blurred");
@@ -55,6 +62,13 @@ document.addEventListener("readystatechange", event => {
       }
     };
     document.getElementsByClassName("close").onclick = function(event) {
+      if (event.target == dialog) {
+        dialog.close();
+        BODY.classList.remove("is-blurred");
+      }
+    };
+
+    window.onclick = function(event) {
       if (event.target == dialog) {
         dialog.close();
         BODY.classList.remove("is-blurred");
@@ -116,7 +130,7 @@ function changeForm(form) {
   switch (form) {
     case "signup":
       document.getElementById("form").innerHTML = `
-    <form action="javascript:showToast(); dialog.close()">
+    <form action="javascript:registerUser(); dialog.close()">
         <p class="align-center">Please fill in this form to create an account.</p>
         <hr />
 
@@ -179,9 +193,9 @@ function changeForm(form) {
       <form class="" action="javascript:loginUser(); dialog.close()">
           <p class="align-center">Please enter yout credentials.</p>
 <!-- <label for="email"><b>Email</b></label> -->
-        <input id="loginEmail" class="user-input" type="email" placeholder="Enter email" name="email" required />
-<!-- <label for="loginPassword"><b>Password</b></label> -->
-        <input id="loginPassword" class="user-input" type="password" placeholder="Enter Password" name="psw"  required />      
+        <input id="email" class="user-input" type="email" placeholder="Enter email" name="email" required />
+<!-- <label for="psw"><b>Password</b></label> -->
+        <input id="psw" class="user-input" type="password" placeholder="Enter Password" name="psw"  required />      
         <div class="clearfix">
           <button type="button" class="modal-button cancelbtn close">Cancel</button>
           <button type="submit" class="modal-button signupbtn close">Log in</button>
@@ -194,7 +208,7 @@ function changeForm(form) {
 `;
       break;
     default:
-      dialog.close();
+      location.reload();
       break;
   }
 }
@@ -219,29 +233,32 @@ function registerUser() {
   request.setRequestHeader("Content-Type", "application/json");
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-      loginUser(user.EMail, user.UPassword);
+      loginUser();
     } else {
       showToast("Something went wrong");
     }
   };
   request.send(json);
 }
-function loginUser(email, password) {
-  email = document.getElementById("loginEmail").value;
-  password = document.getElementById("loginPassword").value;
-  const request = new XMLHttpRequest();
+function loginUser() {
+  const EMAIL = document.getElementById("email").value;
+  const PASSWORD = document.getElementById("psw").value;
+  const REQUEST = new XMLHttpRequest();
 
-  request.open("GET", URLBASE + "getUser/" + email + "/" + password, true);
-  request.setRequestHeader("Content-Type", "application/json");
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      sessionStorage.setItem("user", email);
+  REQUEST.open("GET", URLBASE + "getUser/" + EMAIL + "/" + PASSWORD, true);
+  REQUEST.setRequestHeader("Content-Type", "application/json");
+  REQUEST.onload = function() {
+    let data = JSON.parse(this.response);
+
+    if (REQUEST.status >= 200 && REQUEST.status < 400) {
+      sessionStorage.setItem("userInfo", JSON.stringify(data));
+      sessionStorage.setItem("userID", EMAIL);
       location.reload();
     } else {
       showToast("Wrong e-mail or password.");
     }
   };
-  request.send();
+  REQUEST.send();
 }
 
 function updateCartIconShared() {
