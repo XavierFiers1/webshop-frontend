@@ -1,41 +1,52 @@
-// Create a request variable and assign a new XMLHttpRequest object to it.
-var request = new XMLHttpRequest();
+/*let myCart = [];
+let requestProducts = new XMLHttpRequest();
 // Open a new connection, using the GET request on the URL endpoint
-request.open("GET", "http://localhost:57269/api/AASC_PRODUCT", true);
-request.onload = function() {
+let productsArray = [];
+let data = [];
+
+const favoriteHTML = document.querySelector("#favorites");
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
   // Begin accessing JSON data here
-  var data = JSON.parse(this.response);
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
 
-  let product = data.find(p => p.ProductName === "Pink Lady Apples");
-
-  console.log(product);
-  /*if (request.status >= 200 && request.status < 400) {
-    data.forEach(movie => {
-      // Create a div with a card class
-      const card = document.createElement("div");
-      card.setAttribute("class", "card");
-
-      // Create an h1 and set the text content to the film's title
-      const h1 = document.createElement("h1");
-      h1.textContent = movie.title;
-
-      // Create a p and set the text content to the film's description
-      const p = document.createElement("p");
-      movie.description = movie.description.substring(0, 300); // Limit to 300 chars
-      p.textContent = `${movie.description}...`; // End with an ellipses
-
-      // Append the cards to the container element
-      container.appendChild(card);
-
-      // Each card will contain an h1 and a p
-      card.appendChild(h1);
-      card.appendChild(p);
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+    productsArray.forEach(p => {
+      if (localStorage.getItem(p.name)) {
+        myCart.push(p);
+      }
     });
+    updateCartIcon();
   } else {
-    const errorMessage = document.createElement("marquee");
-    errorMessage.textContent = `Gah, it's not working!`;
-    app.appendChild(errorMessage);
-  }*/
+    prompt("something went wrong, sorry for the inconvenience");
+  }
 };
-// Send request
-request.send();
+requestProducts.send();
+
+function updateCartIcon() {
+  const cart = document.getElementById("cartButton");
+  cart.setAttribute("data-badge", myCart.length);
+}
+
+//after everything is set in place, also updateCartIcon
+
+document.addEventListener("readystatechange", event => {
+  if (event.target.readyState === "interactive") {
+  } else if (event.target.readyState === "complete") {
+    updateCartIcon();
+  }
+});
+*/
+updateCartIconShared();

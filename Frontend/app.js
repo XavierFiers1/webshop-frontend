@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 // Declarations
 
-let notification = document.querySelector('.mdl-js-snackbar');
-const BODY = document.getElementsByTagName('body')[0];
-const TOPBARCONTAINER = document.getElementById('topbarContainer');
-const URLBASE = 'http://localhost:57269/api/';
+let notification = document.querySelector(".mdl-js-snackbar");
+const BODY = document.getElementsByTagName("body")[0];
+const TOPBARCONTAINER = document.getElementById("topbarContainer");
+const URLBASE = "http://localhost:57269/api/";
 
-// init 
+// init
 loadTopbar();
 loadFooter();
 
@@ -18,98 +18,104 @@ loadFooter();
 
 // FUNCTIONS
 // Initialize Modals and listen for events, polyfill for fallbacks
-if (!sessionStorage.getItem('user') && window.location.pathname === '/Frontend/pages/user/user.html') {
-  window.location.pathname = '../home/home.html';
+if (
+  !sessionStorage.getItem("user") &&
+  window.location.pathname === "/Frontend/pages/user/user.html"
+) {
+  window.location.pathname = "../home/home.html";
 }
-document.addEventListener('readystatechange', event => {
-  if (event.target.readyState === 'interactive') {
-
-  }
-  else if (event.target.readyState === 'complete') {
-    let dialog = document.querySelector('dialog');
-    let showDialogButton = document.querySelector('#profileButton');
+document.addEventListener("readystatechange", event => {
+  if (event.target.readyState === "interactive") {
+  } else if (event.target.readyState === "complete") {
+    let dialog = document.querySelector("dialog");
+    let showDialogButton = document.querySelector("#profileButton");
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
 
-    showDialogButton.addEventListener('click', function () {
-      if (sessionStorage.getItem('user')) {
-        window.location.pathname = '/Frontend/pages/user/user.html';
+    showDialogButton.addEventListener("click", function() {
+      if (sessionStorage.getItem("user")) {
+        window.location.pathname = "/Frontend/pages/user/user.html";
       } else {
-        BODY.classList.add('is-blurred');
+        BODY.classList.add("is-blurred");
         dialog.showModal();
       }
     });
 
-    dialog.querySelector('.cancelbtn').addEventListener('click', function () {
-      BODY.classList.remove('is-blurred');
+    dialog.querySelector(".cancelbtn").addEventListener("click", function() {
+      BODY.classList.remove("is-blurred");
       dialog.close();
     });
-    document.onkeydown = function (evt) {
+    document.onkeydown = function(evt) {
       evt = evt || window.event;
       if (evt.keyCode == 27) {
-        BODY.classList.remove('is-blurred');
+        BODY.classList.remove("is-blurred");
 
         dialog.close();
       }
     };
-document.getElementsByClassName('close').onclick = function (event) {
-  if (event.target == dialog) {
-    dialog.close();
-    BODY.classList.remove('is-blurred');
-  }
-};
-
-    window.onclick = function (event) {
+    document.getElementsByClassName("close").onclick = function(event) {
       if (event.target == dialog) {
         dialog.close();
-        BODY.classList.remove('is-blurred');
-
+        BODY.classList.remove("is-blurred");
       }
+    };
+
+    window.onclick = function(event) {
+      if (event.target == dialog) {
+        dialog.close();
+        BODY.classList.remove("is-blurred");
+      }
+    };
+    if (
+      window.location.pathname === "/Frontend/pages/products/products.html" ||
+      window.location.pathname === "/Frontend/pages/cart/cart.html" ||
+      window.location.pathname === "/Frontend/pages/favorites/favorites.html"
+    ) {
+      document.getElementById("banner").src =
+        "../../img/AaStorcenterPickup-w.svg";
     }
-    if (window.location.pathname === '/Frontend/pages/products/products.html' || window.location.pathname === '/Frontend/pages/cart/cart.html' || window.location.pathname === '/Frontend/pages/favorites/favorites.html') {
-      document.getElementById('banner').src = '../../img/AaStorcenterPickup-w.svg';
-    }
-
-
-
   }
 });
 function loadSection(url) {
-  return fetch(url).then((response) => (response.text()));
+  return fetch(url).then(response => response.text());
 }
 function showToast() {
-  notification.MaterialSnackbar.showSnackbar(
-    {
-      message: 'Account registered'
-    }
-  );
+  notification.MaterialSnackbar.showSnackbar({
+    message: "Account registered"
+  });
 }
 function loadTopbar() {
-  loadSection('/Frontend/shared/topbar/topbar.html').then((html) => {
-    TOPBARCONTAINER.innerHTML = html;
-  }).catch((error) => {
-    console.warn(error);
-  });
+  loadSection("/Frontend/shared/topbar/topbar.html")
+    .then(html => {
+      TOPBARCONTAINER.innerHTML = html;
+    })
+    .catch(error => {
+      console.warn(error);
+    });
 }
 function loadFooter() {
-  loadSection('/Frontend/shared/footer/footer.html').then((html) => {
-    document.getElementById("footerContainer").innerHTML = html;
-  }).catch((error) => {
-    console.warn(error);
-  });
+  loadSection("/Frontend/shared/footer/footer.html")
+    .then(html => {
+      document.getElementById("footerContainer").innerHTML = html;
+    })
+    .catch(error => {
+      console.warn(error);
+    });
 }
 // || '/Frontend/pages/cart/cart.html')
-if (window.location.pathname === ('/Frontend/pages/products/products.html' || '/Frontend/pages/cart/cart.html')) {
-  TOPBARCONTAINER.classList.add('bilka_topbar');
-  TOPBARCONTAINER.classList.remove('bilka_topbar');
-
+if (
+  window.location.pathname ===
+  ("/Frontend/pages/products/products.html" || "/Frontend/pages/cart/cart.html")
+) {
+  TOPBARCONTAINER.classList.add("bilka_topbar");
+  TOPBARCONTAINER.classList.remove("bilka_topbar");
 }
 
 function changeForm(form) {
   switch (form) {
-    case 'signup':
-      document.getElementById('form').innerHTML = `
+    case "signup":
+      document.getElementById("form").innerHTML = `
     <form action="javascript:showToast(); dialog.close()">
         <p class="align-center">Please fill in this form to create an account.</p>
         <hr />
@@ -168,8 +174,8 @@ function changeForm(form) {
     `;
 
       break;
-    case 'login':
-      document.getElementById('form').innerHTML = `
+    case "login":
+      document.getElementById("form").innerHTML = `
       <form class="" action="javascript:loginUser(); dialog.close()">
           <p class="align-center">Please enter yout credentials.</p>
 <!-- <label for="email"><b>Email</b></label> -->
@@ -195,47 +201,103 @@ function changeForm(form) {
 // register the user
 function registerUser() {
   var user = {
-    FName: document.querySelector('#fname').value,
-    LName: document.querySelector('#lname').value,
-    EMail: document.querySelector('#email').value,
-    PhoneNo: document.querySelector('#phoneNo').value,
-    City: document.querySelector('#city').value,
-    Street: document.querySelector('#street').value,
-    FlatNo: document.querySelector('#flatNo').value,
-    Zip: document.querySelector('#zip').value,
-    CPR: document.querySelector('#cpr').value,
-    UPassword: document.querySelector('#psw').value
-
+    FName: document.querySelector("#fname").value,
+    LName: document.querySelector("#lname").value,
+    EMail: document.querySelector("#email").value,
+    PhoneNo: document.querySelector("#phoneNo").value,
+    City: document.querySelector("#city").value,
+    Street: document.querySelector("#street").value,
+    FlatNo: document.querySelector("#flatNo").value,
+    Zip: document.querySelector("#zip").value,
+    CPR: document.querySelector("#cpr").value,
+    UPassword: document.querySelector("#psw").value
   };
   sessionStorage.setItem("userID", user.email);
   let json = JSON.stringify(user);
   const request = new XMLHttpRequest();
   request.open("POST", URLBASE + "postUser", true);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.onload = function () {
+  request.setRequestHeader("Content-Type", "application/json");
+  request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-
       loginUser(user.EMail, user.UPassword);
     } else {
-      showToast('Something went wrong');
+      showToast("Something went wrong");
     }
   };
   request.send(json);
 }
 function loginUser(email, password) {
-  email = document.getElementById('loginEmail').value;
-  password = document.getElementById('loginPassword').value;
+  email = document.getElementById("loginEmail").value;
+  password = document.getElementById("loginPassword").value;
   const request = new XMLHttpRequest();
-  
+
   request.open("GET", URLBASE + "getUser/" + email + "/" + password, true);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.onload = function () {
+  request.setRequestHeader("Content-Type", "application/json");
+  request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-      sessionStorage.setItem('user', email);
+      sessionStorage.setItem("user", email);
       location.reload();
     } else {
-      showToast('Wrong e-mail or password.');
+      showToast("Wrong e-mail or password.");
     }
   };
   request.send();
+}
+
+function updateCartIconShared() {
+  ////cart icon update
+  let myCart = [];
+  let requestProducts = new XMLHttpRequest();
+  // Open a new connection, using the GET request on the URL endpoint
+  let productsArray = [];
+  let data = [];
+
+  const favoriteHTML = document.querySelector("#favorites");
+  requestProducts.open(
+    "GET",
+    "http://localhost:57269/api/GetAllProducts",
+    true
+  );
+
+  requestProducts.onload = function() {
+    // Begin accessing JSON data here
+    if (requestProducts.status >= 200 && requestProducts.status < 400) {
+      data = JSON.parse(this.response);
+
+      productsArray = data.map(p => ({
+        name: p.ProductName,
+        subtitle: p.ProductDescription,
+        weight: p.ProductWeight,
+        unit: p.ProductUnit,
+        price: p.ProductPrice,
+        promotionPrice: p.DiscountPrice,
+        category: p.ProductCategory[0].CategoryName,
+        img: p.ImgPath,
+        promotion: p.IsFeatured
+      }));
+      productsArray.forEach(p => {
+        if (localStorage.getItem(p.name)) {
+          myCart.push(p);
+        }
+      });
+      updateCartIcon();
+    } else {
+      prompt("something went wrong, sorry for the inconvenience");
+    }
+  };
+  requestProducts.send();
+
+  function updateCartIcon() {
+    const cart = document.getElementById("cartButton");
+    cart.setAttribute("data-badge", myCart.length);
+  }
+
+  //after everything is set in place, also updateCartIcon
+
+  document.addEventListener("readystatechange", event => {
+    if (event.target.readyState === "interactive") {
+    } else if (event.target.readyState === "complete") {
+      updateCartIcon();
+    }
+  });
 }

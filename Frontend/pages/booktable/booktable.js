@@ -343,3 +343,7 @@ function datePicker() {
 
   datepicker.setAttribute("min", min);
 }
+
+//coming from app.js
+//////cart functionality
+updateCartIconShared();

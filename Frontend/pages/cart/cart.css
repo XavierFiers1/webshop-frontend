@@ -162,6 +162,18 @@ p {
   display: inline;
 }
 
+h2 {
+  color: #828282;
+  padding-top: 10px !important;
+}
+
+p {
+  color: #828282;
+}
+.onCheckout {
+  text-align: center;
+}
+
 /*footer*/
 
 .footerlogo {
@@ -186,4 +198,58 @@ p {
   .mdl-grid {
     text-align: center;
   }
+}
+
+/*booktable img*/
+
+.card-image.mdl-card#grocery {
+  min-height: 300px;
+  height: 56vh;
+
+  background: url("/Frontend/img/shoppingCart-min.jpg") center / cover;
+}
+.card-image.mdl-card#booking {
+  min-height: 300px;
+  max-height: 56vh;
+  background: url("/Frontend/img/bookatable.jpg") center / cover;
+}
+#grocery img,
+#booking img {
+  max-height: 50px !important;
+}
+#grocery:hover h1,
+#booking:hover h1 {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.align-center {
+  color: white !important;
+  font-size: 20px;
+}
+#booking {
+  margin: 10px auto;
+}
+#grocery {
+  margin: 10px auto;
+}
+.crossroad {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  display: flex;
+  justify-content: center;
+}
+
+.crossroad .mdl-card {
+  height: 100%;
+  cursor: pointer;
+}
+
+.crossroad h1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  top: 50%;
+  position: relative;
+  white-space: nowrap;
+  color: white;
 }

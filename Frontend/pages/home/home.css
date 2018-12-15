@@ -55,13 +55,12 @@
 #booking:hover h1 {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
-@media (max-width: 1000px){
-    .mdl-cell--5-col, .mdl-cell--5-col-desktop.mdl-cell--5-col-desktop {
-        width: 100% !important;
-    }
+@media (max-width: 1000px) {
+  .mdl-cell--5-col,
+  .mdl-cell--5-col-desktop.mdl-cell--5-col-desktop {
+    width: 100% !important;
   }
-
-  
+}
 
 .mdl-grid {
   text-align: center;

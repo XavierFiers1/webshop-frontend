@@ -1,4 +1,3 @@
-// show cart
 /*
 let productsArray = [
   {
@@ -14,268 +13,18 @@ let productsArray = [
     img: "../../img/apple1.jpg",
     promotion: 0,
     liked: 0
-  },
-  {
-    name: "Archer Farms",
-    subtitle: "Deluxe roasted mixed nuts",
-    brand: "",
-    weight: "",
-    unit: "",
-    price: "25",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nuts",
-    img: "../../img/nuts1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Chiquita banana",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Cliff Bar",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Lay's Classic",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2,5",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Peeled Snacks",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Philadelphia",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Test5",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test4",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test3",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2.5",
-    promotionPrice: "1.5",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test2",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test15",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test14",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test13",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test12",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test11",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test10",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
   }
 ];*/
+
 let myCart = [];
 let favorites = [];
-let requests = [
-  "http://localhost:57269/api/AASC_PRODUCT",
-  "http://localhost:57269/api/AASC_PRODUCT_CATEGORY"
-];
-
-/*************************/
-/*************************/
-/*****Get All The Categories!!******/
-/*************************/
-/*************************/
 
 /*************************/
 /*************************/
 /*****Get All The Products!!******/
 /*************************/
 /*************************/
-// Create a request variable and assign a new XMLHttpRequest object to it.
-/*for (var i = 0; i < requests.length; i++) {
-  (function(i) {
-    nRequest[i] = new XMLHttpRequest();
-    nRequest[i].open("GET", requests[i], true);
-    nRequest[i].onreadystatechange = function(oEvent) {
-      if (nRequest[i].readyState === 4) {
-        if (nRequest[i].status === 200) {
-          console.log(nRequest[i].responseText);
-          alert(nRequest[i].responseText);
-        } else {
-          console.log("Error", nRequest[i].statusText);
-        }
-      }
-    };
-    nRequest[i].send(null);
-  })(i);
-} */
+
 let requestProducts = new XMLHttpRequest();
 // Open a new connection, using the GET request on the URL endpoint
 let productsArray = [];
@@ -301,7 +50,6 @@ requestProducts.onload = function() {
     }));
 
     //first get all possible categories from backend and store them in an Array
-
     productsArray.forEach(p => {
       let cat = p.category;
       if (categories.indexOf(cat) < 0) {
@@ -916,28 +664,3 @@ document.addEventListener("readystatechange", event => {
     updateCartIcon();
   }
 });
-
-/*let requestCategories = new XMLHttpRequest();
-requestCategories.open(
-  "GET",
-  "http://localhost:57269/api/AASC_PRODUCT_CATEGORY",
-  true
-);
-requestCategories.onload = function() {
-  // Begin accessing JSON data here
-  if (requestCategories.status >= 200 && requestCategories.status < 400) {
-    let data = JSON.parse(this.response);
-    data
-      .map(c => ({
-        CategoryID: c.CategoryID,
-        CategoryName: c.CategoryName
-      }))
-      .forEach(cat => categories.push(cat));
-  } else {
-    prompt("something went wrong, sorry for the inconvenience");
-  }
-};
-// Send request
-requestCategories.send();*/
-
-/**/
