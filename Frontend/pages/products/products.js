@@ -502,8 +502,10 @@ function buttonClickEvents() {
   let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
   let addProductButtons = document.querySelectorAll(".cartButton");
   let data = "";
+
+  //first "virtually click buttons based off of localstorage"
   addProductButtons.forEach(function(btn) {
-    //for every cart button on a product, if the session already has a product like this, hide this cartbutton and show the plusminusbutton instead
+    //for every cart button on a product, if the local storage already has a product like this, hide this cartbutton and show the plusminusbutton instead
     if (localStorage.getItem(btn.dataset.productname)) {
       //hide this button
       btn.style.display = "none";
@@ -527,7 +529,13 @@ function buttonClickEvents() {
 
     //register the clickevent for each button
     btn.addEventListener("click", function(event) {
-      let productName = event.target.dataset.productname;
+      let myEvent = event.target;
+      if (event.target.classList.contains("material-icons")) {
+        myEvent = event.target.parentNode;
+      }
+
+      let productName = myEvent.dataset.productname;
+
       //OnClick: Hide this button
       btn.style.display = "none";
 

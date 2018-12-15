@@ -315,8 +315,9 @@ function handleCheckout() {
 function buildCheckoutPage(date, time) {
   return `<div class="onCheckout">
   <h2>Thank you for shopping with us</h2>
-  <p>Your grocery bag will be ready for pickup on</p>
-  <p id="showDate">${date} at ${time}</p>
+  <h4>Your grocery bag will be ready for pickup on</h4>
+  <h4 id="showDate">${date} at ${time}</h4>
+  <p>The pickup address is: Hobrovej 450, 9200 Aalborg SV</p>
   <br />
   <p>
     To make your pickup even more relaxing you can book a table at one of

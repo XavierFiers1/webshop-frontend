@@ -182,7 +182,7 @@ function heartEventListeners() {
 function buildFavorites() {
   if (favorites.length > 0)
     favoriteHTML.innerHTML = favorites.map(createFavorites).join("");
-  else favoriteHTML.innerHTML = "Add some favorite products to your watchlist";
+  else favoriteHTML.innerHTML = "Add some products to your watchlist";
   heartEventListeners();
 }
 

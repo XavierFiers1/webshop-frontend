@@ -216,3 +216,9 @@ section {
 .mdl-cell--3-col {
   margin: 8px auto !important;
 }
+
+/*custom fix for footer*/
+
+.footerFix {
+  width: calc(50% - 16px) !important;
+}
