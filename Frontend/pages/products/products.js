@@ -250,7 +250,7 @@ function buildPromotions() {
       //so I make it positive and add the index to it (symmetry) instead of
       // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      index = (size + promotionIndex * -1) % size;
+      index = ((promotionIndex % size) + size) % size;
     } else index = promotionIndex % size;
 
     promotionColumnCode = promotionPerFour[index].length;
@@ -300,7 +300,8 @@ function buildPromotions() {
       //so I make it positive and add the index to it (symmetry) instead of
       // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
       //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      index = (size + promotionIndex * -1) % size;
+      index = ((promotionIndex % size) + size) % size;
+      console.log(index, promotionIndex);
     } else index = promotionIndex % size;
 
     promotionColumnCode = promotionPerFour[index].length;
