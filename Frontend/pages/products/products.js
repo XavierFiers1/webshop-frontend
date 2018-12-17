@@ -18,6 +18,15 @@ let productsArray = [
 
 let myCart = [];
 let favorites = [];
+let isMobile = false;
+function detectmobile() {
+  if (window.innerWidth <= 800) {
+    isMobile = true;
+  } else {
+    return false;
+  }
+}
+detectmobile();
 
 /*************************/
 /*************************/
@@ -73,7 +82,9 @@ requestProducts.onload = function() {
     products.innerHTML = noPromotionProducts.map(createProducts).join("");
 
     //build promotion products
-    buildPromotions();
+    if (isMobile) {
+      buildpromotionForMobile();
+    } else buildPromotionsForDesktop();
     //create all the clickevents;
     heartsClickEvents();
     buttonClickEvents();
@@ -193,7 +204,7 @@ function filterButtonEvents() {
 /******************************/
 /*****************************/
 let promotionColumnCode = 0;
-function buildPromotions() {
+function buildPromotionsForDesktop() {
   const promotionProductsHTML = document.querySelector(".promotion");
   //first filter productArray to get promotion products:
   let promotionProducts = productsArray.filter(
@@ -325,6 +336,75 @@ function buildPromotions() {
       );
       promotionObjectsHTML[j].classList.add("mdl-cell--" + code + "-col");
     }
+  });
+}
+function buildpromotionForMobile() {
+  const promotionProductsHTML = document.querySelector(".promotion");
+  //first filter productArray to get promotion products:
+  let promotionProducts = productsArray.filter(
+    product => product.promotion === true
+  );
+
+  let promotionIndex = 0;
+  //get the length of the amount of products in the array in order to
+  //we will use promotionColumnCode to check how many elements that particular array chunk has
+  //grid class should be adapted to this number
+
+  //add ALL the products to the innerhtml
+  promotionProductsHTML.innerHTML = promotionProducts
+    .map(createProducts)
+    .join("");
+  //now display = "none" ALL those products
+  const promotionObjectsHTML = document.querySelectorAll(".isPromotion");
+  promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+
+  //set display to flex on promotionIndex elements of the first array dim
+
+  promotionObjectsHTML[promotionIndex].style.display = "flex";
+
+  ////////////BackArrow
+  let backArrow = document.querySelector("#backArrow");
+  backArrow.addEventListener("click", function(event) {
+    //again, set ALL products display to none
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+    let size = promotionObjectsHTML.length;
+    let index = 0;
+    promotionIndex--;
+
+    if (promotionIndex < 0) {
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionObjectsHTML[index].style.display = "flex";
+    //first remove ALL the possible classes
+    promotionObjectsHTML[index].classList.remove(
+      "mdl-cell--3-col",
+      "mdl-cell--6-col",
+      "mdl-cell--12-col"
+    );
+    //then add the particular class thanks to the promotioncolumncode
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
+  });
+
+  ////////////FrontArrow
+  let frontArrow = document.querySelector("#frontArrow");
+  frontArrow.addEventListener("click", function(event) {
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+    let size = promotionObjectsHTML.length;
+    let index = 0;
+    promotionIndex++;
+
+    if (promotionIndex < 0) {
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionObjectsHTML[index].style.display = "flex";
+    promotionObjectsHTML[index].classList.remove(
+      "mdl-cell--3-col",
+      "mdl-cell--6-col",
+      "mdl-cell--12-col"
+    );
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
   });
 }
 

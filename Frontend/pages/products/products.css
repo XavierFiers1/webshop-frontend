@@ -77,6 +77,10 @@ section {
     padding: 3%;
     width: 75%;
   }
+  .mdl-navigation > .material-icons {
+    font-size: 25px !important;
+    margin-right: 5px !important;
+  }
 }
 
 #searchField {
