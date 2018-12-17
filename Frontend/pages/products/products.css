@@ -13,13 +13,15 @@
   font-size: 48px !important;
 }
 .arrowIconForward {
-  transform: translateY(40%) !important;
+  transform: translateY(150%) !important;
+  height: 10% !important  ;
 }
 .arrowIconBack {
   font-size: 48px !important;
+  height: 10% !important  ;
   position: relative;
 
-  transform: translateY(40%) scaleX(-1) !important;
+  transform: translateY(150%) scaleX(-1) !important;
 }
 .arrowIconForward:hover {
   cursor: pointer;
@@ -51,7 +53,7 @@ h3 {
 section {
   margin: 0 auto;
 
-  color: #94c817;
+  color: #686a61;
   background: white;
   border-radius: 3px;
   width: 90%;
@@ -74,6 +76,10 @@ section {
     margin: 0 auto;
     padding: 3%;
     width: 75%;
+  }
+  .mdl-navigation > .material-icons {
+    font-size: 25px !important;
+    margin-right: 5px !important;
   }
 }
 
@@ -103,6 +109,7 @@ section {
   font-size: 18px !important;
 }
 .brandTitle {
+  padding-top: 0px !important;
   font-size: 16px !important;
 }
 .priceTitle {
@@ -207,7 +214,7 @@ section {
 /*specific style for the carousel cards so they keep the same size*/
 .mdl-cell--12-col {
   margin: 8px !important;
-  width: 50% !important;
+  width: 55% !important;
 }
 
 .mdl-cell--6-col {
@@ -222,4 +229,10 @@ section {
 
 .mdl-cell--3-col {
   margin: 8px !important;
+}
+
+/*custom fix for footer*/
+
+.footerFix {
+  width: calc(50% - 16px) !important;
 }

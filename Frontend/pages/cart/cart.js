@@ -1,4 +1,4 @@
-let productsArray = [
+/*let productsArray = [
   {
     name: "Pink Lady Apples",
     subtitle: "",
@@ -12,105 +12,51 @@ let productsArray = [
     img: "/Frontend/img/apple1.jpg",
     promotion: 0,
     highlight: 0
-  },
-  {
-    name: "Archer Farms",
-    subtitle: "Deluxe roasted mixed nuts",
-    brand: "",
-    weight: "",
-    unit: "",
-    price: "25",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nuts",
-    img: "/Frontend/img/nuts1.jpg",
-    promotion: 0,
-    highlight: 0
-  },
-  {
-    name: "Chiquita banana",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "/Frontend/img/banana1.jpg",
-    promotion: 0,
-    highlight: 0
-  },
-  {
-    name: "Cliff Bar",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "/Frontend/img/cliff1.jpg",
-    promotion: 0,
-    highlight: 0
-  },
-  {
-    name: "Lay's Classic",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2.25",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "/Frontend/img/lays1.jpg",
-    promotion: 0,
-    highlight: 0
-  },
-  {
-    name: "Peeled Snacks",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "/Frontend/img/peeledmango1.jpg",
-    promotion: 0,
-    highlight: 0
-  },
-  {
-    name: "Philadelphia",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "/Frontend/img/philadelphiaOriginal.jpg",
-    promotion: 0,
-    highlight: 0
   }
-];
+];*/
 
 let myCart = [];
+
+let requestProducts = new XMLHttpRequest();
+// Open a new connection, using the GET request on the URL endpoint
+let productsArray = [];
+let data = [];
+
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
+  // Begin accessing JSON data here
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
+
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+
+    //fill the cart array from content from localStorage:
+    cartBuilder();
+    //create the product array based off of cart
+    pageBuilder();
+    updateGrandTotal();
+  } else {
+    prompt("something went wrong, sorry for the inconvenience");
+  }
+};
+requestProducts.send();
 
 /******************************/
 /*******************************/
 /*****Shopping List before checkout*****/
 /******************************/
 /*****************************/
-
-//fill the cart array from content from sessionstorage:
-(function() {
-  cartBuilder();
-})();
 
 function cartBuilder() {
   productsArray.forEach(product => {
@@ -121,11 +67,6 @@ function cartBuilder() {
     }
   });
 }
-
-//create the product array based off of cart
-(function() {
-  pageBuilder();
-})();
 
 function pageBuilder() {
   const shoppingListContent = document.querySelector(".shoppingListContent");
@@ -138,11 +79,14 @@ function pageBuilder() {
       .map(createShoppingListProducts)
       .join("");
   else {
-    shoppingListContent.innerHTML = "Cart is empty";
+    document.querySelector(".shoppingList").innerHTML = buildEmptyCartPage();
     checkoutInfoHTML.innerHTML = "";
     //remove this element to remove the white background
     removeWhenEmptyCartHTML.parentNode.removeChild(removeWhenEmptyCartHTML);
   }
+
+  //after the page has been built, disable the min buttons on the products that have amount 1
+  disableMinButtonsAmountOne();
 }
 
 function updateGrandTotal() {
@@ -152,7 +96,7 @@ function updateGrandTotal() {
   myCart.forEach(p => {
     total += parseFloat(p.product.price * p.amount);
   });
-  total += 1; //service costs
+  total += 10; //service costs
   totalHTML.innerHTML = total;
 }
 
@@ -180,9 +124,9 @@ function createShoppingListProducts(product) {
              
               <h3 class="mdl-card__title-text"> <span data-info="${
                 product.product.name
-              }">${product.amount} X €${product.product.price}
+              }">${product.amount} X DKK ${product.product.price}
                <br />
-                Total: €${parseFloat(
+                Total: DKK ${parseFloat(
                   product.product.price * product.amount
                 ).toFixed(2)}</span>
               </h3>
@@ -235,7 +179,7 @@ function disableMinButtonsAmountOne() {
   const minbuttons = document.querySelectorAll("#minButton");
   minbuttons.forEach(btn => {
     let product = myCart.find(p => p.product.name === btn.dataset.productname);
-    if (product.amount === 1) {
+    if (product.amount <= 1) {
       btn.disabled = true;
     }
   });
@@ -252,7 +196,7 @@ function removeAnotherProductFromCart(event) {
 
   updateProductAmountHtml(productname, product.amount, product.product.price);
   //also update the storage
-  //create a new product to match the original session storage key value pairs
+  //create a new product to match the original local storage key value pairs
   product = { product: product.product.name, amount: product.amount };
   saveToStorage(productname, JSON.stringify(product));
   updateGrandTotal();
@@ -268,9 +212,9 @@ function updateProductAmountHtml(productname, amount, price) {
     `[data-info=${CSS.escape(productname)}]`
   );
   price = parseFloat(price).toFixed(2);
-  infoHTML.innerHTML = `${amount} X €${price}
+  infoHTML.innerHTML = `${amount} X DKK ${price}
     <br />
-     Total: €${parseFloat(price * amount).toFixed(2)}`;
+     Total: DKK ${parseFloat(price * amount).toFixed(2)}`;
 
   //update the amount between plusminus buttons
 
@@ -326,7 +270,6 @@ function deleteProductFromList(event) {
   //rebuild the page
   pageBuilder();
 }
-updateGrandTotal();
 
 ///restrict date to today
 (function() {
@@ -349,3 +292,76 @@ document.addEventListener("readystatechange", event => {
     updateCartIcon();
   }
 });
+
+function handleCheckout() {
+  let date = document.querySelector(".datePicker").value;
+  let time = document.querySelector(".timePicker").value;
+
+  //clear the local storage
+  productsArray.forEach(p => {
+    if (localStorage.getItem(p.name)) {
+      localStorage.removeItem(p.name);
+    }
+  });
+  //clear cart and update carticon
+  myCart = [];
+  updateCartIcon();
+  document.querySelector(".shoppingList").innerHTML = buildCheckoutPage(
+    date,
+    time
+  );
+}
+
+function buildCheckoutPage(date, time) {
+  return `<div class="onCheckout">
+  <h2>Thank you for shopping with us</h2>
+  <h4>Your grocery bag will be ready for pickup on</h4>
+  <h4 id="showDate">${date} at ${time}</h4>
+  <p>At the pickup facilities at the entrance of Bilka</p>
+  <p>Bilka's Address: Hobrovej 450, 9200 Aalborg SV</p>
+  <br />
+  <p>
+    To make your pickup even more relaxing you can book a table at one of
+    our participating restaurants 
+  </p>
+  <div class="mdl-grid crossroad">
+  <div
+    class="mdl-cell mdl-cell--5-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow"
+    onclick="window.location = '/Frontend/pages/booktable/booktable.html'"
+  >
+    <div
+      id="booking"
+      class="card-image mdl-card mdl-shadow--2dp valign-center"
+    >
+      <h1 class="align-center">
+        Book a table <br />
+        <img
+          src="/Frontend/img/AaStorcenter.svg"
+          alt="Aalborg Storcenter"
+        />
+      </h1>
+    </div>
+  </div>
+  </div>
+</div>`;
+}
+
+function buildEmptyCartPage() {
+  return `<div class="mdl-grid crossroad">
+  <p>Add some items to your grocery list</p>
+  <div
+    class="mdl-cell mdl-cell--12-col mdl-cell--10-col-phone mdl-cell--10-col-tablet hvr-grow"
+    onclick="window.location = '/Frontend/pages/products/products.html'"
+  >
+    <div
+      id="grocery"
+      class="card-image mdl-card mdl-shadow--2dp valign-center"
+    >
+      <h1 class="align-center">
+        Shop groceries <br />
+        <img src="/Frontend/img/bilkalogo.png" alt="bilka" />
+      </h1>
+    </div>
+  </div>
+  </div>`;
+}

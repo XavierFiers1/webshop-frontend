@@ -1,4 +1,4 @@
-let productsArray = [
+/*let productsArray = [
   {
     name: "Pink Lady Apples",
     subtitle: "",
@@ -12,205 +12,55 @@ let productsArray = [
     img: "../../img/apple1.jpg",
     promotion: 0,
     liked: 0
-  },
-  {
-    name: "Archer Farms",
-    subtitle: "Deluxe roasted mixed nuts",
-    brand: "",
-    weight: "",
-    unit: "",
-    price: "25",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nuts",
-    img: "../../img/nuts1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Chiquita banana",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Cliff Bar",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Lay's Classic",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2,5",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Peeled Snacks",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Philadelphia",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Test5",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test4",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test3",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2.5",
-    promotionPrice: "1.5",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test2",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test1",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test6",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test7",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  }
-];
+  }]*/
 
 let myCart = [];
+let requestProducts = new XMLHttpRequest();
+// Open a new connection, using the GET request on the URL endpoint
+let productsArray = [];
+let data = [];
+let favorites = [];
+let storage = [];
+let names = [];
+const favoriteHTML = document.querySelector("#favorites");
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
+  // Begin accessing JSON data here
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
+
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+
+    getFavoritesFromStorage();
+    buildFavorites();
+    buttonClickEvents();
+  } else {
+    prompt("something went wrong, sorry for the inconvenience");
+  }
+};
+requestProducts.send();
 
 /******************************/
 /*******************************/
 /*****Generate Favorites HTML*****/
 /******************************/
 /*****************************/
-let favorites = [];
-let storage = [];
-let names = [];
-storage = JSON.parse(localStorage.getItem("liked"));
-if (storage === null) storage = [];
-const favoriteHTML = document.querySelector("#favorites");
-(function() {
+
+function getFavoritesFromStorage() {
+  storage = JSON.parse(localStorage.getItem("liked"));
+  if (storage === null) storage = [];
+
   productsArray.forEach(p => {
     if (storage.findIndex(fav => fav === p.name) >= 0) {
       //favorites is used to map the products
@@ -219,15 +69,11 @@ const favoriteHTML = document.querySelector("#favorites");
       names.push(p.name);
     }
   });
-})();
-
-buildFavorites();
+}
 
 function createFavorites(product) {
-  let strikeThroughClass = "";
-  if (product.promotion === 1) {
+  if (product.promotion === true) {
     productClass = "";
-    strikeThroughClass = "strikeThrough";
   }
 
   return `
@@ -250,12 +96,8 @@ function createFavorites(product) {
           <h2 class="productTitle mdl-card__title-text">${product.name}</h2>
           <h3 class="brandTitle mdl-card__title-text">${product.subtitle}</h3>
           <br />
-          <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">€ ${
-    product.price
-  }</h4>
-          <h4 class="priceTitle mdl-card__title-text">&nbsp € ${
-            product.promotionPrice
-          }</h4>
+          <h4 class="priceTitle  mdl-card__title-text">DKK ${product.price}</h4>
+          
           <h4 class="unitTitle mdl-card__title-text">${product.unit}</h4>
           <br />
         </div>
@@ -315,7 +157,7 @@ function heartEventListeners() {
   heartUntouchedIcons.forEach(function(heart) {
     //fill in hearts where needed according to local storage liked heart
     heart.addEventListener("mouseover", function(event) {
-      heart.innerHTML = "remove";
+      heart.innerHTML = "favorite_border";
     });
     heart.addEventListener("mouseout", mouseOutfunc);
     heart.addEventListener("click", function(event) {
@@ -340,7 +182,7 @@ function heartEventListeners() {
 function buildFavorites() {
   if (favorites.length > 0)
     favoriteHTML.innerHTML = favorites.map(createFavorites).join("");
-  else favoriteHTML.innerHTML = "Add some favorite products to your watchlist";
+  else favoriteHTML.innerHTML = "Add some products to your watchlist";
   heartEventListeners();
 }
 
@@ -350,7 +192,7 @@ function buildFavorites() {
 /*///////////////////////////////////
   Also, if there are some items in storage, show the right buttons accordingly!
   ///////////////////////////////////*/
-(function() {
+function buttonClickEvents() {
   let amount = 0;
   let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
   let addProductButtons = document.querySelectorAll(".cartButton");
@@ -404,7 +246,7 @@ function buildFavorites() {
       addProductToCart(productName, 0);
     });
   });
-})();
+}
 
 //this function will execute if there was no product of this type in the cart
 //the cart button will change into plus minus buttons

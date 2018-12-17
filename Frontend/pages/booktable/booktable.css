@@ -1,6 +1,6 @@
 section {
   margin: 0 auto;
-  color: #94c817;
+
   background: white;
   border-radius: 3px;
   width: 90%;
@@ -95,7 +95,7 @@ p {
 }
 
 .booktablethumbnail {
-  height: 40%;
+  height: 45%;
   width: 100%;
   margin: 0;
   object-fit: cover;
@@ -134,10 +134,16 @@ p {
 
 .booktableButton {
   width: 80%;
-  color: white !important;
-  background-color: #94c817 !important;
+  color: black !important;
+  /* background-color: #94c817 !important;*/
   margin: 0 auto;
   text-align: center;
+}
+
+.checkoutButtons {
+  width: 35%;
+  display: block !important;
+  margin: 10px auto !important;
 }
 
 .timeDate {
@@ -149,6 +155,9 @@ p {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 750px) {
+  .checkoutButtons {
+    width: 100%;
+  }
   .restaurants > .mdl-grid {
     padding: 0;
   }
@@ -174,7 +183,9 @@ p {
     font-size: 8px;
     margin: 0;
   }
-
+  .mdl-cell {
+    /* margin: 10px auto !important;*/
+  }
   .booktablecard > .mdl-grid > .mdl-cell--4-col {
     width: calc(41.6666666667%);
   }
@@ -186,5 +197,11 @@ p {
   }
   .booktablecard > .mdl-grid > .mdl-cell--8-col {
     width: calc(58.3333333333%);
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .mdl-cell {
+    margin: 0 auto !important;
   }
 }

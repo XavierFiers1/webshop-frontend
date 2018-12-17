@@ -1,5 +1,4 @@
-// show cart
-
+/*
 let productsArray = [
   {
     name: "Pink Lady Apples",
@@ -14,285 +13,162 @@ let productsArray = [
     img: "../../img/apple1.jpg",
     promotion: 0,
     liked: 0
-  },
-  {
-    name: "Archer Farms",
-    subtitle: "Deluxe roasted mixed nuts",
-    brand: "",
-    weight: "",
-    unit: "",
-    price: "25",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nuts",
-    img: "../../img/nuts1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Chiquita banana",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Cliff Bar",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Lay's Classic",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2,5",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Peeled Snacks",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Philadelphia",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3,79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 0,
-    liked: 0
-  },
-  {
-    name: "Test5",
-    subtitle: "",
-    brand: "",
-    weight: "",
-    unit: "/kg",
-    price: "3",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Produce",
-    img: "../../img/banana1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test4",
-    subtitle: "Chocolate Chip",
-    brand: "Cliff",
-    weight: "",
-    unit: "",
-    price: "6",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Nutrition",
-    img: "../../img/cliff1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test3",
-    subtitle: "Family Size",
-    brand: "Lay's",
-    weight: "",
-    unit: "",
-    price: "2.5",
-    promotionPrice: "1.5",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/lays1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test2",
-    subtitle: "Organic Dried Mango",
-    brand: "Peeled Snacks",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Chips, snacks & cookies",
-    img: "../../img/peeledmango1.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test1",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test6",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
-  },
-  {
-    name: "Test7",
-    subtitle: "Original",
-    brand: "Philadelphia",
-    weight: "",
-    unit: "",
-    price: "3.79",
-    promotionPrice: "3",
-    extraInfo: "",
-    category: "Dairy",
-    img: "../../img/philadelphiaOriginal.jpg",
-    promotion: 1,
-    liked: 0
   }
-];
+];*/
 
 let myCart = [];
 let favorites = [];
-
-/*************************/
-/*************************/
-/*****Filter Buttons******/
-/*************************/
-/*************************/
-
-//first get all possible categories from backend and store them in an Array
-const categories = [];
-productsArray.forEach(p => {
-  let cat = p.category;
-  if (categories.indexOf(cat) < 0) {
-    categories.push(cat);
+let isMobile = false;
+function detectmobile() {
+  if (window.innerWidth <= 800) {
+    isMobile = true;
+  } else {
+    return false;
   }
-});
+}
+detectmobile();
 
-//append the categories to the html:
+/*************************/
+/*************************/
+/*****Get All The Products!!******/
+/*************************/
+/*************************/
 
-const categoriesHTML = document.querySelector("#categories");
-categoriesHTML.innerHTML = categories.map(createCategories).join("");
+let requestProducts = new XMLHttpRequest();
+// Open a new connection, using the GET request on the URL endpoint
+let productsArray = [];
+let data = [];
+const categories = [];
+requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+
+requestProducts.onload = function() {
+  // Begin accessing JSON data here
+  if (requestProducts.status >= 200 && requestProducts.status < 400) {
+    data = JSON.parse(this.response);
+
+    productsArray = data.map(p => ({
+      name: p.ProductName,
+      subtitle: p.ProductDescription,
+      weight: p.ProductWeight,
+      unit: p.ProductUnit,
+      price: p.ProductPrice,
+      promotionPrice: p.DiscountPrice,
+      category: p.ProductCategory[0].CategoryName,
+      img: p.ImgPath,
+      promotion: p.IsFeatured
+    }));
+
+    //first get all possible categories from backend and store them in an Array
+    productsArray.forEach(p => {
+      let cat = p.category;
+      if (categories.indexOf(cat) < 0) {
+        categories.push(cat);
+      }
+    });
+
+    //append the categories to the html:
+    const categoriesHTML = document.querySelector("#categories");
+    categoriesHTML.innerHTML = categories.map(createCategories).join("");
+
+    //build the products
+    //generate all the products on the screen
+    const products = document.querySelector("#products");
+    //first filter productArray to get products that aren't in promotion:
+    let noPromotionProducts = productsArray.filter(
+      product => product.promotion === false
+    );
+
+    //now map them into the innerHTML
+    products.innerHTML = noPromotionProducts.map(createProducts).join("");
+
+    //build promotion products
+    if (isMobile) {
+      buildpromotionForMobile();
+    } else buildPromotionsForDesktop();
+    //create all the clickevents;
+    heartsClickEvents();
+    buttonClickEvents();
+    filterButtonEvents();
+  } else {
+    prompt("something went wrong, sorry for the inconvenience");
+  }
+};
+requestProducts.send();
+
+//display category chips
 function createCategories(category) {
   return `<div class="mdl-cell mdl-cell--2-col">
-    <button data-filterbtn="${category}" type="button" data-filterswitch="false" class="mdl-chip" id="filterButtons">
-      <span data-filterbtn="${category}" class="mdl-chip__text">${category}</span>
-    </button></div>
-  `;
+<button data-filterbtn="${category}" type="button" data-filterswitch="false" class="mdl-chip" id="filterButtons">
+  <span data-filterbtn="${category}" class="mdl-chip__text">${category}</span>
+</button></div>
+`;
 }
 
 //here we query for the category buttons instead of adding onclick in html
 //so that we can use event.preventDefault();
 //this makes sure page doesn't scroll up after each click!
 //also query for the "button" text specifically, so we can manipulate it
+function filterButtonEvents() {
+  const filterButtons = document.querySelectorAll(
+    "#filterButtons",
+    ".mdl-chip__text"
+  );
+  let activeFilters = [];
+  filterButtons.forEach(function(btn) {
+    btn.addEventListener("click", function(event) {
+      //prevent the page from scrolling up to default
+      event.preventDefault();
 
-const filterButtons = document.querySelectorAll(
-  "#filterButtons",
-  ".mdl-chip__text"
-);
-let activeFilters = [];
-filterButtons.forEach(function(btn) {
-  btn.addEventListener("click", function(event) {
-    //prevent the page from scrolling up to default
-    event.preventDefault();
-
-    //if event.target is the .mdl-chip__text: get the parent node
-    //because otherwise the button toggle functions don't work
-    //so if user selects the span text instead, change the event as if the button was clicked
-    let myEvent = event.target;
-    if (event.target.classList.contains("mdl-chip__text")) {
-      myEvent = event.target.parentNode;
-    }
-
-    //get the exact category
-    const category = myEvent.dataset.filterbtn;
-
-    //check if button isn't active already!
-    //make use of true or false strings, no bools
-    let filterswitch = myEvent.dataset.filterswitch;
-    if (filterswitch === "false") {
-      //chiptoggle is a custom class in css that changes background to lighter green
-      btn.classList.add("chipToggle");
-      myEvent.dataset.filterswitch = "true";
-      activeFilters.push(category);
-    } else {
-      btn.classList.remove("chipToggle");
-      myEvent.dataset.filterswitch = "false";
-      let indexOfCategory = activeFilters.indexOf(category);
-      activeFilters.splice(indexOfCategory, 1);
-    }
-
-    //get all the products in html
-    const items = document.querySelectorAll(".product");
-
-    //Filtering because of this clickevent:
-    //filter the html based on contents of the activeFilter Array
-    items.forEach(item => {
-      //if activeFilters contains nothing, show all items!
-      if (activeFilters.length <= 0) {
-        item.style.display = "flex";
-      } else {
-        //Standard for loop to make use of the return function!!
-        //Because if there is a hit, there is no use to loop further
-        //Or style.display gets overruled again.
-        for (i = 0; i < activeFilters.length; i++) {
-          if (item.dataset.category === activeFilters[i]) {
-            item.style.display = "flex";
-            return;
-          } else item.style.display = "none";
-        }
+      //if event.target is the .mdl-chip__text: get the parent node
+      //because otherwise the button toggle functions don't work
+      //so if user selects the span text instead, change the event as if the button was clicked
+      let myEvent = event.target;
+      if (event.target.classList.contains("mdl-chip__text")) {
+        myEvent = event.target.parentNode;
       }
+
+      //get the exact category
+      const category = myEvent.dataset.filterbtn;
+
+      //check if button isn't active already!
+      //make use of true or false strings, no bools
+      let filterswitch = myEvent.dataset.filterswitch;
+      if (filterswitch === "false") {
+        //chiptoggle is a custom class in css that changes background to lighter green
+        btn.classList.add("chipToggle");
+        myEvent.dataset.filterswitch = "true";
+        activeFilters.push(category);
+      } else {
+        btn.classList.remove("chipToggle");
+        myEvent.dataset.filterswitch = "false";
+        let indexOfCategory = activeFilters.indexOf(category);
+        activeFilters.splice(indexOfCategory, 1);
+      }
+
+      //get all the products in html
+      const items = document.querySelectorAll(".product");
+
+      //Filtering because of this clickevent:
+      //filter the html based on contents of the activeFilter Array
+      items.forEach(item => {
+        //if activeFilters contains nothing, show all items!
+        if (activeFilters.length <= 0) {
+          item.style.display = "flex";
+        } else {
+          //Standard for loop to make use of the return function!!
+          //Because if there is a hit, there is no use to loop further
+          //Or style.display gets overruled again.
+          for (i = 0; i < activeFilters.length; i++) {
+            if (item.dataset.category === activeFilters[i]) {
+              item.style.display = "flex";
+              return;
+            } else item.style.display = "none";
+          }
+        }
+      });
     });
   });
-});
+}
 
 /*************************/
 /*************************/
@@ -321,18 +197,20 @@ filterButtons.forEach(function(btn) {
     });
   });
 })();
+
 /******************************/
 /*******************************/
 /*****Generate promotion HTML*****/
 /******************************/
 /*****************************/
 let promotionColumnCode = 0;
-(function() {
+function buildPromotionsForDesktop() {
   const promotionProductsHTML = document.querySelector(".promotion");
   //first filter productArray to get promotion products:
   let promotionProducts = productsArray.filter(
-    product => product.promotion === 1
+    product => product.promotion === true
   );
+  //custom function to split an array into 2 dim array
   function chunkArrayInGroups(arr, size) {
     let myArray = [];
     for (var i = 0; i < arr.length; i += size) {
@@ -340,59 +218,195 @@ let promotionColumnCode = 0;
     }
     return myArray;
   }
+
   //get the promotionArray and slice it in a two dim array with 4 columns
   let promotionPerFour = chunkArrayInGroups(promotionProducts, 4);
 
-  //now map them into the innerHTML
   let promotionIndex = 0;
-  promotionProductsHTML.innerHTML = promotionPerFour[promotionIndex]
+  //get the length of the amount of products in the array in order to
+  //we will use promotionColumnCode to check how many elements that particular array chunk has
+  //grid class should be adapted to this number
+  promotionColumnCode = promotionPerFour[promotionIndex].length;
+
+  //add ALL the products to the innerhtml
+  promotionProductsHTML.innerHTML = promotionProducts
     .map(createProducts)
     .join("");
+  //now display = "none" ALL those products
+  const promotionObjectsHTML = document.querySelectorAll(".isPromotion");
+  promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+
+  //set display to flex on first elements of the first array dim
+  for (let i = 0; i < promotionPerFour[promotionIndex].length; i++) {
+    promotionObjectsHTML[i].style.display = "flex";
+  }
+
+  ///if 2 dim array only consist of 1 row, don't even generate the arrows!
+  if (promotionPerFour.length === 1) {
+    const arrows = document.querySelectorAll(".arrowIcons");
+    arrows.forEach(a => (a.style.display = "none"));
+  }
 
   ////////////BackArrow
   let backArrow = document.querySelector("#backArrow");
   backArrow.addEventListener("click", function(event) {
-    //on backarrowclick, go back in the promotionArray and show these items
-    promotionIndex--;
-    let temp = promotionIndex;
+    //again, set ALL products display to none
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
+    let index = 0;
+    promotionIndex--;
+
     if (promotionIndex < 0) {
-      //modulo doesn't work with negatives : BUG
-      //so I make it positive and add the index to it (symmetry) instead of
-      // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
-      //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      temp = (size + promotionIndex * -1) % size;
-    } else temp = promotionIndex % size;
-    promotionColumnCode = promotionPerFour[temp].length;
-    promotionProductsHTML.innerHTML = promotionPerFour[temp]
-      .map(createProducts)
-      .join("");
-    //get the length of the amount of products in the array in order to
-    //construct the column of the grid in case the array only has 3 2 or 1 elements
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionColumnCode = promotionPerFour[index].length;
+
+    let code = 1;
+    switch (promotionColumnCode) {
+      case 0:
+        break;
+      case 1:
+        code = 12;
+        break;
+      case 2:
+        code = 6;
+        break;
+      case 3:
+        code = 4;
+        break;
+      case 4:
+        code = 3;
+        break;
+    }
+
+    for (let i = 0; i < promotionPerFour[index].length; i++) {
+      let j = index * 4 + i;
+      promotionObjectsHTML[j].style.display = "flex";
+      //first remove ALL the possible classes
+      promotionObjectsHTML[j].classList.remove(
+        "mdl-cell--3-col",
+        "mdl-cell--6-col",
+        "mdl-cell--12-col"
+      );
+      //then add the particular class thanks to the promotioncolumncode
+      promotionObjectsHTML[j].classList.add("mdl-cell--" + code + "-col");
+    }
   });
 
   ////////////FrontArrow
   let frontArrow = document.querySelector("#frontArrow");
   frontArrow.addEventListener("click", function(event) {
-    //on backarrowclick, go back in the promotionArray and show these items
-    promotionIndex++;
-    let temp = promotionIndex;
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
+    let index = 0;
+    promotionIndex++;
+
     if (promotionIndex < 0) {
-      //modulo doesn't work with negatives : BUG
-      //so I make it positive and add the index to it (symmetry) instead of
-      // if you have an array of 4, so --- 0 1 2 3 --- then -1 becomes 5, which gives 5 mod 4 = 1, -2 becomes 6, which gives 6 mod 4 = 2
-      //this way we keep the index within the appropriate region so we can safely loop through the 2 dimensional array
-      temp = (size + promotionIndex * -1) % size;
-    } else temp = promotionIndex % size;
-    promotionColumnCode = promotionPerFour[temp].length;
-    promotionProductsHTML.innerHTML = promotionPerFour[temp]
-      .map(createProducts)
-      .join("");
-    //get the length of the amount of products in the array in order to
-    //construct the column of the grid in case the array only has 3 2 or 1 elements
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionColumnCode = promotionPerFour[index].length;
+
+    let code = 1;
+    switch (promotionColumnCode) {
+      case 0:
+        break;
+      case 1:
+        code = 12;
+        break;
+      case 2:
+        code = 6;
+        break;
+      case 3:
+        code = 4;
+        break;
+      case 4:
+        code = 3;
+        break;
+    }
+
+    for (let i = 0; i < promotionPerFour[index].length; i++) {
+      let j = index * 4 + i;
+      promotionObjectsHTML[j].style.display = "flex";
+      promotionObjectsHTML[j].classList.remove(
+        "mdl-cell--3-col",
+        "mdl-cell--6-col",
+        "mdl-cell--12-col"
+      );
+      promotionObjectsHTML[j].classList.add("mdl-cell--" + code + "-col");
+    }
   });
-})();
+}
+function buildpromotionForMobile() {
+  const promotionProductsHTML = document.querySelector(".promotion");
+  //first filter productArray to get promotion products:
+  let promotionProducts = productsArray.filter(
+    product => product.promotion === true
+  );
+
+  let promotionIndex = 0;
+  //get the length of the amount of products in the array in order to
+  //we will use promotionColumnCode to check how many elements that particular array chunk has
+  //grid class should be adapted to this number
+
+  //add ALL the products to the innerhtml
+  promotionProductsHTML.innerHTML = promotionProducts
+    .map(createProducts)
+    .join("");
+  //now display = "none" ALL those products
+  const promotionObjectsHTML = document.querySelectorAll(".isPromotion");
+  promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+
+  //set display to flex on promotionIndex elements of the first array dim
+
+  promotionObjectsHTML[promotionIndex].style.display = "flex";
+
+  ////////////BackArrow
+  let backArrow = document.querySelector("#backArrow");
+  backArrow.addEventListener("click", function(event) {
+    //again, set ALL products display to none
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+    let size = promotionObjectsHTML.length;
+    let index = 0;
+    promotionIndex--;
+
+    if (promotionIndex < 0) {
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionObjectsHTML[index].style.display = "flex";
+    //first remove ALL the possible classes
+    promotionObjectsHTML[index].classList.remove(
+      "mdl-cell--3-col",
+      "mdl-cell--6-col",
+      "mdl-cell--12-col"
+    );
+    //then add the particular class thanks to the promotioncolumncode
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
+  });
+
+  ////////////FrontArrow
+  let frontArrow = document.querySelector("#frontArrow");
+  frontArrow.addEventListener("click", function(event) {
+    promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
+    let size = promotionObjectsHTML.length;
+    let index = 0;
+    promotionIndex++;
+
+    if (promotionIndex < 0) {
+      index = ((promotionIndex % size) + size) % size;
+    } else index = promotionIndex % size;
+
+    promotionObjectsHTML[index].style.display = "flex";
+    promotionObjectsHTML[index].classList.remove(
+      "mdl-cell--3-col",
+      "mdl-cell--6-col",
+      "mdl-cell--12-col"
+    );
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
+  });
+}
 
 /******************************/
 /*******************************/
@@ -400,48 +414,32 @@ let promotionColumnCode = 0;
 /******************************/
 /*****************************/
 
-//generate all the products on the screen
-const products = document.querySelector("#products");
-//first filter productArray to get products that aren't in promotion:
-let noPromotionProducts = productsArray.filter(
-  product => product.promotion === 0
-);
-
-//now map them into the innerHTML
-products.innerHTML = noPromotionProducts.map(createProducts).join("");
-
 function createProducts(product) {
+  let productClass = "product";
+  let strikeThroughClass = "";
+  let promotionPriceMarkup = "";
+  let productUnit = product.unit;
+  let isPromotion = "";
+
+  if (productUnit !== "") {
+    productUnit = "/" + productUnit;
+  }
+
   //first let's check if we're working with a promotion product:
   //if not, then we don't add the "product" class to the first div
   //this way the search function doesn't target the promotion products array
-  let productClass = "product";
-  let strikeThroughClass = "";
-  if (product.promotion === 1) {
+  if (product.promotion === true) {
     productClass = "";
     strikeThroughClass = "strikeThrough";
+    promotionPriceMarkup = "DKK " + product.promotionPrice;
+    isPromotion = "isPromotion";
   }
 
-  let code = 3;
-  //if the last row in an array only contains 1 2 or 3 elements,
-  //change the column class accordingly
-  switch (promotionColumnCode) {
-    case 0:
-      break;
-    case 1:
-      code = 12;
-      break;
-    case 2:
-      code = 6;
-      break;
-    case 3:
-      code = 4;
-      break;
-  }
   //notice the product "class" in first div. This is used
   //for querying for filtering purposes
   return `
     <div
-    class="mdl-cell mdl-cell--${code}-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${productClass} ${
+    class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${isPromotion} ${productClass} ${
     product.category
   }"
     data-category="${product.category}"
@@ -459,13 +457,11 @@ function createProducts(product) {
         <h2 class="productTitle mdl-card__title-text">${product.name}</h2>
         <h3 class="brandTitle mdl-card__title-text">${product.subtitle}</h3>
         <br />
-        <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">€ ${
+        <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">DKK ${
     product.price
   }</h4>
-        <h4 class="priceTitle mdl-card__title-text">&nbsp € ${
-          product.promotionPrice
-        }</h4>
-        <h4 class="unitTitle mdl-card__title-text">${product.unit}</h4>
+        <h4 class="priceTitle mdl-card__title-text">&nbsp  ${promotionPriceMarkup}</h4>
+        <h4 class="unitTitle mdl-card__title-text">${productUnit}</h4>
         <br />
       </div>
   
@@ -518,7 +514,7 @@ function createProducts(product) {
   Add clickevents and hover to all product heart buttons:
   ///////////////////////////////////*/
 
-(function() {
+function heartsClickEvents() {
   const heartUntouchedIcons = document.querySelectorAll(".heartIconUntouched");
 
   //get all the hearts from storage
@@ -565,21 +561,23 @@ function createProducts(product) {
       heart.innerHTML = "favorite";
     }
   });
-})();
+}
 
 /*///////////////////////////////////
-  Add clickevents to all product buttons:
-  ///////////////////////////////////*/
+    Add clickevents to all product buttons:
+    ///////////////////////////////////*/
 /*///////////////////////////////////
-  Also, if there are some items in storage, show the right buttons accordingly!
-  ///////////////////////////////////*/
-(function() {
+    Also, if there are some items in storage, show the right buttons accordingly!
+    ///////////////////////////////////*/
+function buttonClickEvents() {
   let amount = 0;
   let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
   let addProductButtons = document.querySelectorAll(".cartButton");
+  let data = "";
 
+  //first "virtually click buttons based off of localstorage"
   addProductButtons.forEach(function(btn) {
-    //for every cart button on a product, if the session already has a product like this, hide this cartbutton and show the plusminusbutton instead
+    //for every cart button on a product, if the local storage already has a product like this, hide this cartbutton and show the plusminusbutton instead
     if (localStorage.getItem(btn.dataset.productname)) {
       //hide this button
       btn.style.display = "none";
@@ -603,14 +601,20 @@ function createProducts(product) {
 
     //register the clickevent for each button
     btn.addEventListener("click", function(event) {
-      let productName = event.target.dataset.productname;
+      let myEvent = event.target;
+      if (event.target.classList.contains("material-icons")) {
+        myEvent = event.target.parentNode;
+      }
+
+      let productName = myEvent.dataset.productname;
+
       //OnClick: Hide this button
       btn.style.display = "none";
 
       /////snackbar logic///////
       ("use strict");
       let snackbarContainer = document.querySelector("#theToast");
-      var data = { message: "Added " + productName + " to grocery Bag!" };
+      data = { message: "Added " + productName + " to grocery Bag!" };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
       //////////////////////////
 
@@ -628,7 +632,7 @@ function createProducts(product) {
       updateCartIcon();
     });
   });
-})();
+}
 
 //this function will execute if there was no product of this type in the cart
 //the cart button will change into plus minus buttons

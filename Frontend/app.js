@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // Declarations
 // NC = Notification Container
 const NC = document.querySelector('.mdl-js-snackbar');
@@ -19,7 +19,8 @@ if (!sessionStorage.getItem('loginFlag') && !sessionStorage.getItem('userID')) {
 // };
   
 
-// init 
+
+// init
 loadTopbar();
 loadFooter();
 
@@ -31,15 +32,16 @@ loadFooter();
 
 // FUNCTIONS
 // Initialize Modals and listen for events, polyfill for fallbacks
+
 if ((!sessionStorage.getItem('userID')
   && window.location.pathname === '/Frontend/pages/user/user.html')
   || sessionStorage.getItem('userInfo') === 'undefined') {
   try {
-    sessionStorage.removeItem('userInfo');
+    sessionStorage.removeItem("userInfo");
   } catch (error) {
     console.log(error);
   }
-  location = '../home/home.html';
+  location = "../home/home.html";
 }
 
 document.addEventListener('readystatechange', event => {
@@ -53,11 +55,11 @@ document.addEventListener('readystatechange', event => {
       dialogPolyfill.registerDialog(dialog);
     }
 
-    showDialogButton.addEventListener('click', function () {
-      if (sessionStorage.getItem('userID')) {
-        window.location.pathname = '/Frontend/pages/user/user.html';
+    showDialogButton.addEventListener("click", function() {
+      if (sessionStorage.getItem("userID")) {
+        window.location.pathname = "/Frontend/pages/user/user.html";
       } else {
-        BODY.classList.add('is-blurred');
+        BODY.classList.add("is-blurred");
         dialog.showModal();
       }
     });
@@ -76,7 +78,6 @@ document.addEventListener('readystatechange', event => {
       logoutListen();
     }
     // Listens for 'close' button, then closes the modal
-
     dialog.querySelector('#closeButton').addEventListener('click', function () {
       BODY.classList.remove('is-blurred');
       dialog.close();
@@ -93,9 +94,10 @@ document.addEventListener('readystatechange', event => {
     document.getElementsByClassName('close').onclick = function (event) {
       if (event.target == dialog) {
         dialog.close();
-        BODY.classList.remove('is-blurred');
+        BODY.classList.remove("is-blurred");
       }
     };
+
     // listens for backdrop click on modal, when triggered, closes the modal
     window.onclick = function (event) {
       if (event.target == dialog) {
@@ -135,8 +137,9 @@ function close() {
 }
 // Logic behind loading shared assets
 function loadSection(url) {
-  return fetch(url).then((response) => (response.text()));
+  return fetch(url).then(response => response.text());
 }
+
 // Registers a listener for logout click
 function logoutListen() {
   logoutButton.addEventListener('click', function () {
@@ -150,24 +153,28 @@ function logoutListen() {
 // Show toast in the specified container NC, prints out the passed argument msg
 function showToast(msg) {
   let data = { message: msg };
-  NC.MaterialSnackbar.showSnackbar(data);
-}
+  NC.MaterialSnackbar.showSnackbar(data);}
 // Load shared asset - TOPBAR
 function loadTopbar() {
-  loadSection('/Frontend/shared/topbar/topbar.html').then((html) => {
-    TOPBARCONTAINER.innerHTML = html;
-  }).catch((error) => {
-    console.warn(error);
-  });
+  loadSection("/Frontend/shared/topbar/topbar.html")
+    .then(html => {
+      TOPBARCONTAINER.innerHTML = html;
+    })
+    .catch(error => {
+      console.warn(error);
+    });
 }
 // Load shared asset - FOOTER
 function loadFooter() {
-  loadSection('/Frontend/shared/footer/footer.html').then((html) => {
-    document.getElementById("footerContainer").innerHTML = html;
-  }).catch((error) => {
-    console.warn(error);
-  });
+  loadSection("/Frontend/shared/footer/footer.html")
+    .then(html => {
+      document.getElementById("footerContainer").innerHTML = html;
+    })
+    .catch(error => {
+      console.warn(error);
+    });
 }
+
 // Change modal form (log in or sign up)
 function changeForm(form) {
   switch (form) {
@@ -274,51 +281,108 @@ function changeForm(form) {
 // register the user
 function registerUser() {
   var user = {
-    FName: document.querySelector('#fname').value,
-    LName: document.querySelector('#lname').value,
-    EMail: document.querySelector('#email').value,
-    PhoneNo: document.querySelector('#phoneNo').value,
-    City: document.querySelector('#city').value,
-    Street: document.querySelector('#street').value,
-    FlatNo: document.querySelector('#flatNo').value,
-    Zip: document.querySelector('#zip').value,
-    CPR: document.querySelector('#cpr').value,
-    UPassword: document.querySelector('#psw').value
-
+    FName: document.querySelector("#fname").value,
+    LName: document.querySelector("#lname").value,
+    EMail: document.querySelector("#email").value,
+    PhoneNo: document.querySelector("#phoneNo").value,
+    City: document.querySelector("#city").value,
+    Street: document.querySelector("#street").value,
+    FlatNo: document.querySelector("#flatNo").value,
+    Zip: document.querySelector("#zip").value,
+    CPR: document.querySelector("#cpr").value,
+    UPassword: document.querySelector("#psw").value
   };
   sessionStorage.setItem("userID", user.email);
   let json = JSON.stringify(user);
   const request = new XMLHttpRequest();
   request.open("POST", URLBASE + "postUser", true);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.onload = function () {
+  request.setRequestHeader("Content-Type", "application/json");
+  request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-
       loginUser();
     } else {
-      showToast('Something went wrong');
+      showToast("Something went wrong");
     }
   };
   request.send(json);
 }
 function loginUser() {
-  const EMAIL = document.getElementById('email').value;
-  const PASSWORD = document.getElementById('psw').value;
+  const EMAIL = document.getElementById("email").value;
+  const PASSWORD = document.getElementById("psw").value;
   const REQUEST = new XMLHttpRequest();
 
   REQUEST.open("GET", URLBASE + "getUser/" + EMAIL + "/" + PASSWORD, true);
-  REQUEST.setRequestHeader('Content-Type', 'application/json');
-  REQUEST.onload = function () {
+  REQUEST.setRequestHeader("Content-Type", "application/json");
+  REQUEST.onload = function() {
     let data = JSON.parse(this.response);
 
     if (REQUEST.status >= 200 && REQUEST.status < 400) {
+
       sessionStorage.setItem('userInfo', JSON.stringify(data));
       sessionStorage.setItem('userID', EMAIL);
       sessionStorage.setItem('loginFlag', true);
       location.reload();
     } else {
-      showToast('Wrong e-mail or password.');
+      showToast("Wrong e-mail or password.");
     }
   };
   REQUEST.send();
+}
+
+function updateCartIconShared() {
+  ////cart icon update
+  let myCart = [];
+  let requestProducts = new XMLHttpRequest();
+  // Open a new connection, using the GET request on the URL endpoint
+  let productsArray = [];
+  let data = [];
+
+  const favoriteHTML = document.querySelector("#favorites");
+  requestProducts.open(
+    "GET",
+    "http://localhost:57269/api/GetAllProducts",
+    true
+  );
+
+  requestProducts.onload = function() {
+    // Begin accessing JSON data here
+    if (requestProducts.status >= 200 && requestProducts.status < 400) {
+      data = JSON.parse(this.response);
+
+      productsArray = data.map(p => ({
+        name: p.ProductName,
+        subtitle: p.ProductDescription,
+        weight: p.ProductWeight,
+        unit: p.ProductUnit,
+        price: p.ProductPrice,
+        promotionPrice: p.DiscountPrice,
+        category: p.ProductCategory[0].CategoryName,
+        img: p.ImgPath,
+        promotion: p.IsFeatured
+      }));
+      productsArray.forEach(p => {
+        if (localStorage.getItem(p.name)) {
+          myCart.push(p);
+        }
+      });
+      updateCartIcon();
+    } else {
+      prompt("something went wrong, sorry for the inconvenience");
+    }
+  };
+  requestProducts.send();
+
+  function updateCartIcon() {
+    const cart = document.getElementById("cartButton");
+    cart.setAttribute("data-badge", myCart.length);
+  }
+
+  //after everything is set in place, also updateCartIcon
+
+  document.addEventListener("readystatechange", event => {
+    if (event.target.readyState === "interactive") {
+    } else if (event.target.readyState === "complete") {
+      updateCartIcon();
+    }
+  });
 }
