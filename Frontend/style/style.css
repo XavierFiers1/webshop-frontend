@@ -135,6 +135,7 @@ header a {
   font-size: 250%;
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 .mdl-layout__header {
   background-color: white;
@@ -202,6 +203,7 @@ hr {
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
+  line-height: normal;
 }
 
 #auth button:hover {
@@ -214,11 +216,6 @@ hr {
   background-color: #f44336;
 }
 
-/* Float cancel and signup buttons and add an equal width */
-#auth .cancelbtn, #auth .signupbtn {
-  float: left;
-  width: 50%;
-}
 
 /* Clear floats */
 .clearfix::after {
