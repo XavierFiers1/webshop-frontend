@@ -1,11 +1,24 @@
 "use strict";
 // Declarations
+// NC = Notification Container
+const NC = document.querySelector('.mdl-js-snackbar');
+const BODY = document.getElementsByTagName('body')[0];
+const TOPBARCONTAINER = document.getElementById('topbarContainer');
+const URLBASE = 'http://localhost:57269/api/';
 
-let notification = document.querySelector(".mdl-js-snackbar");
-const BODY = document.getElementsByTagName("body")[0];
-const TOPBARCONTAINER = document.getElementById("topbarContainer");
-const URLBASE = "http://localhost:57269/api/";
-sessionStorage.setItem("logoutFlag", false);
+if (!sessionStorage.getItem('logoutFlag')) {
+  sessionStorage.setItem('logoutFlag', false);
+}
+if (!sessionStorage.getItem('loginFlag') && !sessionStorage.getItem('userID')) {
+  sessionStorage.setItem('loginFlag', false);
+}
+
+// const SPINNER = () => {
+//   const container = document.createElement('div');
+//   container.setAttribute('class', 'mdl-spinner mdl-js-spinner is-active');
+// };
+  
+
 
 // init
 loadTopbar();
@@ -19,11 +32,10 @@ loadFooter();
 
 // FUNCTIONS
 // Initialize Modals and listen for events, polyfill for fallbacks
-if (
-  (!sessionStorage.getItem("userID") &&
-    window.location.pathname === "/Frontend/pages/user/user.html") ||
-  sessionStorage.getItem("userInfo") === "undefined"
-) {
+
+if ((!sessionStorage.getItem('userID')
+  && window.location.pathname === '/Frontend/pages/user/user.html')
+  || sessionStorage.getItem('userInfo') === 'undefined') {
   try {
     sessionStorage.removeItem("userInfo");
   } catch (error) {
@@ -31,11 +43,14 @@ if (
   }
   location = "../home/home.html";
 }
-document.addEventListener("readystatechange", event => {
-  if (event.target.readyState === "interactive") {
-  } else if (event.target.readyState === "complete") {
-    let dialog = document.querySelector("dialog");
-    let showDialogButton = document.querySelector("#profileButton");
+
+document.addEventListener('readystatechange', event => {
+  if (event.target.readyState === 'complete') {
+    const dialog = document.querySelector('dialog');
+    const showDialogButton = document.querySelector('#profileButton');
+    const userMenu = document.querySelector('#userMenu');
+    const logoutButton = document.querySelector('#logoutButton');
+
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
@@ -48,57 +63,98 @@ document.addEventListener("readystatechange", event => {
         dialog.showModal();
       }
     });
-
-    dialog.querySelector(".cancelbtn").addEventListener("click", function() {
-      BODY.classList.remove("is-blurred");
+    // Changes content of user menu either modal trigger or dropdown with choices
+    if (sessionStorage.getItem('userID')) {
+      userMenu.innerHTML = `
+      <i id='userIcon' class="material-icons mdl-badge mdl-badge--overlap">person</i>
+      <div class="mdl-tooltip mdl-tooltip--large" for="userIcon">
+      Account
+    </div>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="userMenu">
+      <li id="profileButton" onclick='location = "../user/user.html"' class="mdl-menu__item" >Account overview</li>
+      <li id="logoutButton" class="mdl-menu__item">Log out</li>
+    </ul>
+      `;
+      logoutListen();
+    }
+    // Listens for 'close' button, then closes the modal
+    dialog.querySelector('#closeButton').addEventListener('click', function () {
+      BODY.classList.remove('is-blurred');
       dialog.close();
     });
-    document.onkeydown = function(evt) {
+    // Listens for ESC key press when modal opened, when triggered, closes modal a removes blur
+    document.onkeydown = function (evt) {
       evt = evt || window.event;
       if (evt.keyCode == 27) {
-        BODY.classList.remove("is-blurred");
-
+        BODY.classList.remove('is-blurred');
         dialog.close();
       }
     };
-    document.getElementsByClassName("close").onclick = function(event) {
+    // Listens for 'close' button, then closes the modal
+    document.getElementsByClassName('close').onclick = function (event) {
       if (event.target == dialog) {
         dialog.close();
         BODY.classList.remove("is-blurred");
       }
     };
 
-    window.onclick = function(event) {
+    // listens for backdrop click on modal, when triggered, closes the modal
+    window.onclick = function (event) {
       if (event.target == dialog) {
         dialog.close();
-        BODY.classList.remove("is-blurred");
+        BODY.classList.remove('is-blurred');
       }
     };
-
-    window.onclick = function(event) {
-      if (event.target == dialog) {
-        dialog.close();
-        BODY.classList.remove("is-blurred");
-      }
-    };
-    if (
-      window.location.pathname === "/Frontend/pages/products/products.html" ||
-      window.location.pathname === "/Frontend/pages/cart/cart.html" ||
-      window.location.pathname === "/Frontend/pages/favorites/favorites.html"
-    ) {
-      document.getElementById("banner").src =
-        "../../img/AaStorcenterPickup-w.svg";
+    // Changes banner based on window location
+    if (window.location.pathname === '/Frontend/pages/products/products.html' || window.location.pathname === '/Frontend/pages/cart/cart.html' || window.location.pathname === '/Frontend/pages/favorites/favorites.html') {
+      document.getElementById('banner').src = '../../img/AaStorcenterPickup-w.svg';
     }
   }
 });
+// Fire flag whe nuser logs in and do stuff (show feedback)
+if (JSON.parse(sessionStorage.getItem('loginFlag')) == true) {
+  setTimeout(() => {
+    showToast('You are now logged in');
+  }, 2000);
+  sessionStorage.setItem('loginFlag', false);
+}
+// Fire flag when user logs out and do stuff (show feedback)
+if (JSON.parse(sessionStorage.getItem('logoutFlag')) == true) {
+  setTimeout(() => {
+    showToast('You have been logged out');
+  }, 2000);
+  sessionStorage.setItem('logoutFlag', false);
+}
+// Change topbar based on location of the browser
+if (window.location.pathname === ('/Frontend/pages/products/products.html' || '/Frontend/pages/cart/cart.html')) {
+  TOPBARCONTAINER.classList.add('bilka_topbar');
+  TOPBARCONTAINER.classList.remove('bilka_topbar');
+
+}
+function close() {
+  location.reload();
+
+}
+// Logic behind loading shared assets
 function loadSection(url) {
   return fetch(url).then(response => response.text());
 }
-function showToast() {
-  notification.MaterialSnackbar.showSnackbar({
-    message: "Account registered"
+
+// Registers a listener for logout click
+function logoutListen() {
+  logoutButton.addEventListener('click', function () {
+    console.log('logging out');
+    sessionStorage.removeItem('userID');
+    sessionStorage.removeItem('userInfo');
+    sessionStorage.setItem('logoutFlag', true);
+    location = '../home/home.html';
   });
 }
+// Show toast in the specified container NC, prints out the passed argument msg
+function showToast(msg) {
+  let data = { message: msg };
+  NC.MaterialSnackbar.showSnackbar(data);}
+// Load shared asset - TOPBAR
 function loadTopbar() {
   loadSection("/Frontend/shared/topbar/topbar.html")
     .then(html => {
@@ -108,6 +164,7 @@ function loadTopbar() {
       console.warn(error);
     });
 }
+// Load shared asset - FOOTER
 function loadFooter() {
   loadSection("/Frontend/shared/footer/footer.html")
     .then(html => {
@@ -117,21 +174,22 @@ function loadFooter() {
       console.warn(error);
     });
 }
-// || '/Frontend/pages/cart/cart.html')
-if (
-  window.location.pathname ===
-  ("/Frontend/pages/products/products.html" || "/Frontend/pages/cart/cart.html")
-) {
-  TOPBARCONTAINER.classList.add("bilka_topbar");
-  TOPBARCONTAINER.classList.remove("bilka_topbar");
-}
 
+// Change modal form (log in or sign up)
 function changeForm(form) {
   switch (form) {
-    case "signup":
-      document.getElementById("form").innerHTML = `
-    <form action="javascript:registerUser(); dialog.close()">
-        <p class="align-center">Please fill in this form to create an account.</p>
+    case 'signup':
+      document.getElementById('form').innerHTML = `
+          <form action="javascript:registerUser();">
+          <div class="mdl-grid">
+          <p class="mdl-cell--11-col align-center">Please enter yout credentials.</p>
+          <span id="closeButton" onclick='close()' class="mdl-cell--1-col" style="cursor: pointer;"><i class="material-icons">
+              close
+            </i></span>
+          <div class="mdl-tooltip mdl-tooltip--large" for="closeButton">
+            Close
+          </div>
+        </div>        
         <hr />
 
         <!-- <label for="fname"><b>First name</b></label> -->
@@ -178,32 +236,40 @@ function changeForm(form) {
         </p>
 
         <div class="clearfix">
-          <button type="button" class="modal-button cancelbtn close">Cancel</button>
-          <button type="submit" class="modal-button signupbtn close">Sign Up</button>
-        </div>
+        <button type="submit" class="m-auto mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect modal-button signupbtn close">Log
+        in</button>        </div>
         <hr>
-        <p class="align-center" style="margin-top: 2.3rem;">Already a member? <br> <span onclick="changeForm('login')" style="color:dodgerblue">
+        <p class="align-center" style="margin-top: 2.3rem;">Already a member? <br> <span onclick="changeForm('login')"  style="color:dodgerblue; cursor: pointer;">
             Log in </span></p>
       </form>
     `;
 
       break;
-    case "login":
-      document.getElementById("form").innerHTML = `
-      <form class="" action="javascript:loginUser(); dialog.close()">
-          <p class="align-center">Please enter yout credentials.</p>
-<!-- <label for="email"><b>Email</b></label> -->
-        <input id="email" class="user-input" type="email" placeholder="Enter email" name="email" required />
-<!-- <label for="psw"><b>Password</b></label> -->
-        <input id="psw" class="user-input" type="password" placeholder="Enter Password" name="psw"  required />      
-        <div class="clearfix">
-          <button type="button" class="modal-button cancelbtn close">Cancel</button>
-          <button type="submit" class="modal-button signupbtn close">Log in</button>
+    case 'login':
+      document.getElementById('form').innerHTML = `
+      <form action="javascript:loginUser()">
+      <div class="mdl-grid">
+        <p class="mdl-cell--11-col align-center">Please enter yout credentials.</p>
+        <span id="closeButton" onclick='close()' class="mdl-cell--1-col" style="cursor: pointer;"><i class="material-icons">
+            close
+          </i></span>
+        <div class="mdl-tooltip mdl-tooltip--large" for="closeButton">
+          Close
         </div>
-        <hr>
-        <p class="align-center" style="margin-top: 2.3rem;">Not a member? <br> <span onclick="changeForm('signup')" style="color:dodgerblue">
-            Sign up </span></p>
-      </form>
+      </div>
+      <!-- <label for="email"><b>Email</b></label> -->
+      <input id="email" class="user-input" type="email" placeholder="Enter email" name="email" required />
+      <!-- <label for="psw"><b>Password</b></label> -->
+      <input id="psw" class="user-input" type="password" placeholder="Enter Password" name="psw" required />
+      <div class="clearfix">
+        <button type="submit" class="m-auto mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect modal-button signupbtn close">Log
+          in</button>
+      </div>
+      <hr>
+      <p class="align-center" style="margin-top: 2.3rem;">Not a member? <br> <span onclick="changeForm('signup')"
+          style="color:dodgerblue; cursor: pointer;">
+          Sign up </span></p>
+    </form>
        
 `;
       break;
@@ -251,8 +317,10 @@ function loginUser() {
     let data = JSON.parse(this.response);
 
     if (REQUEST.status >= 200 && REQUEST.status < 400) {
-      sessionStorage.setItem("userInfo", JSON.stringify(data));
-      sessionStorage.setItem("userID", EMAIL);
+
+      sessionStorage.setItem('userInfo', JSON.stringify(data));
+      sessionStorage.setItem('userID', EMAIL);
+      sessionStorage.setItem('loginFlag', true);
       location.reload();
     } else {
       showToast("Wrong e-mail or password.");

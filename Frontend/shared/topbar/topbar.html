@@ -18,11 +18,13 @@
     <div class="mdl-tooltip mdl-tooltip--large" for="cartButton">
       Shopping cart
     </div>
-    <a id="profileButton" class="material-icons mdl-badge mdl-badge--overlap">
-      person
-    </a>
-    <div class="mdl-tooltip mdl-tooltip--large" for="profileButton">
-      Account
+    <div id="userMenu">
+      <a id="profileButton" class="material-icons mdl-badge mdl-badge--overlap">
+        person
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--large" for="profileButton">
+        Account
+      </div>
     </div>
   </nav>
   <!-- MODAL CONTENTS -->
@@ -34,60 +36,28 @@
             alt="SidePic">
         </div>
         <div id="form" class="user-form mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet" style="margin-left: 20px !important;">
-          <form action="javascript:registerUser(); dialog.close()">
-            <p class="align-center">Please fill in this form to create an account.</p>
-            <hr />
-
-            <!-- <label for="fname"><b>First name</b></label> -->
-            <input id="fname" class="user-input" type="text" placeholder="Enter first name" name="fname" required />
-
-            <!-- <label for="lname"><b>Last Name</b></label> -->
-            <input id="lname" class="user-input" placeholder="Enter last name" name="lname" required />
-
+          <form class="" action="javascript:loginUser()">
+            <div class="mdl-grid">
+              <p class="mdl-cell--11-col align-center">Please enter yout credentials.</p>
+              <span id="closeButton" onclick='close()' class="mdl-cell--1-col" style="cursor: pointer;"><i class="material-icons">
+                  close
+                </i></span>
+              <div class="mdl-tooltip mdl-tooltip--large" for="closeButton">
+                Close
+              </div>
+            </div>
             <!-- <label for="email"><b>Email</b></label> -->
             <input id="email" class="user-input" type="email" placeholder="Enter email" name="email" required />
-
-            <!-- <label for="phoneNo"><b>Phone Number</b></label> -->
-            <input id="phoneNo" class="user-input" type="tel" placeholder="Enter phone number" name="phoneNo" required />
-
-            <!-- <label for="city"><b>City</b></label> -->
-            <input id="city" class="user-input" type="text" placeholder="Enter city" name="city" required />
-
-            <!-- <label for="street"><b>Street</b></label> -->
-            <input id="street" class="user-input" placeholder="Enter street" name="street" required />
-
-            <!-- <label for="psw-repeat"><b>Flat Number</b></label> -->
-            <input id="flatNo" class="user-input" placeholder="Enter flat number" name="flatNo" required />
-
-            <!-- <label for="zip"><b>Postal Code</b></label> -->
-            <input id="zip" class="user-input" type="number" placeholder="Enter postal code" name="zip" required />
-
-            <!-- <label for="cpr"><b>CPR</b></label> -->
-            <input id="cpr" class="user-input" type="number" placeholder="CPR" name="cpr" required />
-
             <!-- <label for="psw"><b>Password</b></label> -->
             <input id="psw" class="user-input" type="password" placeholder="Enter Password" name="psw" required />
-
-            <!-- <label for="psw-repeat"><b>Repeat Password</b></label> -->
-            <input id="" class="user-input" type="password" placeholder="Repeat Password" name="psw-repeat" required />
-
-            <label>
-              <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px" />
-              Remember me
-            </label>
-
-            <p>
-              By creating an account you agree to our
-              <a href="#" style="color:dodgerblue">Terms & Privacy</a>.
-            </p>
-
             <div class="clearfix">
-              <button type="button" class="modal-button cancelbtn close">Cancel</button>
-              <button type="submit" class="modal-button signupbtn close">Sign Up</button>
+              <button type="submit" class="m-auto mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect modal-button signupbtn close">Log
+                in</button>
             </div>
             <hr>
-            <p class="align-center" style="margin-top: 2.3rem;">Already a member? <br> <span onclick="changeForm('login')" style="color:dodgerblue">
-                Log in </span></p>
+            <p class="align-center" style="margin-top: 2.3rem;">Not a member? <br> <span onclick="changeForm('signup')"
+                style="color:dodgerblue; cursor: pointer;">
+                Sign up </span></p>
           </form>
         </div>
       </div>

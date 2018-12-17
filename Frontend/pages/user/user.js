@@ -175,60 +175,72 @@ let orders =
     }
     ];
 
-if (!orders.length) {
-    ORDERCONTAINER.innerHTML = `
-    <p>You have not made any orders yet</p>
-    `;
-} else {
-    orders.forEach(order => {
-        let card = document.createElement('div');
-        card.classList.add("card-wide");
-        card.classList.add("mdl-card");
-        card.classList.add("mdl-shadow--2dp");
-
-        card.innerHTML = `
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Order ${order.orderId}</h2>
-        </div>
-        <div id="orderItems" class="mdl-card__supporting-text">
-            ${order.orderDate}
-            <table class="mdl-data-table mdl-js-data-table m-auto">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Item</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody id="${order.orderId}">
-                    ${order.orderContent}
-                </tbody>
-            </table>
-        </div>
-        <div class="mdl-card__menu">
-            <button id="editOrder${order.orderId}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">menu</i>
-            </button>
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="editOrder${order.orderId}">
-                <li class="mdl-menu__item">Some Action</li>
-                <li class="mdl-menu__item">Another Action</li>
-                <li disabled class="mdl-menu__item">Disabled Action</li>
-                <li class="mdl-menu__item">Yet Another Action</li>
-            </ul>
-        </div>`;
-        ORDERCONTAINER.appendChild(card);
-
-        order.items.forEach(item => {
-            order.orderContent = document.createElement('tr');
-            item.totalPrice = parseFloat(item.price) * parseInt(item.quantity);
-            console.log(order.price);
-            order.orderContent.innerHTML =
-                `<td class="mdl-data-table__cell--non-numeric">${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.totalPrice} kr</td>`;
-            document.getElementById(order.orderId).appendChild(order.orderContent);
-        });
-    });
+    
+function makeOrders(userID) {
+    const request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:57269/api/' + userID);
+    request.onload = function () {
+        let orders = JSON.parse(this.response);
+       
+        if (request.status >= 200 && request.status < 400) {
+            console.log(JSON.parse(orders));
+            // if (!orders.length) {
+            //     ORDERCONTAINER.innerHTML = `
+            //     <p>You have not made any orders yet</p>
+            //     `;
+            // } else {
+            //     orders.forEach(order => {
+            //         let card = document.createElement('div');
+            //         card.classList.add("card-wide");
+            //         card.classList.add("mdl-card");
+            //         card.classList.add("mdl-shadow--2dp");
+            
+            //         card.innerHTML = `
+            //         <div class="mdl-card__title">
+            //             <h2 class="mdl-card__title-text">Order ${order.orderId}</h2>
+            //         </div>
+            //         <div id="orderItems" class="mdl-card__supporting-text">
+            //             ${order.orderDate}
+            //             <table class="mdl-data-table mdl-js-data-table m-auto">
+            //                 <thead>
+            //                     <tr>
+            //                         <th class="mdl-data-table__cell--non-numeric">Item</th>
+            //                         <th>Quantity</th>
+            //                         <th>Price</th>
+            //                     </tr>
+            //                 </thead>
+            //                 <tbody id="${order.orderId}">
+            //                     ${order.orderContent}
+            //                 </tbody>
+            //             </table>
+            //         </div>
+            //         <div class="mdl-card__menu">
+            //             <button id="editOrder${order.orderId}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            //                 <i class="material-icons">menu</i>
+            //             </button>
+            //             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="editOrder${order.orderId}">
+            //                 <li class="mdl-menu__item">Some Action</li>
+            //                 <li class="mdl-menu__item">Another Action</li>
+            //                 <li disabled class="mdl-menu__item">Disabled Action</li>
+            //                 <li class="mdl-menu__item">Yet Another Action</li>
+            //             </ul>
+            //         </div>`;
+            //         ORDERCONTAINER.appendChild(card);
+            
+            //         order.items.forEach(item => {
+            //             order.orderContent = document.createElement('tr');
+            //             item.totalPrice = parseFloat(item.price) * parseInt(item.quantity);
+            //             console.log(order.price);
+            //             order.orderContent.innerHTML =
+            //                 `<td class="mdl-data-table__cell--non-numeric">${item.name}</td>
+            //                 <td>${item.quantity}</td>
+            //                 <td>${item.totalPrice} kr</td>`;
+            //             document.getElementById(order.orderId).appendChild(order.orderContent);
+            //         });
+            //     });
+            // }
+        }
+    };
 }
 function makeUser(userInfo) {
     document.querySelector('#welcomeUser').innerHTML = `Welcome ${userInfo[0].FName} ${userInfo[0].LName}`;
@@ -237,6 +249,7 @@ function makeUser(userInfo) {
     document.querySelector('#email').innerHTML = `${userInfo[0].EMail}`;
     document.querySelector('#address').innerHTML = `${userInfo[0].Street}, ${userInfo[0].FlatNo} <br> ${userInfo[0].City} <br> ${userInfo[0].Zip}`;
     document.querySelector('#phone').innerHTML = `${userInfo[0].PhoneNo}`;
+    makeOrders(userInfo[0].userID);
 }
 makeUser(JSON.parse(sessionStorage.getItem('userInfo')));
     (function () {
