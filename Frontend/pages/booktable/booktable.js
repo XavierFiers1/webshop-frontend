@@ -81,7 +81,7 @@ let restaurants = [
   },
   {
     name: "Baresso Coffee",
-    price: "$$ - $$$",
+    price: "$ - $$",
     imgpath: "../../img/baressothumbnail.jpg"
   }
 ];
@@ -115,7 +115,7 @@ function restaurantCode() {
           <div class="mdl-cell mdl-cell--8-col">
             <img
               src="../../img/starbucksthumbnail.jpg"
-              class="booktablethumbnail"
+              class="booktablethumbnail" alt="Starbucks Coffee"
             />
           </div>
           <div class="mdl-cell mdl-cell--4-col">
@@ -147,7 +147,7 @@ function restaurantCode() {
           <div class="mdl-cell mdl-cell--8-col">
             <img
               src="../../img/sunsetthumbnail.jpg"
-              class="booktablethumbnail"
+              class="booktablethumbnail" alt="SunSet Boulevard"
             />
           </div>
           <div class="mdl-cell mdl-cell--4-col">
@@ -179,7 +179,7 @@ function restaurantCode() {
           <div class="mdl-cell mdl-cell--8-col">
             <img
               src="../../img/joethumbnail.jpg"
-              class="booktablethumbnail"
+              class="booktablethumbnail" alt="Joe & The Juice"
             />
           </div>
           <div class="mdl-cell mdl-cell--4-col">
@@ -211,7 +211,7 @@ function restaurantCode() {
           <div class="mdl-cell mdl-cell--8-col">
             <img
               src="../../img/baressothumbnail.jpg"
-              class="booktablethumbnail"
+              class="booktablethumbnail" alt="Baresso Coffee"
             />
           </div>
           <div class="mdl-cell mdl-cell--4-col">
@@ -283,6 +283,10 @@ function buildSingleRestaurant(restaurant) {
         <p>Day of visit:</p>
 
         <form action="#">
+
+          
+
+
           <div class="mdl-textfield mdl-js-textfield">
             <input required
               class="mdl-textfield__input datePicker"
@@ -301,17 +305,14 @@ function buildSingleRestaurant(restaurant) {
               id="pickupTime"
               min="09:00"
               max="18:59"
+              value="10:00"
             />
             <span class="mdl-textfield__error"
               >Please select a time between restaurant's opening
               hours</span
             >
           </div>
-         <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="persons">
-    <label class="mdl-textfield__label" for="persons">Amount of persons</label>
-    <span class="mdl-textfield__error">Input is not a number!</span>
-  </div>
+       
           <div>
           <button
             class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
