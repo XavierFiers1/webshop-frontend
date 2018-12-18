@@ -14,22 +14,28 @@
     highlight: 0
   }
 ];*/
-
+const TOTALVALUE = document.querySelector("#totalValue");
+let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 let myCart = [];
 
 let requestProducts = new XMLHttpRequest();
 // Open a new connection, using the GET request on the URL endpoint
 let productsArray = [];
 let data = [];
-
+let localProducts = [];
 requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
 
-requestProducts.onload = function() {
+requestProducts.onload = function () {
   // Begin accessing JSON data here
   if (requestProducts.status >= 200 && requestProducts.status < 400) {
     data = JSON.parse(this.response);
 
+data.forEach(p => {
+  localProducts.push({name: p.ProductName,id: p.ProductID});
+});
+localStorage.setItem('products', JSON.stringify(localProducts));
     productsArray = data.map(p => ({
+      productID: p.ProductID,
       name: p.ProductName,
       subtitle: p.ProductDescription,
       weight: p.ProductWeight,
@@ -40,7 +46,6 @@ requestProducts.onload = function() {
       img: p.ImgPath,
       promotion: p.IsFeatured
     }));
-
     //fill the cart array from content from localStorage:
     cartBuilder();
     //create the product array based off of cart
@@ -90,14 +95,13 @@ function pageBuilder() {
 }
 
 function updateGrandTotal() {
-  const totalHTML = document.querySelector("#totalValue");
 
   let total = 0;
   myCart.forEach(p => {
     total += parseFloat(p.product.price * p.amount);
   });
   total += 10; //service costs
-  totalHTML.innerHTML = total;
+  TOTALVALUE.innerHTML = total;
 }
 
 function createShoppingListProducts(product) {
@@ -110,25 +114,25 @@ function createShoppingListProducts(product) {
           <div class="shoppingListCart mdl-card mdl-shadow--2dp">
             <div class="shoppingListCardTitle mdl-card__title mdl-card--expand">
               <img class="shoppinglistThumbnails" src="${
-                product.product.img
-              }" />
+    product.product.img
+    }" />
               <div class="deleteDiv"onclick="deleteProductFromList(this);updateCartIcon()" data-product="${
-                product.product.name
-              }">
+    product.product.name
+    }">
               <i class="deleteProductFromList material-icons">delete</i>
               </div>      
               <h2 class="productTitle mdl-card__title-text">${
-                product.product.name
-              }</h2>
+    product.product.name
+    }</h2>
             
              
               <h3 class="mdl-card__title-text"> <span data-info="${
-                product.product.name
-              }">${product.amount} X DKK ${product.product.price}
+    product.product.name
+    }">${product.amount} X DKK ${product.product.price}
                <br />
                 Total: DKK ${parseFloat(
-                  product.product.price * product.amount
-                ).toFixed(2)}</span>
+      product.product.price * product.amount
+    ).toFixed(2)}</span>
               </h3>
   
               <h3 class="mdl-card__title-text"></h3>
@@ -272,7 +276,7 @@ function deleteProductFromList(event) {
 }
 
 ///restrict date to today
-(function() {
+(function () {
   const datepicker = document.querySelector(".datePicker");
 
   let date = new Date();
@@ -293,10 +297,12 @@ document.addEventListener("readystatechange", event => {
   }
 });
 
+
 function handleCheckout() {
   let date = document.querySelector(".datePicker").value;
   let time = document.querySelector(".timePicker").value;
 
+  postOrder();
   //clear the local storage
   productsArray.forEach(p => {
     if (localStorage.getItem(p.name)) {
@@ -310,6 +316,64 @@ function handleCheckout() {
     date,
     time
   );
+}
+function postOrder() {
+  let time = document.querySelector(".timePicker").value;
+  let orderData = {
+    PickUp: time + ':00',
+    FK_UserID: userInfo[0].UserID
+  };
+  let productsIDs = [];
+  productsArray.forEach(product => {
+    if (localStorage.getItem(product.name)) {
+      for (let i = 0; i < localProducts.length; i++) {
+        const lp = localProducts[i];
+        if (lp.name == product.name) {
+          productsIDs.push(lp.id);
+        }
+      }
+    }
+  });
+  console.log(productsIDs);
+  let json = JSON.stringify(orderData);
+  const request = new XMLHttpRequest();
+  request.open("POST", `http://localhost:57269/api/AASC_ORDER`, true);
+  request.setRequestHeader("Content-Type", "application/json");
+  request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+      if (request.readyState === request.DONE) {
+        let OrderResponse = JSON.parse(request.response);
+        updateHasList(OrderResponse.OrderID, productsIDs);
+      }
+    } else {
+
+    }
+  };
+  request.send(json);
+}
+
+function updateHasList(oID, pIDs) {
+  pIDs.forEach(i => {
+    let data = {
+      FK_OrderID: oID,
+      FK_ProductID: i
+    };
+    let json = JSON.stringify(data);
+    const request = new XMLHttpRequest();
+    request.open("POST", `http://localhost:57269/api/AASC_HAS_LIST`, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400) {
+        if (request.readyState === request.DONE) {
+          console.log('Item with ID ' + i + ' posted');
+        }
+      } else {
+
+      }
+    };
+    request.send(json);
+
+  });
 }
 
 function buildCheckoutPage(date, time) {

@@ -47,6 +47,7 @@ requestProducts.onload = function() {
     data = JSON.parse(this.response);
 
     productsArray = data.map(p => ({
+      productID: p.ProductID,
       name: p.ProductName,
       subtitle: p.ProductDescription,
       weight: p.ProductWeight,
@@ -615,7 +616,7 @@ function buttonClickEvents() {
       ("use strict");
       let snackbarContainer = document.querySelector("#theToast");
       data = { message: "Added " + productName + " to grocery Bag!" };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        // snackbarContainer.MaterialSnackbar.showSnackbar(data);
       //////////////////////////
 
       //get the specific plus min buttons for this product and show them
