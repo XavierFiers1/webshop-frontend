@@ -94,7 +94,7 @@ function updateGrandTotal() {
 
   let total = 0;
   myCart.forEach(p => {
-    total += parseFloat(p.product.price * p.amount);
+    total += parseFloat(p.product.price * p.amount).toFixed(2);
   });
   total += 10; //service costs
   totalHTML.innerHTML = total;
