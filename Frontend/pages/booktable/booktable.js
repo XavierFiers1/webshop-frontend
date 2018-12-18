@@ -67,22 +67,26 @@ let restaurants = [
   {
     name: "Starbucks Coffee",
     price: "$$ - $$$",
-    imgpath: "../../img/starbucksthumbnail.jpg"
+    imgpath: "../../img/starbucksthumbnail.jpg",
+    id: 2
   },
   {
     name: "Sunset Boulevard",
     price: "$ - $$",
-    imgpath: "../../img/sunsetthumbnail.jpg"
+    imgpath: "../../img/sunsetthumbnail.jpg",
+    id: 3
   },
   {
     name: "Joe & The Juice",
     price: "$$ - $$$",
-    imgpath: "../../img/joethumbnail.jpg"
+    imgpath: "../../img/joethumbnail.jpg",
+    id: 4
   },
   {
     name: "Baresso Coffee",
     price: "$ - $$",
-    imgpath: "../../img/baressothumbnail.jpg"
+    imgpath: "../../img/baressothumbnail.jpg",
+    id: 5
   }
 ];
 
@@ -359,8 +363,11 @@ function handleFormSubmit(event) {
   let restaurant = restaurants.find(
     r => r.name === event.dataset.restaurantname
   );
+
   let date = document.querySelector(".datePicker").value;
+
   let time = document.querySelector(".timePicker").value;
+  time = time + ":00.00";
   let amountOfSeats = document.querySelector("#amountOfSeats").value;
   document.querySelector(".restaurants").innerHTML = buildRestaurantCheckout(
     restaurant,
@@ -368,6 +375,27 @@ function handleFormSubmit(event) {
     date,
     time
   );
+
+  let bookTableRequest = new XMLHttpRequest();
+  var url = "http://localhost:57269/api/AASC_BOOKING";
+  let params = {
+    NumberOfSeats: amountOfSeats,
+    BookingTime: time,
+    BookingDate: date,
+    FK_UserID: JSON.parse(sessionStorage.getItem("userInfo"))[0].UserID,
+    FK_RestaurantID: restaurant.id
+  };
+
+  bookTableRequest.open("POST", url, true);
+  //Send the proper header information along with the request
+  bookTableRequest.setRequestHeader("Content-type", "application/json");
+  bookTableRequest.onreadystatechange = function() {
+    //Call a function when the state changes.
+    if (bookTableRequest.readyState == 4 && bookTableRequest.status == 200) {
+      alert(bookTableRequest.responseText);
+    }
+  };
+  bookTableRequest.send(JSON.stringify(params));
 }
 
 function buildRestaurantCheckout(restaurant, amountOfSeats, date, time) {
@@ -390,22 +418,3 @@ function buildRestaurantCheckout(restaurant, amountOfSeats, date, time) {
 //coming from app.js
 //////cart functionality
 updateCartIconShared();
-
-var bookTableRequest = new XMLHttpRequest();
-var url = "get_data.php";
-var params = "orem=ipsum&name=binny";
-bookTableRequest.open("POST", url, true);
-
-//Send the proper header information along with the request
-bookTableRequest.setRequestHeader(
-  "Content-type",
-  "application/x-www-form-urlencoded"
-);
-
-http.onreadystatechange = function() {
-  //Call a function when the state changes.
-  if (http.readyState == 4 && http.status == 200) {
-    alert(http.responseText);
-  }
-};
-http.send(params);
