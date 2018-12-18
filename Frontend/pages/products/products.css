@@ -91,6 +91,10 @@ section {
   width: 100%;
 }
 
+#searchField > .mdl-textfield {
+  width: 600px !important;
+}
+
 /*products card layout*/
 .mdl-card__title-text {
   text-align: left !important;

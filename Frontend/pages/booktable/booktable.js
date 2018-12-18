@@ -280,13 +280,18 @@ function buildSingleRestaurant(restaurant) {
   <div class="mdl-cell mdl-cell--6-col">
     <section class="sectionTimeDate">
       <div class="timeDate">
+       
+  
+        <form action="#" onsubmit="return handleFormSubmit(this)" data-restaurantName="${
+          restaurant.name
+        }">
+        <p>Number of seats:</p>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" id="amountOfSeats" min="1" max="10" type="number" placeholder="Number between 1 and 10">
+      
+      </div>
+
         <p>Day of visit:</p>
-
-        <form action="#">
-
-          
-
-
           <div class="mdl-textfield mdl-js-textfield">
             <input required
               class="mdl-textfield__input datePicker"
@@ -315,7 +320,7 @@ function buildSingleRestaurant(restaurant) {
        
           <div>
           <button
-            class="mdl-button mdl-js-button mdl-button--raised checkoutButtons"
+            class="mdl-button mdl-js-button mdl-button--raised checkoutButtons" 
           >
             Book!
           </button>
@@ -350,6 +355,57 @@ function datePicker() {
   datepicker.setAttribute("min", min);
 }
 
+function handleFormSubmit(event) {
+  let restaurant = restaurants.find(
+    r => r.name === event.dataset.restaurantname
+  );
+  let date = document.querySelector(".datePicker").value;
+  let time = document.querySelector(".timePicker").value;
+  let amountOfSeats = document.querySelector("#amountOfSeats").value;
+  document.querySelector(".restaurants").innerHTML = buildRestaurantCheckout(
+    restaurant,
+    amountOfSeats,
+    date,
+    time
+  );
+}
+
+function buildRestaurantCheckout(restaurant, amountOfSeats, date, time) {
+  return `<div class="onCheckout">
+  <img src="${restaurant.imgpath}" alt="${restaurant.name}">
+  <h3>${amountOfSeats} seat(s) will be reserved for you at ${
+    restaurant.name
+  } on</h3>
+  
+  <h4 id="showDate">${date} at ${time}</h4>
+  <h4>We are looking forward to your visit</h4>
+  <br />
+ 
+    
+  </div>
+  </div>
+</div>`;
+}
+
 //coming from app.js
 //////cart functionality
 updateCartIconShared();
+
+var bookTableRequest = new XMLHttpRequest();
+var url = "get_data.php";
+var params = "orem=ipsum&name=binny";
+bookTableRequest.open("POST", url, true);
+
+//Send the proper header information along with the request
+bookTableRequest.setRequestHeader(
+  "Content-type",
+  "application/x-www-form-urlencoded"
+);
+
+http.onreadystatechange = function() {
+  //Call a function when the state changes.
+  if (http.readyState == 4 && http.status == 200) {
+    alert(http.responseText);
+  }
+};
+http.send(params);

@@ -90,7 +90,7 @@ requestProducts.onload = function() {
     buttonClickEvents();
     filterButtonEvents();
   } else {
-    prompt("something went wrong, sorry for the inconvenience");
+    alert("something went wrong, sorry for the inconvenience");
   }
 };
 requestProducts.send();

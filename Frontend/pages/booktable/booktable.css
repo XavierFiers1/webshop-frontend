@@ -15,11 +15,16 @@ p {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   section {
     margin: 0 auto;
-    color: #94c817;
+    color: #4d4d4d;
     background: white;
     border-radius: 5px;
     width: 95%;
     box-shadow: 0px 1px 1.5px 1px #cccccc;
+  }
+
+  .onCheckout > img {
+    width: 50%;
+    margin: 10px;
   }
 }
 .mdl-layout__header {
@@ -198,10 +203,25 @@ p {
   .booktablecard > .mdl-grid > .mdl-cell--8-col {
     width: calc(58.3333333333%);
   }
+  .onCheckout > img {
+    width: 50% !important;
+    margin: 10px;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .mdl-cell {
     margin: 0 auto !important;
   }
+}
+
+/*checkout a restaurant*/
+
+.onCheckout {
+  text-align: center;
+}
+
+.onCheckout > img {
+  width: 25%;
+  margin: 10px;
 }
