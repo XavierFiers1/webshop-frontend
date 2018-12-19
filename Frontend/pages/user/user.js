@@ -13,8 +13,9 @@ window.onload = function () {
 // Create order history
 function makeOrders(userID) {
     const REQUEST = new XMLHttpRequest();
-
-    ORDERCONTAINER.appendChild(LOADER);
+    REQUEST.onloadstart = function () {
+        ORDERCONTAINER.appendChild(LOADER);
+    };
 
     REQUEST.open("GET", "http://localhost:57269/api/getOrderUser/" + userID);
 
