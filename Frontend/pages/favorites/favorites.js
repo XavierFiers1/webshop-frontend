@@ -45,11 +45,24 @@ requestProducts.onload = function() {
     getFavoritesFromStorage();
     buildFavorites();
     buttonClickEvents();
+    cartBuilder();
+    updateCartIcon();
   } else {
     prompt("something went wrong, sorry for the inconvenience");
   }
 };
 requestProducts.send();
+
+//cartbuilder
+function cartBuilder() {
+  productsArray.forEach(product => {
+    if (localStorage.getItem(product.name)) {
+      let amount = JSON.parse(localStorage.getItem(product.name)).amount;
+
+      myCart.push({ product: product, amount: amount });
+    }
+  });
+}
 
 /******************************/
 /*******************************/
