@@ -12,21 +12,13 @@ if (!sessionStorage.getItem('logoutFlag')) {
 if (!sessionStorage.getItem('loginFlag') && !sessionStorage.getItem('userID')) {
   sessionStorage.setItem('loginFlag', false);
 }
-
-// const SPINNER = () => {
-//   const container = document.createElement('div');
-//   container.setAttribute('class', 'mdl-spinner mdl-js-spinner is-active');
-// };
-  
-
-
 // init
 loadTopbar();
 loadFooter();
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker
-//       .register('/sw.js')
+//       .register('/Frontend/sw.js')
 //       .then(function () { console.log("Service Worker Registered"); });
 // }
 
