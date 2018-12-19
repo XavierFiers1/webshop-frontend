@@ -38,6 +38,7 @@
 .crossroad h1 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  height: 30%;
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   top: 50%;
@@ -64,4 +65,13 @@
 
 .mdl-grid {
   text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .crossroad h1 {
+    height: 40%;
+    max-height: 250px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
