@@ -26,7 +26,7 @@ let data = [];
 let localProducts = [];
 requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
 
-requestProducts.onload = function () {
+requestProducts.onload = function() {
   // Begin accessing JSON data here
   if (requestProducts.status >= 200 && requestProducts.status < 400) {
     data = JSON.parse(this.response);
@@ -116,25 +116,25 @@ function createShoppingListProducts(product) {
           <div class="shoppingListCart mdl-card mdl-shadow--2dp">
             <div class="shoppingListCardTitle mdl-card__title mdl-card--expand">
               <img class="shoppinglistThumbnails" src="${
-    product.product.img
-    }" />
+                product.product.img
+              }" />
               <div class="deleteDiv"onclick="deleteProductFromList(this);updateCartIcon()" data-product="${
-    product.product.name
-    }">
+                product.product.name
+              }">
               <i class="deleteProductFromList material-icons">delete</i>
               </div>      
               <h2 class="productTitle mdl-card__title-text">${
-    product.product.name
-    }</h2>
+                product.product.name
+              }</h2>
             
              
               <h3 class="mdl-card__title-text"> <span data-info="${
-    product.product.name
-    }">${product.amount} X DKK ${product.product.price}
+                product.product.name
+              }">${product.amount} X DKK ${product.product.price}
                <br />
                 Total: DKK ${parseFloat(
-      product.product.price * product.amount
-    ).toFixed(2)}</span>
+                  product.product.price * product.amount
+                ).toFixed(2)}</span>
               </h3>
   
               <h3 class="mdl-card__title-text"></h3>
@@ -278,7 +278,7 @@ function deleteProductFromList(event) {
 }
 
 ///restrict date to today
-(function () {
+(function() {
   const datepicker = document.querySelector(".datePicker");
 
   let date = new Date();
@@ -302,21 +302,24 @@ function handleCheckout() {
   let date = document.querySelector(".datePicker").value;
   let time = document.querySelector(".timePicker").value;
 
-
-  postOrder();
-  //clear the local storage
-  productsArray.forEach(p => {
-    if (localStorage.getItem(p.name)) {
-      localStorage.removeItem(p.name);
-    }
-  });
-  //clear cart and update carticon
-  myCart = [];
-  updateCartIcon();
-  document.querySelector(".shoppingList").innerHTML = buildCheckoutPage(
-    date,
-    time
-  );
+  if (userInfo === null) {
+    alert("Please log in or create an account before making an order");
+  } else {
+    postOrder();
+    //clear the local storage
+    productsArray.forEach(p => {
+      if (localStorage.getItem(p.name)) {
+        localStorage.removeItem(p.name);
+      }
+    });
+    //clear cart and update carticon
+    myCart = [];
+    updateCartIcon();
+    document.querySelector(".shoppingList").innerHTML = buildCheckoutPage(
+      date,
+      time
+    );
+  }
 }
 function postOrder() {
   let date = document.querySelector(".datePicker").value;
@@ -339,12 +342,12 @@ function postOrder() {
       }
     }
   });
-  console.log(productsIDs);
+
   let json = JSON.stringify(orderData);
   const request = new XMLHttpRequest();
   request.open("POST", `http://localhost:57269/api/AASC_ORDER`, true);
   request.setRequestHeader("Content-Type", "application/json");
-  request.onload = function () {
+  request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
       if (request.readyState === request.DONE) {
         let OrderResponse = JSON.parse(request.response);
@@ -366,7 +369,7 @@ function updateHasList(oID, pIDs) {
     const request = new XMLHttpRequest();
     request.open("POST", `http://localhost:57269/api/AASC_HAS_LIST`, true);
     request.setRequestHeader("Content-Type", "application/json");
-    request.onload = function () {
+    request.onload = function() {
       if (request.status >= 200 && request.status < 400) {
         if (request.readyState === request.DONE) {
           console.log("Item with ID " + i + " posted");
