@@ -261,7 +261,7 @@ function buildSingleRestaurant(restaurant) {
         <div class="mdl-cell mdl-cell--8-col">
           <img
             src=${restaurant.imgpath}
-            class="booktablethumbnail"
+            class="booktablethumbnailFocus"
           />
         </div>
         <div class="mdl-cell mdl-cell--4-col">
