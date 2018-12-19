@@ -367,13 +367,14 @@ function handleFormSubmit(event) {
   let date = document.querySelector(".datePicker").value;
 
   let time = document.querySelector(".timePicker").value;
+  let timeForInput = time;
   time = time + ":00.00";
   let amountOfSeats = document.querySelector("#amountOfSeats").value;
   document.querySelector(".restaurants").innerHTML = buildRestaurantCheckout(
     restaurant,
     amountOfSeats,
     date,
-    time
+    timeForInput
   );
 
   let bookTableRequest = new XMLHttpRequest();
