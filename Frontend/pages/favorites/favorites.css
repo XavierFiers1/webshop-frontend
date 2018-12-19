@@ -164,17 +164,17 @@ section {
   cursor: pointer;
 }
 
-.mdl-grid {
+main .mdl-grid {
   text-align: center;
 }
 
 /*Important, otherwise cards overlap*/
-.mdl-cell {
+main .mdl-cell {
   display: flex;
   margin: 8px !important;
 }
 /*Important, otherwise cards overlap*/
-.mdl-card {
+main .mdl-card {
   width: auto;
   flex: 1;
 }
@@ -198,12 +198,12 @@ section {
 }
 
 /*specific style for the carousel cards so they keep the same size*/
-.mdl-cell--12-col {
+main .mdl-cell--12-col {
   margin: auto !important;
   width: 50% !important;
 }
 
-.mdl-cell--6-col {
+main .mdl-cell--6-col {
   margin: auto !important;
   width: 35% !important;
 }
