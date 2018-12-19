@@ -19,6 +19,13 @@ let productsArray = [
 let myCart = [];
 let favorites = [];
 let isMobile = false;
+const PROMOTIONS = document.querySelector('#promotions');
+const LOADER = document.createElement("div");
+LOADER.setAttribute(
+  "class",
+  "m-auto mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"
+);
+LOADER.style = "left: 50%";
 function detectmobile() {
   if (window.innerWidth <= 800) {
     isMobile = true;
@@ -40,12 +47,15 @@ let productsArray = [];
 let data = [];
 const categories = [];
 requestProducts.open("GET", "http://localhost:57269/api/GetAllProducts", true);
+requestProducts.onloadstart = function () {
+  PROMOTIONS.appendChild(LOADER);
+};
+requestProducts.onload = function () {
 
-requestProducts.onload = function() {
   // Begin accessing JSON data here
   if (requestProducts.status >= 200 && requestProducts.status < 400) {
     data = JSON.parse(this.response);
-
+    
     productsArray = data.map(p => ({
       productID: p.ProductID,
       name: p.ProductName,
@@ -115,8 +125,8 @@ function filterButtonEvents() {
     ".mdl-chip__text"
   );
   let activeFilters = [];
-  filterButtons.forEach(function(btn) {
-    btn.addEventListener("click", function(event) {
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener("click", function (event) {
       //prevent the page from scrolling up to default
       event.preventDefault();
 
@@ -176,16 +186,16 @@ function filterButtonEvents() {
 /*****Search Function*****/
 /*************************/
 /*************************/
-(function() {
+(function () {
   const searchbar = document.getElementById("productSearch");
 
-  searchbar.addEventListener("keyup", function() {
+  searchbar.addEventListener("keyup", function () {
     let value = searchbar.value.toLowerCase().trim();
 
     //get all the items:
     const items = document.querySelectorAll(".product");
 
-    items.forEach(function(item) {
+    items.forEach(function (item) {
       let category = item.dataset.category.toLowerCase().trim();
       let itemName = item.dataset.name.toLowerCase().trim();
       //include as in: if the letter is present in the category
@@ -250,7 +260,7 @@ function buildPromotionsForDesktop() {
 
   ////////////BackArrow
   let backArrow = document.querySelector("#backArrow");
-  backArrow.addEventListener("click", function(event) {
+  backArrow.addEventListener("click", function (event) {
     //again, set ALL products display to none
     promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
@@ -297,7 +307,7 @@ function buildPromotionsForDesktop() {
 
   ////////////FrontArrow
   let frontArrow = document.querySelector("#frontArrow");
-  frontArrow.addEventListener("click", function(event) {
+  frontArrow.addEventListener("click", function (event) {
     promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionPerFour.length;
     let index = 0;
@@ -365,7 +375,7 @@ function buildpromotionForMobile() {
 
   ////////////BackArrow
   let backArrow = document.querySelector("#backArrow");
-  backArrow.addEventListener("click", function(event) {
+  backArrow.addEventListener("click", function (event) {
     //again, set ALL products display to none
     promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionObjectsHTML.length;
@@ -389,7 +399,7 @@ function buildpromotionForMobile() {
 
   ////////////FrontArrow
   let frontArrow = document.querySelector("#frontArrow");
-  frontArrow.addEventListener("click", function(event) {
+  frontArrow.addEventListener("click", function (event) {
     promotionObjectsHTML.forEach(pr => (pr.style.display = "none"));
     let size = promotionObjectsHTML.length;
     let index = 0;
@@ -442,7 +452,7 @@ function createProducts(product) {
     <div
     class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone mdl-cell--6-col-tablet ${isPromotion} ${productClass} ${
     product.category
-  }"
+    }"
     data-category="${product.category}"
     data-name="${product.name}"
   >
@@ -450,8 +460,8 @@ function createProducts(product) {
       <div class="mdl-card__title mdl-card--expand">
         <img src="${product.img}" />
         <i class="material-icons heartIconUntouched" data-toggle="false" data-productname="${
-          product.name
-        }">favorite_border</i>
+    product.name
+    }">favorite_border</i>
       </div>
   
       <div class="mdl-card__supporting-text">
@@ -460,7 +470,7 @@ function createProducts(product) {
         <br />
         <h4 class="priceTitle ${strikeThroughClass} mdl-card__title-text">DKK ${
     product.price
-  }</h4>
+    }</h4>
         <h4 class="priceTitle mdl-card__title-text">&nbsp  ${promotionPriceMarkup}</h4>
         <h4 class="unitTitle mdl-card__title-text">${productUnit}</h4>
         <br />
@@ -474,13 +484,13 @@ function createProducts(product) {
       </div>
       <!-- the plus minus buttons that are hidden by default -->
       <div class="plusMinusButtons mdl-card__actions mdl-card--border" data-productname="${
-        product.name
-      }">
+    product.name
+    }">
         <button
           class="plusminButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
           onclick="removeAnotherProductFromCart(this);updateCartIcon()"  data-productname="${
-            product.name
-          }">
+    product.name
+    }">
           <i class="material-icons">remove</i>
         </button>
         <button id="productAmount${product.name}"
@@ -492,8 +502,8 @@ function createProducts(product) {
         <button
           class="plusminButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
           onclick="addAnotherProductToCart(this)" data-productname="${
-            product.name
-          }">
+    product.name
+    }">
           <i class="material-icons">add</i>
         </button>
       </div>
@@ -524,7 +534,7 @@ function heartsClickEvents() {
   if (storage === null) storage = [];
   favorites = storage;
   let storageProduct = "";
-  heartUntouchedIcons.forEach(function(heart) {
+  heartUntouchedIcons.forEach(function (heart) {
     storageProduct = favorites.find(p => p === heart.dataset.productname);
 
     //fill in hearts where needed according to local storage liked heart
@@ -532,7 +542,7 @@ function heartsClickEvents() {
     if (favorites.findIndex(p => p === storageProduct) >= 0)
       heart.innerHTML = "favorite";
 
-    heart.addEventListener("click", function(event) {
+    heart.addEventListener("click", function (event) {
       let productname = event.target.dataset.productname;
 
       if (favorites.findIndex(p => p === productname) < 0) {
@@ -577,7 +587,7 @@ function buttonClickEvents() {
   let data = "";
 
   //first "virtually click buttons based off of localstorage"
-  addProductButtons.forEach(function(btn) {
+  addProductButtons.forEach(function (btn) {
     //for every cart button on a product, if the local storage already has a product like this, hide this cartbutton and show the plusminusbutton instead
     if (localStorage.getItem(btn.dataset.productname)) {
       //hide this button
@@ -601,7 +611,7 @@ function buttonClickEvents() {
     }
 
     //register the clickevent for each button
-    btn.addEventListener("click", function(event) {
+    btn.addEventListener("click", function (event) {
       let myEvent = event.target;
       if (event.target.classList.contains("material-icons")) {
         myEvent = event.target.parentNode;
@@ -616,7 +626,7 @@ function buttonClickEvents() {
       ("use strict");
       let snackbarContainer = document.querySelector("#theToast");
       data = { message: "Added " + productName + " to grocery Bag!" };
-        // snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      // snackbarContainer.MaterialSnackbar.showSnackbar(data);
       //////////////////////////
 
       //get the specific plus min buttons for this product and show them

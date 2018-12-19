@@ -282,9 +282,8 @@ dialog#auth .mdl-dialog__content {
     padding-right: 0.5rem !important;
   }
   .crossroad h1 {
+    height: 40%;
     max-height: 250px;
-  }
-  .crossroad h1 {
     padding-left: 1rem;
     padding-right: 1rem;
   }
