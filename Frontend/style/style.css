@@ -174,7 +174,7 @@ header a {
 }
 
 /* Full-width input fields */
-  .user-input {
+.user-input {
   width: 100%;
   padding: 15px;
   margin: 5px 0 5px 0;
@@ -183,7 +183,7 @@ header a {
   background: #f1f1f1;
 }
 
-.user-input:focus{
+.user-input:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -195,7 +195,7 @@ hr {
 
 /* Set a style for all buttons */
 #auth .modal-button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 14px 20px;
   margin: 0;
@@ -207,7 +207,7 @@ hr {
 }
 
 #auth button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
 /* Extra styles for the cancel button */
@@ -215,7 +215,6 @@ hr {
   padding: 14px 20px;
   background-color: #f44336;
 }
-
 
 /* Clear floats */
 .clearfix::after {
@@ -232,10 +231,10 @@ hr {
   }
 }
 dialog#auth.mdl-dialog {
-    width: -webkit-fit-content;
-    padding: 0;
-    width: 1000px;
-    height: 911px;
+  width: -webkit-fit-content;
+  padding: 0;
+  width: 1000px;
+  height: 911px;
 }
 dialog#auth .mdl-dialog__content {
   padding: 0 !important;
@@ -248,19 +247,19 @@ dialog#auth .mdl-dialog__content {
 #auth .user-form {
   padding-top: 25px;
 }
-@media (min-width: 1000px){
-  #auth .mdl-grid { 
-   padding: 0 !important;
+@media (min-width: 1000px) {
+  #auth .mdl-grid {
+    padding: 0 !important;
   }
   #auth .mdl-cell {
     margin: 0 !important;
   }
 }
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
   .side-pic img {
     display: none;
   }
-  .is-blurred{
+  .is-blurred {
     overflow-y: visible !important;
   }
   dialog#auth.mdl-dialog {
@@ -268,19 +267,19 @@ dialog#auth .mdl-dialog__content {
     padding: 0;
     width: auto;
     height: 100%;
-}
-  #auth .mdl-cell--6-col, #auth .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
+  }
+  #auth .mdl-cell--6-col,
+  #auth .mdl-cell--6-col-desktop.mdl-cell--6-col-desktop {
     width: 100% !important;
     align-content: center;
     padding-right: 2rem !important;
-    
   }
   .mdl-layout__title img {
     max-height: 25px;
   }
   .mdl-layout__header-row {
     padding-left: 1rem !important;
-    padding-right: .5rem !important;
+    padding-right: 0.5rem !important;
   }
   .crossroad h1 {
     max-height: 250px;
@@ -289,4 +288,7 @@ dialog#auth .mdl-dialog__content {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+}
+.mdl-snackbar__text {
+  text-align: center !important;
 }
