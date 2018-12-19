@@ -15,7 +15,9 @@ if (!sessionStorage.getItem('loginFlag') && !sessionStorage.getItem('userID')) {
 // init
 loadTopbar();
 loadFooter();
-
+// 
+//          UNCOMMENT THE CODE BELOW TO MAKE SERVICE WORKER WORK
+// 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker
 //       .register('/Frontend/sw.js')
@@ -123,9 +125,9 @@ if (window.location.pathname === ('/Frontend/pages/products/products.html' || '/
   TOPBARCONTAINER.classList.remove('bilka_topbar');
 
 }
+// hacky way to close the modal, dialog.close() proved way too problematic
 function close() {
   location.reload();
-
 }
 // Logic behind loading shared assets
 function loadSection(url) {

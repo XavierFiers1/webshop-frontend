@@ -183,16 +183,16 @@ section {
   cursor: pointer;
 }
 
-.mdl-grid {
+main .mdl-grid {
   text-align: center;
 }
 
 /*Important, otherwise cards overlap*/
-.mdl-cell {
+main .mdl-cell {
   display: flex;
 }
 /*Important, otherwise cards overlap*/
-.mdl-card {
+main .mdl-card {
   width: auto;
   flex: 1;
 }
@@ -216,22 +216,22 @@ section {
 }
 
 /*specific style for the carousel cards so they keep the same size*/
-.mdl-cell--12-col {
+main .mdl-cell--12-col {
   margin: 8px !important;
   width: 55% !important;
 }
 
-.mdl-cell--6-col {
+main .mdl-cell--6-col {
   margin: 8px !important;
   width: 35% !important;
 }
 
-.mdl-cell--4-col {
+main .mdl-cell--4-col {
   margin: 8px !important;
   width: calc(29% - 16px) !important;
 }
 
-.mdl-cell--3-col {
+main main .mdl-cell--3-col {
   margin: 8px !important;
 }
 
