@@ -45,7 +45,7 @@ requestProducts.onload = function() {
     getFavoritesFromStorage();
     buildFavorites();
     buttonClickEvents();
-    cartBuilder();
+    //cartBuilder();
     updateCartIcon();
   } else {
     prompt("something went wrong, sorry for the inconvenience");
@@ -59,9 +59,10 @@ function cartBuilder() {
     if (localStorage.getItem(product.name)) {
       let amount = JSON.parse(localStorage.getItem(product.name)).amount;
 
-      myCart.push({ product: product, amount: amount });
+      myCart.push({ product });
     }
   });
+  console.log(myCart);
 }
 
 /******************************/
@@ -291,7 +292,7 @@ function addProductToCart(productname, amountFromStorage) {
   }
 
   /////update cart icon in the header with new items added
-  updateCartIcon();
+  updateCartIconShared();
   //update the html of the productAmount shown
   updateProductAmountHtml(productname, amount);
 }
@@ -323,7 +324,7 @@ function removeAnotherProductFromCart(event) {
     myCart.splice(index, 1);
 
     //also update cartIcon
-    updateCartIcon();
+    updateCartIconShared();
 
     //find specific div for this product and hide it
     let plusminusDivs = document.querySelectorAll(".plusMinusButtons");
@@ -357,19 +358,14 @@ function saveToStorage(key, value) {
 }
 
 function updateCartIcon() {
-  document.addEventListener("readystatechange", event => {
-    if (event.target.readyState === "interactive") {
-    } else if (event.target.readyState === "complete") {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    } else {
-      const cart = document.getElementById("cartButton");
-      cart.setAttribute("data-badge", myCart.length);
-    }
-  });
+  const cart = document.getElementById("cartButton");
+  cart.setAttribute("data-badge", myCart.length);
 }
 
 function updateProductAmountHtml(productname, amount) {
   let amountHTML = document.getElementById("productAmount" + productname);
   amountHTML.innerHTML = amount;
 }
+//coming from app.js
+//////cart functionality
+updateCartIconShared();
