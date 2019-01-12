@@ -392,10 +392,10 @@ function buildpromotionForMobile() {
       "mdl-cell--6-col",
       "mdl-cell--12-col",
       "mdl-cell--12-col-phone",
-      " mdl-cell--6-col-table"
+      "mdl-cell--6-col-tablet"
     );
     //then add the particular class thanks to the promotioncolumncode
-    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col-phone");
   });
 
   ////////////FrontArrow
@@ -416,9 +416,9 @@ function buildpromotionForMobile() {
       "mdl-cell--6-col",
       "mdl-cell--12-col",
       "mdl-cell--12-col-phone",
-      " mdl-cell--6-col-table"
+      "mdl-cell--6-col-tablet"
     );
-    promotionObjectsHTML[index].classList.add("mdl-cell--12-col");
+    promotionObjectsHTML[index].classList.add("mdl-cell--12-col-phone");
   });
 }
 
