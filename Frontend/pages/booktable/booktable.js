@@ -349,12 +349,10 @@ function datePicker() {
   const datepicker = document.querySelector(".datePicker");
 
   let date = new Date();
+  let month = 0;
+  if (date.getUTCMonth() + 1 <= 9) month = "0" + (date.getUTCMonth() + 1);
   let min =
-    date.getFullYear() +
-    "-" +
-    (date.getUTCMonth() + 1).toLocaleString() +
-    "-" +
-    date.getDate().toLocaleString();
+    date.getFullYear() + "-" + month + "-" + date.getDate().toLocaleString();
 
   datepicker.setAttribute("min", min);
 }

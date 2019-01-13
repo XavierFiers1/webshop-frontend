@@ -256,3 +256,8 @@ p {
   white-space: nowrap;
   color: white;
 }
+
+.checkoutButton:disabled {
+  color: #abbd83 !important;
+  background-color: #62821e !important;
+}

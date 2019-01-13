@@ -296,6 +296,17 @@ document.addEventListener("readystatechange", event => {
     updateCartIcon();
   }
 });
+/*document
+  .querySelector(".datePicker")
+  .addEventListener("onchange", function(event) {
+    console.log(event.target.value);
+    //console.log(document.querySelector(".datePicker").value);
+  });*/
+
+function handleDateChange(event) {
+  document.querySelector(".checkoutButton").disabled = false;
+}
+
 function handleCheckout() {
   let date = document.querySelector(".datePicker").value;
   let time = document.querySelector(".timePicker").value;
